@@ -13,3 +13,12 @@ hs_err_pid*
 
 # misc 
 .DS_Store
+
+# eclipse
+.classpath
+.project
+.settings
+
+# maven
+target/
+>>>>>>> 64f6dc33755fa13f790808a8443b261355db6ba4
