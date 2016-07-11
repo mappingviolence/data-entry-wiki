@@ -10,7 +10,7 @@
       function onSignIn(googleUser) {
         var id_token = googleUser.getAuthResponse().id_token;
         document.cookie = "id_token=" + id_token + "; path=/";
-        var url = "http://localhost:8080/";
+        var url = "http://localhost:8080/eddie";
         window.location.replace(url);
       };
     </script>
