@@ -18,7 +18,10 @@ hs_err_pid*
 .classpath
 .project
 .settings
+.metadata
 
 # maven
 target/
->>>>>>> 64f6dc33755fa13f790808a8443b261355db6ba4
+
+# Mac
+*/._*
