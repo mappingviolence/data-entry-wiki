@@ -1,5 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
 
 <html lang="en">
 
@@ -60,12 +60,12 @@
         </div>
         <div class="data-element"> 
           <h2> Citations </h2>
-          <c:forEach var=”citation” items=”thisPOI.citations”>
-          <p> citation </p>
-          </forEach> 
+          <c:forEach var="citation" items="${thisPOI.citations}">
+          	<p> ${citation} </p>
+          </c:forEach> 
         </div> 
         <div class="data-element"> 
-          <h2> Research Notes <h2> 
+          <h2> Research Notes </h2> 
           ${thisPOI.notes} 
         </div>
 

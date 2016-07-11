@@ -13,6 +13,16 @@
   <display-name>Archetype Created Web Application</display-name>
   
   <servlet>
+  	<servlet-name>pool</servlet-name>
+  	<servlet-class>org.mappingviolence.servlet.PoolServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>pool</servlet-name>
+  	<url-pattern>/pool</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
   	<servlet-name>admin_settings</servlet-name>
   	<servlet-class>org.mappingviolence.servlet.UpdateUserPermissionsServlet</servlet-class>
   </servlet>

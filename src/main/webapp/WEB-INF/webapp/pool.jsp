@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <html lang="en">
@@ -41,7 +42,7 @@
 
   <t:header /> 
 
-  <t:wikiTable name=”All POIs” items=”${allPOIs}”> 
+  <t:wikiTable name="All POIs" wikiList="${allPOIs}" /> 
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
