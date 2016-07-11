@@ -1,5 +1,8 @@
 package org.mappingviolence.database;
 
+import javax.annotation.Nonnull;
+
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -13,20 +16,30 @@ public class User {
   private static final Datastore db = DatabaseConnection.getDatabase("users");
 
   @Id
-  private String id;
+  private ObjectId id;
 
   private String email;
 
   private Role role;
 
-  public User(String email, Role role) {
+  @SuppressWarnings("unused")
+  private User() {
+  }
+
+  public User(@Nonnull String email, @Nonnull Role role) {
+    if (email == null || email.equals("")) {
+      throw new IllegalArgumentException();
+    }
+    if (role == null) {
+      throw new IllegalArgumentException();
+    }
     this.email = email;
     this.role = role;
     db.save(this);
   }
 
   public static User getUser(String id) {
-    return db.get(User.class, id);
+    return db.get(User.class, new ObjectId(id));
   }
 
   public static User getUserByEmail(String email) {
@@ -34,7 +47,7 @@ public class User {
   }
 
   private User getUser() {
-    return getUser(id);
+    return getUser(id.toHexString());
   }
 
   public boolean delete() {
@@ -42,7 +55,7 @@ public class User {
   }
 
   public String getId() {
-    return id;
+    return id.toHexString();
   }
 
   public String getEmail() {
