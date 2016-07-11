@@ -40,6 +40,11 @@ public class SecurityFilter implements Filter {
       return;
     }
 
+    if (req.getRequestURI().startsWith("/eddie")) {
+      chain.doFilter(req, resp);
+      return;
+    }
+
     HttpSession session = req.getSession(false);
     if (session == null) {
       Cookie[] cookies = req.getCookies();
