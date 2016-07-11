@@ -1,6 +1,7 @@
 package org.mappingviolence.poi;
 
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Version;
@@ -10,9 +11,8 @@ public class POI {
   @Id
   private ObjectId id;
 
-  private String title;
-
-  private String subTitle;
+  @Embedded
+  private POIVersion current;
 
   private String name;
 
@@ -32,5 +32,9 @@ public class POI {
 
   public String getName() {
     return name;
+  }
+
+  public POIVersion getCurrentVersion() {
+    return current;
   }
 }
