@@ -17,6 +17,7 @@ public class DatabaseConnection {
     // can be called multiple times with different packages or classes
     // TODO
     MORPHIA.mapPackage("org.mappingviolence.database");
+    MORPHIA.mapPackage("org.mappingviolence.poi");
   }
 
   private DatabaseConnection() {

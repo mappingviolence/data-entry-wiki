@@ -13,7 +13,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 @Entity("users")
 public class User {
 
-  private static final Datastore db = DatabaseConnection.getDatabase("users");
+  private static final Datastore db = DatabaseConnection.getDatabase("data-entry-wiki");
 
   @Id
   private ObjectId id;
