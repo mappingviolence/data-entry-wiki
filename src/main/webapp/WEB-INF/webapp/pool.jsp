@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
 <html lang="en">
 
 <head>
