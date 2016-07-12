@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
@@ -56,29 +57,21 @@
       <div class="row">
        <div class="col-xs-6">
         <div class="data-element"> 
-          ${thisPOI.description} 
+          <p>${thisPOI.description}</p>
         </div>
         <div class="data-element"> 
           <h2> Citations </h2>
-          <c:forEach var="citation" items="${thisPOI.citations}">
-          	<p> ${citation} </p>
-          </c:forEach> 
+      <%--    <c:forEach var="citation" items="${thisPOI.citations}">
+            <p> ${citation} </p>
+          </c:forEach>  --%>
         </div> 
         <div class="data-element"> 
           <h2> Research Notes </h2> 
-          ${thisPOI.notes} 
+          <p> ${thisPOI.notes} </p>
         </div>
 
       </div>
-      <div class="col-xs-6">
-        <div class="data-element">
-          <div id="map"></div>
-        </div> 
-        <div class="data-element">datum 1</div> 
-        <div class="data-element">datum 2</div> 
-        <div class="data-element">datum 3</div> 
-        <div class="data-element">datum 4</div> 
-      </div>
+      <t:infoBox thisPOI="${thisPOI}"/>
     </div>
   </div>
 

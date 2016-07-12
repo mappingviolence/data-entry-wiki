@@ -21,6 +21,16 @@
   	<servlet-name>pool</servlet-name>
   	<url-pattern>/pool</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>view</servlet-name>
+    <servlet-class>org.mappingviolence.servlet.ViewServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>view</servlet-name>
+    <url-pattern>/view</url-pattern>
+  </servlet-mapping>
   
   <servlet>
   	<servlet-name>admin_settings</servlet-name>
