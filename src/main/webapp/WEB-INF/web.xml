@@ -42,4 +42,11 @@
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  <jsp-config>
+    <taglib>
+      <taglib-uri>/WEB-INF/tags/customTagLibrary</taglib-uri>
+      <taglib-location>/WEB-INF/tags/customTagLibrary.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+  
 </web-app>

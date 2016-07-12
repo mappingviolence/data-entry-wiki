@@ -56,7 +56,8 @@ public class SecurityFilter implements Filter {
                 GoogleHelperObjects.getHttpTransport(),
                 GoogleHelperObjects.getJsonFactory())
                     .setAudience(
-                        Arrays.asList("1031670491058-iveiphljv5dr3fgnr3apb4supm2h3rs2.apps.googleusercontent.com"))
+                        Arrays.asList(
+                            "1031670491058-iveiphljv5dr3fgnr3apb4supm2h3rs2.apps.googleusercontent.com"))
                     .setIssuer("accounts.google.com")
                     .build();
 
@@ -75,7 +76,9 @@ public class SecurityFilter implements Filter {
               Payload payload = idToken.getPayload();
               if (User.isAuthorizedUser(payload)) {
                 HttpSession newSession = req.getSession();
-                newSession.setAttribute("userId", payload.getAccessTokenHash());
+                newSession.setAttribute("userAccessToken", payload.getAccessTokenHash());
+                User curentUser = User.getUserByEmail(payload.getEmail());
+                newSession.setAttribute("currentUser", curentUser);
                 Cookie respCookie = new Cookie(cookie.getName(), "");
                 respCookie.setMaxAge(0);
                 respCookie.setPath("/");
@@ -87,7 +90,8 @@ public class SecurityFilter implements Filter {
               } else {
                 resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 resp.setContentType("application/xml");
-                resp.getOutputStream().println("<errors><error>NOT IN DATABASE</error></errors>");
+                resp.getOutputStream().println(
+                    "<errors><error>" + payload.getEmail() + "NOT IN DATABASE</error></errors>");
                 return;
               }
             } else {
@@ -102,7 +106,7 @@ public class SecurityFilter implements Filter {
       resp.sendRedirect("/mapviz/signin.html");
       return;
     } else {
-      if (session.getAttribute("userId") == null) {
+      if (session.getAttribute("userAccessToken") == null) {
         resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         resp.setContentType("application/xml");
         resp.getOutputStream().println("<errors><error>SESSION FORGED</error></errors>");

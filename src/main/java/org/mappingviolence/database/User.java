@@ -35,23 +35,7 @@ public class User {
     }
     this.email = email;
     this.role = role;
-    db.save(this);
-  }
-
-  public static User getUser(String id) {
-    return db.get(User.class, new ObjectId(id));
-  }
-
-  public static User getUserByEmail(String email) {
-    return db.find(User.class).filter("email", email).get();
-  }
-
-  private User getUser() {
-    return getUser(id.toHexString());
-  }
-
-  public boolean delete() {
-    return db.delete(this).getN() > 0;
+    // db.save(this);
   }
 
   public String getId() {
@@ -74,6 +58,26 @@ public class User {
       role = getUser().role;
     }
     return role;
+  }
+
+  public void setRole(Role newRole) {
+    role = newRole;
+  }
+
+  public static User getUser(String id) {
+    return db.get(User.class, new ObjectId(id));
+  }
+
+  public static User getUserByEmail(String email) {
+    return db.find(User.class).filter("email", email).get();
+  }
+
+  private User getUser() {
+    return getUser(id.toHexString());
+  }
+
+  public boolean delete() {
+    return db.delete(this).getN() > 0;
   }
 
   public boolean isViewer() {
@@ -103,6 +107,6 @@ public class User {
   public static boolean isAuthorizedUser(Payload payload) {
     String email = payload.getEmail();
     Query<User> results = db.find(User.class, "email", email);
-    return results.fetchKeys().hasNext();
+    return !results.asList().isEmpty();
   }
 }
