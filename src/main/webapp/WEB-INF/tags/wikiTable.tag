@@ -4,16 +4,18 @@
 <%@ attribute name="wikiList" required="true" type="java.util.List" %>
 
 
-<table class="table"> 
-	<caption>${name}</caption> 	
-	<tr> 
-		<td><b>Title</b></td> 
-		<td><b>Creator</b></td> 
-	</tr>
-	<c:forEach var="wiki" items="${wikiList}"> 
-		<tr>
-			<td>${wiki[title]}</td>
-			<td>${wiki[creator]}</td> 
+<div class="container"> 
+	<table class="table"> 
+		<caption>${name}</caption> 	
+		<tr> 
+			<td><b>Title</b></td> 
+			<td><b>Creator</b></td> 
 		</tr>
-	</c:forEach>
-</table> 
+		<c:forEach var="wiki" items="${wikiList}"> 
+			<tr>
+				<td>${wiki[title]}</td>
+				<td>${wiki[creator]}</td> 
+			</tr>
+		</c:forEach>
+	</table> 
+</div> 
