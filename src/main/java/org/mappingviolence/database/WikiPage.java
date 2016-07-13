@@ -7,9 +7,10 @@ import java.util.List;
 import org.mappingviolence.entities.Comment;
 import org.mappingviolence.entities.CommentContainer;
 import org.mappingviolence.entities.Commentable;
-import org.mappingviolence.entities.FormObject;
+import org.mappingviolence.user.User;
+import org.mongodb.morphia.Key;
 
-public abstract class WikiPage<T> {
+public abstract class WikiPage<T> implements CommentContainer {
   private String id;
   private User creator;
   private Date dateCreated;
@@ -51,6 +52,8 @@ public abstract class WikiPage<T> {
 
   public abstract List<Version<T>> getPreviousVersions();
 
+  public abstract void addVersion(Key<Version<T>> newVersion);
+
   public static List<Comment> getComments(Object obj, String attributeId)
       throws IllegalAccessException {
     Field[] fields = obj.getClass().getDeclaredFields();
@@ -69,7 +72,7 @@ public abstract class WikiPage<T> {
     }
     for (Field field : fields) {
       if (field.getType().equals(CommentContainer.class)) {
-        List<Comment> comments = FormObject.getComments(field.get(obj), attributeId);
+        List<Comment> comments = WikiPage.getComments(field.get(obj), attributeId);
         if (comments != null) {
           return comments;
         }

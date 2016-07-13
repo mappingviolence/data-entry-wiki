@@ -3,6 +3,8 @@ package org.mappingviolence.database;
 import java.util.Date;
 import java.util.UUID;
 
+import org.mappingviolence.user.User;
+
 public class Version<T> {
   private String id;
   private T data;

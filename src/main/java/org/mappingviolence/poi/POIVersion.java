@@ -1,8 +1,8 @@
 package org.mappingviolence.poi;
 
 import org.bson.types.ObjectId;
-import org.mappingviolence.database.User;
 import org.mappingviolence.database.Version;
+import org.mappingviolence.user.User;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 

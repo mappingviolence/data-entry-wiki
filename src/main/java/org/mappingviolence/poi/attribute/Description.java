@@ -1,9 +1,9 @@
 package org.mappingviolence.poi.attribute;
 
-import org.mappingviolence.entities.AbstractAttribute;
-import org.mappingviolence.entities.Attribute;
+import org.mappingviolence.entities.AbstractFormField;
+import org.mappingviolence.entities.FormField;
 
-public class Description extends AbstractAttribute<String> implements Attribute<String> {
+public class Description extends AbstractFormField<String> implements FormField<String> {
 
   public Description(String description) {
     super("Description", description);

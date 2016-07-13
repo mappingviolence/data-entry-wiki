@@ -2,7 +2,7 @@ package org.mappingviolence.entities;
 
 import java.util.UUID;
 
-import org.mappingviolence.database.User;
+import org.mappingviolence.user.User;
 
 public class Comment {
   private final UUID id;

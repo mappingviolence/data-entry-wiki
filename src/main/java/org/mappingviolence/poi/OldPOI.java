@@ -3,7 +3,7 @@ package org.mappingviolence.poi;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.mappingviolence.database.User;
+import org.mappingviolence.user.User;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;

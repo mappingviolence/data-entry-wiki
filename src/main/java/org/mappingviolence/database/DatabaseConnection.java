@@ -1,7 +1,5 @@
 package org.mappingviolence.database;
 
-import java.util.Map;
-
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -10,7 +8,6 @@ import com.mongodb.MongoClient;
 public class DatabaseConnection {
   private static final MongoClient CLIENT;
   private static final Morphia MORPHIA;
-  private static Map<ClassId, VersionTracker<?>> versionTrackers;
 
   static {
     CLIENT = new MongoClient();
@@ -20,6 +17,7 @@ public class DatabaseConnection {
     // can be called multiple times with different packages or classes
     // TODO
     MORPHIA.mapPackage("org.mappingviolence.database");
+    MORPHIA.mapPackage("org.mappingviolence.user");
     MORPHIA.mapPackage("org.mappingviolence.poi");
   }
 
@@ -33,20 +31,4 @@ public class DatabaseConnection {
     datastore.ensureIndexes();
     return datastore;
   }
-
-  private static <T> VersionTracker<T> startVersionTracker(Class<T> clazz, String dbName) {
-    VersionTracker<T> vt = new VersionTracker<>(getDatabase(dbName));
-    versionTrackers.put(new ClassId(dbName, clazz), vt);
-    return vt;
-  }
-
-  @SuppressWarnings("unchecked")
-  public static <T> VersionTracker<T> getVersionTracker(Class<T> clazz, String dbName) {
-    if (versionTrackers.containsKey(new ClassId(dbName, clazz))) {
-      return (VersionTracker<T>) versionTrackers.get(new ClassId(dbName, clazz));
-    } else {
-      return startVersionTracker(clazz, dbName);
-    }
-  }
-
 }

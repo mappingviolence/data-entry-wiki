@@ -7,18 +7,25 @@ import java.util.Map;
 import org.mappingviolence.database.WikiPage;
 import org.mappingviolence.entities.Comment;
 import org.mappingviolence.entities.CommentContainer;
-import org.mappingviolence.entities.Commentable;
+import org.mappingviolence.entities.FormField;
+import org.mappingviolence.poi.attribute.Description;
 import org.mappingviolence.poi.attribute.Title;
 
 public class POI implements CommentContainer {
   private Title title;
 
+  private Description description;
+
   public POI() {
 
   }
 
-  public Commentable getTitle() {
+  public FormField<String> getTitle() {
     return title;
+  }
+
+  public FormField<String> getDescription() {
+    return description;
   }
 
   @Override

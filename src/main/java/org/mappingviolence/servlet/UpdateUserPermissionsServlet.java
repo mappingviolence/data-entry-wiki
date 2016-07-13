@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.mappingviolence.database.DatabaseConnection;
-import org.mappingviolence.database.User;
-import org.mappingviolence.database.User.Role;
+import org.mappingviolence.user.User;
+import org.mappingviolence.user.User.Role;
 import org.mongodb.morphia.Datastore;
 
 @SuppressWarnings("serial")

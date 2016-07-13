@@ -1,8 +1,9 @@
-package org.mappingviolence.database;
+package org.mappingviolence.user;
 
 import javax.annotation.Nonnull;
 
 import org.bson.types.ObjectId;
+import org.mappingviolence.database.DatabaseConnection;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
