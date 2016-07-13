@@ -1,4 +1,4 @@
-package org.mappingviolence.poi;
+package org.mappingviolence.poi.identity;
 
 public interface Identity {
   public String getCategory();

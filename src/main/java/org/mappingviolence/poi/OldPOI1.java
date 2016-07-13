@@ -6,13 +6,16 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.mappingviolence.database.User;
 import org.mappingviolence.entities.Comment;
-import org.mappingviolence.entities.CommentContainer;
 import org.mappingviolence.entities.FormObject;
+import org.mappingviolence.poi.attribute.Description;
+import org.mappingviolence.poi.attribute.Title;
+import org.mappingviolence.poi.date.Date;
+import org.mappingviolence.poi.identity.Person;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 @Entity("pois")
-public class OldPOI1 implements CommentContainer {
+public class OldPOI1 {
 
   @Id
   private ObjectId id;
@@ -145,7 +148,6 @@ public class OldPOI1 implements CommentContainer {
     this.researchNotes = researchNotes;
   }
 
-  @Override
   public List<Comment> getComments(String attributeId) {
     try {
       return FormObject.getComments(this, attributeId);

@@ -5,11 +5,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.mappingviolence.database.User;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+/**
+ * 
+ * This will be deleted. NOT USED.
+ * 
+ * @author Cole Hansen
+ *
+ * @param <T>
+ */
 @Entity
 public class FormObject<T extends CommentContainer> implements CommentContainer {
   @Id
@@ -96,6 +105,12 @@ public class FormObject<T extends CommentContainer> implements CommentContainer 
         }
       }
     }
+    return null;
+  }
+
+  @Override
+  public Map<Field, List<Comment>> getComments(Field field) {
+    // TODO Auto-generated method stub
     return null;
   }
 }

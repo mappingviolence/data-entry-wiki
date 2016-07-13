@@ -1,4 +1,4 @@
-package org.mappingviolence.poi;
+package org.mappingviolence.poi.attribute;
 
 import org.mappingviolence.entities.AbstractAttribute;
 import org.mappingviolence.entities.Attribute;

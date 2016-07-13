@@ -1,4 +1,4 @@
-package org.mappingviolence.poi;
+package org.mappingviolence.poi.identity;
 
 import java.util.Collection;
 

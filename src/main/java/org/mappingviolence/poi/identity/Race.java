@@ -1,4 +1,4 @@
-package org.mappingviolence.poi;
+package org.mappingviolence.poi.identity;
 
 public class Race extends AbstractIdentity implements Identity {
 

@@ -1,4 +1,4 @@
-package org.mappingviolence.poi;
+package org.mappingviolence.poi.attribute;
 
 import org.mappingviolence.entities.AbstractFormField;
 import org.mappingviolence.entities.FormField;
