@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mappingviolence.database.DatabaseConnection;
-import org.mappingviolence.poi.POI;
+import org.mappingviolence.poi.OldPOI;
 import org.mongodb.morphia.Datastore;
 
 

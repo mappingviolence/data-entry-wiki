@@ -27,7 +27,7 @@ public class FormObject<T extends CommentContainer> implements CommentContainer 
 
   private FormObject() {
     editors = new ArrayList<>();
-    status = Status.DEFAULT;
+    status = Status.DRAFT;
     previousVersions = new LinkedList<>();
   }
 

@@ -1,40 +1,16 @@
 package org.mappingviolence.poi;
 
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Version;
+import org.mappingviolence.entities.Commentable;
 
-@Entity("pois")
 public class POI {
-  @Id
-  private ObjectId id;
+  private Title title;
 
-  @Embedded
-  private POIVersion current;
+  public POI() {
 
-  private String name;
-
-  @Version
-  public Long v;
-
-  private POI() {
   }
 
-  public POI(String name) {
-    this.name = name;
+  public Commentable getTitle() {
+    return title;
   }
 
-  public void setName(String newName) {
-    name = newName;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public POIVersion getCurrentVersion() {
-    return current;
-  }
 }
