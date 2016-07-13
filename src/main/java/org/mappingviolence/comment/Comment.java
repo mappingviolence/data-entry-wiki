@@ -1,18 +1,18 @@
-package org.mappingviolence.entities;
+package org.mappingviolence.comment;
 
 import java.util.UUID;
 
 import org.mappingviolence.user.User;
 
 public class Comment {
-  private final UUID id;
+  private final String id;
 
   private User author;
 
   private String commentText;
 
   private Comment() {
-    id = UUID.randomUUID();
+    id = UUID.randomUUID().toString();
   }
 
   public Comment(User author) {
@@ -33,7 +33,7 @@ public class Comment {
   }
 
   public String getId() {
-    return id.toString();
+    return id;
   }
 
   public User getAuthor() {
@@ -46,5 +46,16 @@ public class Comment {
 
   public void setCommentText(String commentText) {
     this.commentText = commentText;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof String) {
+      return o.equals(this.id);
+    } else if (o instanceof Comment) {
+      return ((Comment) o).id.equals(this.id);
+    } else {
+      return false;
+    }
   }
 }

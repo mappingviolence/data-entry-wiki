@@ -7,12 +7,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.mappingviolence.entities.Attribute;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+// TODO: Rewrite this class
+// TODO: Remove error checking on creation, maybe not.
+// Idk, let's talk to eddie about this.
+// This shouldn't be an entity, but an embedded
 @Entity
-public class Date implements Comparable<Date>, Attribute<Date> {
+public class Date implements Comparable<Date> {
+
+  public boolean isValid() {
+    // TODO: Implement this
+    return true;
+  }
+
   @Id
   private Long id;
 
@@ -101,16 +110,6 @@ public class Date implements Comparable<Date>, Attribute<Date> {
       default:
         throw new IllegalArgumentException("The provided date string did match the date grammar.");
     }
-  }
-
-  @Override
-  public String getName() {
-    return "Date";
-  }
-
-  @Override
-  public Date getValue() {
-    return this;
   }
 
   private static Integer parseYear(String yearStr) {
@@ -247,17 +246,6 @@ public class Date implements Comparable<Date>, Attribute<Date> {
       sb.append(year);
     }
     return sb.toString();
-  }
-
-  public static void main(String[] args) {
-    File f = new File("a");
-    System.out.println(f.getAbsolutePath());
-    try {
-      InputStream input = new FileInputStream("src/main/config/date.properties");
-    } catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
   // @Test
   // public static void main(String[] args) {
