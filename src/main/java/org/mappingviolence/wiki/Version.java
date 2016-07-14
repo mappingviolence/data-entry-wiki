@@ -1,4 +1,4 @@
-package org.mappingviolence.database;
+package org.mappingviolence.wiki;
 
 import java.util.Date;
 import java.util.UUID;

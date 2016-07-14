@@ -1,4 +1,4 @@
-package org.mappingviolence.entities;
+package org.mappingviolence.comment;
 
 import java.util.List;
 

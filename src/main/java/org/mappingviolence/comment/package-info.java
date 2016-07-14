@@ -5,4 +5,4 @@
  * @author Cole Hansen
  *
  */
-package org.mappingviolence.entities;
+package org.mappingviolence.comment;

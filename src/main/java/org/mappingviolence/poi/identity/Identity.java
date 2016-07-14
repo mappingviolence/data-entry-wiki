@@ -1,7 +1,10 @@
 package org.mappingviolence.poi.identity;
 
-public interface Identity {
+import org.mappingviolence.form.FormField;
+
+public interface Identity<T> extends FormField<T> {
   public String getCategory();
 
-  public String getValue();
+  @Override
+  public T getValue();
 }

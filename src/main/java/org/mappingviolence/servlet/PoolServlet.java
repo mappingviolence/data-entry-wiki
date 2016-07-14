@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mappingviolence.database.DatabaseConnection;
-import org.mappingviolence.poi.OldPOI;
-import org.mappingviolence.poi.OldPOI1;
+import org.mappingviolence.poi.POI;
+import org.mappingviolence.wiki.WikiPage;
 import org.mongodb.morphia.Datastore;
 
 @SuppressWarnings("serial")
@@ -20,12 +20,10 @@ public class PoolServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
 
-    List<OldPOI1> pois = new ArrayList<>();
-    ds.find(OldPOI.class).forEach((OldPOI poi) -> {
-      pois.add(poi.getCurrentVersion());
-    });
+    List<WikiPage<POI>> poiPages = new ArrayList<>();
+    // poiPages = ds.find(WikiPage.class);
 
-    req.setAttribute("allPOIs", pois);
+    req.setAttribute("allPOIs", poiPages);
     try {
       req.getRequestDispatcher("/WEB-INF/webapp/pool.jsp").forward(req, resp);
     } catch (ServletException | IOException e) {

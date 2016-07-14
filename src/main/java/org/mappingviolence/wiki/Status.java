@@ -1,4 +1,4 @@
-package org.mappingviolence.entities;
+package org.mappingviolence.wiki;
 
 public enum Status {
   DRAFT, // Editable only to users who are editors of the POI

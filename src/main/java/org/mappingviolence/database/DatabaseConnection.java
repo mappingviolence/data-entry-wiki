@@ -1,5 +1,6 @@
 package org.mappingviolence.database;
 
+import org.mappingviolence.wiki.WikiPage;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 

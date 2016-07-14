@@ -1,21 +1,31 @@
-package org.mappingviolence.entities;
+package org.mappingviolence.form;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AbstractFormField<T> extends AbstractAttribute<T> implements FormField<T> {
-  protected final UUID id;
+import org.mappingviolence.attribute.SimpleAttribute;
+import org.mappingviolence.comment.Comment;
+
+public class SimpleFormField<T> extends SimpleAttribute<T> implements FormField<T> {
+  protected final String id;
 
   protected List<Comment> comments;
 
-  protected AbstractFormField(String name, T value) {
-    super(name, value);
-    id = UUID.randomUUID();
+  protected SimpleFormField() {
+    id = UUID.randomUUID().toString();
+    comments = new ArrayList<>();
+  }
+
+  public SimpleFormField(String name, T value) {
+    this();
+    this.name = name;
+    this.value = value;
   }
 
   @Override
   public String getId() {
-    return id.toString();
+    return id;
   }
 
   @Override
