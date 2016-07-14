@@ -2,8 +2,6 @@
 package org.mappingviolence.servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mappingviolence.database.DatabaseConnection;
+import org.mappingviolence.poi.POIWikiPage;
 import org.mongodb.morphia.Datastore;
 
 @SuppressWarnings("serial")
@@ -19,25 +18,24 @@ public class ViewServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
 
-    Map<String, String> poi1 = new HashMap<>();
-    poi1.put("title", "POI 1");
-    poi1.put("creator", "edward_jiao@brown.edu");
-    poi1.put("description", "this is a test description");
-    /*
-     * List<String> list = new ArrayList<>();
-     * list.add("A");
-     * poi1.put("citations", list);
-     */
-    poi1.put("notes", "this is a test note");
+    String id = req.getParameter("id");
 
-    req.setAttribute("thisPOI", poi1);
+    if (id == null || id.equals("")) {
+      Servlets.sendError(Servlets.Error.ID_MISSING, req, resp);
+      return;
+    }
+
+    POIWikiPage poi = ds.get(POIWikiPage.class, id);
+
+    req.setAttribute("thisPOI", poi);
 
     try {
       req.getRequestDispatcher("/WEB-INF/webapp/view.jsp").forward(req, resp);
     } catch (ServletException | IOException e) {
-      // TODO Auto-generated catch block
-      resp.setStatus(500);
-      e.printStackTrace();
+      Servlets.sendError(
+          new Servlets.Error(e.getMessage(), HttpServletResponse.SC_INTERNAL_SERVER_ERROR),
+          req,
+          resp);
     }
   }
 }

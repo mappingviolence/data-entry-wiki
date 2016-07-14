@@ -1,7 +1,6 @@
 package org.mappingviolence.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -75,16 +74,21 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
     String id = dataMap.get("id");
     String newRoleStr = dataMap.get("role");
     if (id == null || id.equals("")) {
-      sendError(req, resp, Error.ID_MISSING);
+      Servlets.sendError(Servlets.Error.ID_MISSING, req, resp);
       return;
     } else if (newRoleStr == null || newRoleStr.equals("")) {
-      sendError(req, resp, Error.ROLE_MISSING);
+      Servlets.sendError(
+          new Servlets.Error(
+              "A role was not specified in the request",
+              HttpServletResponse.SC_BAD_REQUEST),
+          req,
+          resp);
     } else {
       User user = User.getUser(id);
       // TODO: Check for invalid role
       Role newRole = User.Role.valueOf(newRoleStr);
       if (user == null) {
-        sendError(req, resp, Error.ID_NOT_FOUND);
+        Servlets.sendError(Servlets.Error.ID_NOT_FOUND, req, resp);
         return;
       } else {
         user.setRole(newRole);
@@ -111,7 +115,7 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
     if (id != null && !id.equals("")) {
       User user = User.getUser(id);
       if (user == null) {
-        sendError(req, resp, Error.ID_NOT_FOUND);
+        Servlets.sendError(Servlets.Error.ID_NOT_FOUND, req, resp);
         return;
       } else {
         if (user.delete()) {
@@ -120,62 +124,19 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
               "{ \"success\" : { \"msg\" : \"" + user.getEmail()
                   + " was successfully deleted.\" } }");
         } else {
-          sendError(req, resp, Error.DELETE_NOT_SUCCESSFUL);
+          Servlets.sendError(
+              new Servlets.Error(
+                  "This delete did not succeed. Either an error occured mid-delete, "
+                      + "or this resource has already been deleted.",
+                  HttpServletResponse.SC_NOT_FOUND),
+              req,
+              resp);
         }
       }
 
     } else {
-      sendError(req, resp, Error.ID_MISSING);
+      Servlets.sendError(Servlets.Error.ID_MISSING, req, resp);
       return;
-    }
-  }
-
-  private void sendError(HttpServletRequest req, HttpServletResponse resp, Error err)
-      throws IOException, ServletException {
-    resp.setStatus(err.getStatus());
-    PrintWriter pw = resp.getWriter();
-    pw.print("{ \"error\" : { \"msg\" : \"" + err.getMessage() + "\" } }");
-    pw.close();
-    return;
-  }
-
-  private enum Error {
-    ID_MISSING("The request did not contain an id parameter.", HttpServletResponse.SC_BAD_REQUEST),
-    ID_NOT_FOUND(
-        "The provided id was not found in the database.",
-        HttpServletResponse.SC_BAD_REQUEST),
-    EMAIL_MISSING(
-        "The request did not contain an email parameter.",
-        HttpServletResponse.SC_BAD_REQUEST),
-    EMAIL_NOT_FOUND(
-        "The provided email was not found in the database.",
-        HttpServletResponse.SC_BAD_REQUEST),
-    DELETE_NOT_SUCCESSFUL(
-        "The delete was not successful. Please try again.",
-        HttpServletResponse.SC_INTERNAL_SERVER_ERROR),
-    ROLE_MISSING(
-        "The request did not contain a role paramater.",
-        HttpServletResponse.SC_BAD_REQUEST);
-
-    private String msg;
-    private int status;
-
-    private Error(String msg, int status) {
-      this.msg = msg;
-      this.status = status;
-    }
-
-    public String getMessage() {
-      return msg;
-    }
-
-    public int getStatus() {
-      return status;
-    }
-
-    @Override
-    public String toString() {
-      return getMessage();
     }
   }
 }

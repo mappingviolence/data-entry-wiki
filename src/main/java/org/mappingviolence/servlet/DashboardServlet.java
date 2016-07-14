@@ -1,7 +1,6 @@
 package org.mappingviolence.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,19 +10,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mappingviolence.database.DatabaseConnection;
 import org.mappingviolence.poi.POI;
-import org.mappingviolence.poi.POIVersion;
+import org.mappingviolence.user.User;
+import org.mappingviolence.wiki.Status;
+import org.mappingviolence.wiki.WikiPage;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 
 @SuppressWarnings("serial")
-public class PoolServlet extends HttpServlet {
+public class DashboardServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
-    Query<WikiPage> query = ds.createQuery(wikiPage.class)
-    User user = (User) req.getSession(false).getAttribute("currentUser") //this gets the current user, which is stored in the session 
-    List<POI> draftPOIs = query.filter("creator =", user).filter("status =", Status.DRAFT)
-    List<POI> reviewPOIs = query.filter("creator =", user).filter("status =", Status.IN_POOL)
-    List<POI> publishedPOIs = query.filter("creator =", user).filter("status =", Status.PUBLISHED)
+    @SuppressWarnings("unchecked")
+    Class<WikiPage<POI>> clazz = (Class<WikiPage<POI>>) (Object) (WikiPage.class);
+    Query<WikiPage<POI>> query = ds.createQuery(clazz);
+    User user = (User) req.getSession(false).getAttribute("currentUser");
+    /*
+     * this gets the current user, which is stored in the session
+     */
+    List<WikiPage<POI>> draftPOIs = query
+        .filter("creator =", user)
+        .filter("status =", Status.DRAFT)
+        .asList();
+    List<WikiPage<POI>> reviewPOIs = query
+        .filter("creator =", user)
+        .filter("status =", Status.IN_POOL)
+        .asList();
+    List<WikiPage<POI>> publishedPOIs = query
+        .filter("creator =", user)
+        .filter("status =", Status.PUBLISHED)
+        .asList();
 
     req.setAttribute("draftPOIs", draftPOIs);
     req.setAttribute("reviewPOIs", reviewPOIs);
