@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>Mapping Violence</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
@@ -45,11 +45,13 @@
     <div class="container" id="header">     
       <div class="data-element"> 
         <div id="title"> 
-         <h1> ${thisPOI.title} </h1>
-         </div> 
-        <button type="button" class="btn btn-default btn-lg">
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
-        </button>  
+          <h1> 
+            ${thisPOI.title} 
+            <button type="button" class="btn btn-default btn-lg">
+               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+            </button>
+          </h1>  
+        </div>  
       </div> 
     </div> 
 
