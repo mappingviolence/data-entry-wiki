@@ -69,7 +69,7 @@
         </div> 
         <div class="data-element"> 
           <h2> Research Notes </h2> 
-          <p> ${thisPOI.notes} </p>
+          <p> ${thisPOI.researchNotes} </p>
         </div>
 
       </div>

@@ -1,10 +1,8 @@
 package org.mappingviolence.servlet;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,11 +21,8 @@ public class PoolServlet extends HttpServlet {
     poiPages = ds.find(POIWikiPage.class).asList();
 
     req.setAttribute("allPOIs", poiPages);
-    try {
-      req.getRequestDispatcher("/WEB-INF/webapp/pool.jsp").forward(req, resp);
-    } catch (ServletException | IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+
+    Servlets.forward("/WEB-INF/webapp/pool.jsp", req, resp);
+    return;
   }
 }

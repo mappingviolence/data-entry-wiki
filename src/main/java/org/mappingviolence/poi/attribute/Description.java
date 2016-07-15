@@ -8,6 +8,10 @@ public class Description extends SimpleFormField<String> implements FormField<St
 
   private static final int MAX_WORD_COUNT = 150;
 
+  @SuppressWarnings("unused")
+  private Description() {
+  }
+
   public Description(String description) {
     super("Description", description);
   }

@@ -23,13 +23,13 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>view</servlet-name>
-    <servlet-class>org.mappingviolence.servlet.ViewServlet</servlet-class>
+    <servlet-name>wikipage</servlet-name>
+    <servlet-class>org.mappingviolence.servlet.WikiPageServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>view</servlet-name>
-    <url-pattern>/view</url-pattern>
+    <servlet-name>wikipage</servlet-name>
+    <url-pattern>/wikipage</url-pattern>
   </servlet-mapping>
   
   <servlet>

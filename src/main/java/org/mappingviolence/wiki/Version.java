@@ -1,18 +1,18 @@
 package org.mappingviolence.wiki;
 
 import java.util.Date;
-import java.util.UUID;
 
 import org.mappingviolence.user.User;
+import org.mongodb.morphia.annotations.Embedded;
 
-public class Version<T> {
-  private String id;
+public abstract class Version<T> {
+  // This forces a reliance on mongodb
+  @Embedded
   private T data;
   private User editor;
   private Date dateModified;
 
-  private Version() {
-    id = UUID.randomUUID().toString();
+  protected Version() {
     dateModified = new Date();
   }
 
@@ -22,9 +22,7 @@ public class Version<T> {
     this.editor = editor;
   }
 
-  public String getId() {
-    return id;
-  }
+  public abstract String getId();
 
   public T getData() {
     return data;

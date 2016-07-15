@@ -6,7 +6,7 @@
 <%@ attribute name="label" required="true" %>
 <%@ attribute name="helpText" required="false" %>
 
-
+<!-- 
 <div class="form-group">
     <div id="secondarySourcesWrapper" class="input_fields_wrap">
         <label for="secondarySource">Secondary Sources: <span id="secondarySourcesHelp" role="helpBtn" class="glyphicon glyphicon-info-sign"></span>
@@ -54,3 +54,4 @@
         </c:choose>
     </div>
 </div>
+-->

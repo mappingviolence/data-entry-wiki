@@ -70,7 +70,7 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
   @Override
   public void doPut(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
-    Map<String, String> dataMap = ServletUtils.parseData(req);
+    Map<String, String> dataMap = Servlets.parseData(req);
     String id = dataMap.get("id");
     String newRoleStr = dataMap.get("role");
     if (id == null || id.equals("")) {
@@ -109,7 +109,7 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
   @Override
   public void doDelete(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
-    Map<String, String> dataMap = ServletUtils.parseData(req);
+    Map<String, String> dataMap = Servlets.parseData(req);
     String id = dataMap.get("id");
 
     if (id != null && !id.equals("")) {

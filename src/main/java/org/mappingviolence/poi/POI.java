@@ -10,34 +10,47 @@ import org.mappingviolence.comment.Comment;
 import org.mappingviolence.comment.CommentContainer;
 import org.mappingviolence.form.FormField;
 import org.mappingviolence.form.SimpleFormField;
-import org.mappingviolence.poi.attribute.DateAttribute;
+import org.mappingviolence.poi.attribute.DateFormField;
 import org.mappingviolence.poi.attribute.Description;
 import org.mappingviolence.poi.attribute.Location;
 import org.mappingviolence.poi.date.Date;
 import org.mappingviolence.poi.identity.Person;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.geo.Point;
 
+@Embedded
 public class POI implements CommentContainer {
+  @Embedded
   private SimpleFormField<String> title;
 
+  @Embedded
   private Description description;
 
-  private DateAttribute date;
+  @Embedded
+  private DateFormField date;
 
+  @Embedded
   private Location location;
 
+  @Embedded
   private SimpleFormField<String> locationRationale;
 
+  @Embedded
   private Collection<Person> victims;
 
+  @Embedded
   private Collection<Person> aggressors;
 
+  @Embedded
   private Collection<SimpleFormField<String>> tags;
 
+  @Embedded
   private Collection<SimpleFormField<String>> primarySources;
 
+  @Embedded
   private Collection<SimpleFormField<String>> secondarySources;
 
+  @Embedded
   private SimpleFormField<String> researchNotes;
 
   public POI() {
@@ -48,7 +61,11 @@ public class POI implements CommentContainer {
   }
 
   public void setTitle(String title) {
-    this.title.setValue(title);
+    if (this.title == null) {
+      this.title = new SimpleFormField<String>("Title", title);
+    } else {
+      this.title.setValue(title);
+    }
   }
 
   public FormField<Date> getDate() {
@@ -64,7 +81,11 @@ public class POI implements CommentContainer {
   }
 
   public void setDescription(String description) {
-    this.description.setValue(description);
+    if (this.description == null) {
+      this.description = new Description(description);
+    } else {
+      this.description.setValue(description);
+    }
   }
 
   public Location getLocation() {
@@ -175,7 +196,11 @@ public class POI implements CommentContainer {
   }
 
   public void setResearchNotes(String researchNotes) {
-    this.researchNotes.setValue(researchNotes);
+    if (this.researchNotes == null) {
+      this.researchNotes = new SimpleFormField<String>("Research Notes", researchNotes);
+    } else {
+      this.researchNotes.setValue(researchNotes);
+    }
   }
 
   @Override

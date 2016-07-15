@@ -6,12 +6,16 @@ import org.mappingviolence.wiki.Version;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-@Entity("pois")
+@Entity(value = "pois")
 public class POIVersion extends Version<POI> {
   @Id
   private ObjectId id;
 
-  public POIVersion(User editor, POI data) {
+  @SuppressWarnings("unused")
+  private POIVersion() {
+  }
+
+  public POIVersion(POI data, User editor) {
     super(data, editor);
   }
 

@@ -65,6 +65,11 @@ public class User {
     role = newRole;
   }
 
+  @Override
+  public String toString() {
+    return email;
+  }
+
   public static User getUser(String id) {
     return db.get(User.class, new ObjectId(id));
   }

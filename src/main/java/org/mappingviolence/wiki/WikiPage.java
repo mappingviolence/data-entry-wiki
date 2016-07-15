@@ -10,13 +10,14 @@ import org.mappingviolence.comment.CommentContainer;
 import org.mappingviolence.user.User;
 
 public abstract class WikiPage<T extends CommentContainer> implements CommentContainer {
-  protected String id;
   private User creator;
   private Date dateCreated;
   protected Version<T> current;
+  private Status status;
 
   protected WikiPage() {
     dateCreated = new Date();
+    status = Status.DRAFT;
   }
 
   public WikiPage(User creator) {
@@ -29,9 +30,7 @@ public abstract class WikiPage<T extends CommentContainer> implements CommentCon
     current = firstVersion;
   }
 
-  public String getId() {
-    return id;
-  }
+  public abstract String getId();
 
   public User getCreator() {
     return creator;
@@ -47,6 +46,14 @@ public abstract class WikiPage<T extends CommentContainer> implements CommentCon
 
   public T getCurrentData() {
     return current.getData();
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
   }
 
   public abstract List<Version<T>> getPreviousVersions();

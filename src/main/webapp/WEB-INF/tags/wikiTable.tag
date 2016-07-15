@@ -13,9 +13,11 @@
 		</tr>
 		<c:forEach var="wiki" items="${wikiList}"> 
 			<tr>
-				<td>${wiki[title]}</td>
-				<td>${wiki[creator]}</td> 
+				<%-- This supposes that a wiki page is sent, but then the 
+				title attribute assumes that it is a POI --%>
+				<td>${wiki.current.data.title}</td>
+				<td>${wiki.creator}</td> 
 			</tr>
 		</c:forEach>
-	</table> 
+	</table>
 </div> 
