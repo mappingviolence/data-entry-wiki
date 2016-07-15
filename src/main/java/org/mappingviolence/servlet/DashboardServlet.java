@@ -3,7 +3,6 @@ package org.mappingviolence.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Query; 
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +14,8 @@ import org.mappingviolence.poi.POI;
 import org.mappingviolence.poi.POIVersion;
 import org.mappingviolence.poi.POIWikiPage;
 import org.mappingviolence.user.User;
-import org.mappingviolence.poi.Query;
+import org.mappingviolence.wiki.Status;
+import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.Datastore;
 
 @SuppressWarnings("serial")
