@@ -42,9 +42,10 @@
 
 	<t:header /> 
 	
-	<p> Hello ${name} </p>
+	<p>Hello ${currentUser.name}</p>
 	
 	<c:if test="${not empty user and not empty user.isEditor and isEditor}">
+        <div class=""></div>
 		<t:wikiTable name="Draft POIs" wikiList="${draftPOIs}" /> 
 		<t:wikiTable name="Created POIs" wikiList="${createdPOIs}" />
 		<t:wikiTable name="Pubished POIs" wikiList="${publishedPOIs}" /> 

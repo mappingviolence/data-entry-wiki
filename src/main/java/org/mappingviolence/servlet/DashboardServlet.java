@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mappingviolence.database.DatabaseConnection;
-import org.mappingviolence.poi.POI;
+import org.mappingviolence.poi.POIWikiPage;
 import org.mappingviolence.user.User;
 import org.mappingviolence.wiki.Status;
-import org.mappingviolence.wiki.WikiPage;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 
@@ -21,22 +20,18 @@ public class DashboardServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
-    @SuppressWarnings("unchecked")
-    Class<WikiPage<POI>> clazz = (Class<WikiPage<POI>>) (Object) (WikiPage.class);
-    Query<WikiPage<POI>> query = ds.createQuery(clazz);
+    Query<POIWikiPage> query = ds.createQuery(POIWikiPage.class);
     User user = (User) req.getSession(false).getAttribute("currentUser");
-    /*
-     * this gets the current user, which is stored in the session
-     */
-    List<WikiPage<POI>> draftPOIs = query
+
+    List<POIWikiPage> draftPOIs = query
         .filter("creator =", user)
         .filter("status =", Status.DRAFT)
         .asList();
-    List<WikiPage<POI>> reviewPOIs = query
+    List<POIWikiPage> reviewPOIs = query
         .filter("creator =", user)
         .filter("status =", Status.IN_POOL)
         .asList();
-    List<WikiPage<POI>> publishedPOIs = query
+    List<POIWikiPage> publishedPOIs = query
         .filter("creator =", user)
         .filter("status =", Status.PUBLISHED)
         .asList();
@@ -44,6 +39,7 @@ public class DashboardServlet extends HttpServlet {
     req.setAttribute("draftPOIs", draftPOIs);
     req.setAttribute("reviewPOIs", reviewPOIs);
     req.setAttribute("pubishedPOIs", publishedPOIs);
+
     try {
       req.getRequestDispatcher("/WEB-INF/webapp/dashboard.jsp").forward(req, resp);
     } catch (ServletException | IOException e) {

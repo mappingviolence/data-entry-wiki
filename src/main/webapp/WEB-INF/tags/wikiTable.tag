@@ -11,12 +11,13 @@
 			<td><b>Title</b></td> 
 			<td><b>Creator</b></td> 
 		</tr>
-		<c:forEach var="wiki" items="${wikiList}"> 
+		<c:forEach var="wikiPage" items="${wikiList}"> 
+			<c:set var="wikiData" value="wikiPage.current.data" />
 			<tr>
 				<%-- This supposes that a wiki page is sent, but then the 
 				title attribute assumes that it is a POI --%>
-				<td>${wiki.current.data.title}</td>
-				<td>${wiki.creator}</td> 
+				<td>${wikiData[title]}</td>
+				<td>${wikiData[creator]}</td>
 			</tr>
 		</c:forEach>
 	</table>
