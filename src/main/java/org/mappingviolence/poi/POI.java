@@ -20,37 +20,27 @@ import org.mongodb.morphia.geo.Point;
 
 @Embedded
 public class POI implements CommentContainer {
-  @Embedded
+
   private SimpleFormField<String> title;
 
-  @Embedded
   private Description description;
 
-  @Embedded
   private DateFormField date;
 
-  @Embedded
   private Location location;
 
-  @Embedded
   private SimpleFormField<String> locationRationale;
 
-  @Embedded
   private Collection<Person> victims;
 
-  @Embedded
   private Collection<Person> aggressors;
 
-  @Embedded
   private Collection<SimpleFormField<String>> tags;
 
-  @Embedded
   private Collection<SimpleFormField<String>> primarySources;
 
-  @Embedded
   private Collection<SimpleFormField<String>> secondarySources;
 
-  @Embedded
   private SimpleFormField<String> researchNotes;
 
   public POI() {

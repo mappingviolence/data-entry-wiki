@@ -7,10 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.bson.types.ObjectId;
 import org.mappingviolence.database.DatabaseConnection;
 import org.mappingviolence.poi.POI;
-import org.mappingviolence.poi.POIVersion;
 import org.mappingviolence.poi.POIWikiPage;
 import org.mappingviolence.user.User;
 import org.mongodb.morphia.Datastore;
@@ -20,26 +18,24 @@ import org.mongodb.morphia.Key;
 public class WikiPageServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
-    String idStr = req.getParameter("id");
+    String id = req.getParameter("id");
 
-    if (idStr == null) {
+    if (id == null) {
       req.setAttribute("errorMessage", "There was no id parameter found in the request.");
       Servlets.forward("/WEB-INF/webapp/error.jsp", req, resp);
       return;
     }
 
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
-    POIWikiPage poiWikiPage1 = ds.getByKey(
-        POIWikiPage.class,
-        new Key<>(POIWikiPage.class, "poi-pages", new ObjectId(idStr)));
+    POIWikiPage poiWikiPage = ds.get(POIWikiPage.class, id);
 
-    if (poiWikiPage1 == null) {
+    if (poiWikiPage == null) {
       req.setAttribute("errorMessage", "The id that was sent not found in database.");
       Servlets.forward("/WEB-INF/webapp/error.jsp", req, resp);
       return;
     }
 
-    req.setAttribute("thisPOI", poiWikiPage1.getCurrentData());
+    req.setAttribute("thisPOI", poiWikiPage.getCurrentData());
 
     Servlets.forward("/WEB-INF/webapp/view.jsp", req, resp);
     return;
@@ -57,14 +53,13 @@ public class WikiPageServlet extends HttpServlet {
     poi.setResearchNotes("research notes");
 
     User user = (User) req.getSession(false).getAttribute("currentUser");
-    POIVersion poiV1 = new POIVersion(poi, user);
 
     POIWikiPage wiki = new POIWikiPage(user);
-    wiki.addVersion(poiV1);
+    wiki.addVersion(poi, user);
 
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
     Key<POIWikiPage> key = ds.save(wiki);
-    Object id = key.getId();
+    String id = (String) key.getId();
 
     Servlets.sendSuccess(id, HttpServletResponse.SC_OK, req, resp, "text/json");
   }

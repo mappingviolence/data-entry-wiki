@@ -10,50 +10,73 @@ import org.mappingviolence.user.User;
 import org.mappingviolence.wiki.Version;
 import org.mappingviolence.wiki.WikiPage;
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Key;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
 
 @Entity(value = "poi-pages")
 public class POIWikiPage extends WikiPage<POI> {
   private static final Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
 
   @Id
-  private ObjectId id;
+  private String id;
 
-  private LinkedList<Key<POIVersion>> previous;
+  @Reference
+  private POIVersion current;
+
+  @Reference
+  private LinkedList<POIVersion> previous;
 
   @SuppressWarnings("unused")
   private POIWikiPage() {
     super();
+    id = new ObjectId().toHexString();
     previous = new LinkedList<>();
   }
 
   public POIWikiPage(User creator) {
     super(creator);
+    id = new ObjectId().toHexString();
   }
 
-  public POIWikiPage(User creator, Version<POI> firstVersion) {
-    super(creator, firstVersion);
+  public POIWikiPage(User creator, POI data) {
+    super(creator);
+    current = new POIVersion(data, creator);
+  }
+
+  public POIWikiPage(User creator, POIVersion firstVersion) {
+    super(creator);
+    current = firstVersion;
+    id = new ObjectId().toHexString();
   }
 
   @Override
   public String getId() {
-    return this.id.toHexString();
+    return id;
+  }
+
+  @Override
+  public Version<POI> getCurrentVersion() {
+    return current;
   }
 
   @Override
   public List<Version<POI>> getPreviousVersions() {
+    // List<Version<POI>> previousList = new ArrayList<>();
+    // ds.getByKeys(previous).forEach((POIVersion poiV) -> {
+    // previousList.add(poiV);
+    // });
+    // return previousList;
     List<Version<POI>> previousList = new ArrayList<>();
-    ds.getByKeys(previous).forEach((POIVersion poiV) -> {
+    previous.forEach((POIVersion poiV) -> {
       previousList.add(poiV);
     });
     return previousList;
   }
 
   @Override
-  public void addVersion(Version<POI> newVersion) {
-    POIVersion newPOIVersion = (POIVersion) newVersion;
+  public void addVersion(POI newPOI, User editor) {
+    POIVersion newPOIVersion = new POIVersion(newPOI, editor);
     /* Make sure that newVersion is saved to db */
     ds.save(newPOIVersion);
     /*
@@ -63,7 +86,7 @@ public class POIWikiPage extends WikiPage<POI> {
      */
     /* Add current version to list of previous versions */
     if (current != null) {
-      previous.addFirst(ds.getKey((POIVersion) current));
+      previous.addFirst(current);
     }
     /* Set current to newVersion */
     current = newPOIVersion;

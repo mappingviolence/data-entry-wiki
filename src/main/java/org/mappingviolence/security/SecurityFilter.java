@@ -82,7 +82,7 @@ public class SecurityFilter implements Filter {
                 Cookie respCookie = new Cookie(cookie.getName(), "");
                 respCookie.setMaxAge(0);
                 respCookie.setPath("/");
-                respCookie.setDomain("localhost");
+                respCookie.setDomain("/mapviz");
                 resp.addCookie(respCookie);
                 resp.setContentType("text/html");
                 chain.doFilter(req, resp);
