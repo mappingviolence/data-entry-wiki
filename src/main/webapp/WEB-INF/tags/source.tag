@@ -22,3 +22,4 @@
 	    <button id="primarySourcesBtn" type="button" class="btn btn-default add_field_button">Add ${label}</button>
 	</div>
 </div>
+

@@ -1,11 +1,50 @@
 <html lang="en">
   <head>
+
+    <title> Mapping Violence </title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+    <link rel="stylesheet" href="css/corrections.css" type="text/css">
+
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="1031670491058-iveiphljv5dr3fgnr3apb4supm2h3rs2.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
-  <body>
-    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+  <body style="color: white;">
+    <div class="jumbotron" 
+    style="
+      background:
+        /* top, transparent black, faked with gradient */ 
+        linear-gradient(
+          rgba(0, 0, 0, 0.7), 
+          rgba(0, 0, 0, 0.7)
+        ),
+        /* bottom, image */
+        url(https://refusingtoforget.files.wordpress.com/2015/03/refusing-header-option-1.jpg?w=1140&h=416&crop=1);
+      height: 100%; background-size: cover;">
+      <div class="container">
+        <h1 class="display-3">Mapping Violence</h1>
+        <p> </p> 
+        <p class="lead">Welcome to the new data-entry panel!</p>
+        <p>Simply login with your Brown email to access the database</p>
+        <p class="lead">
+          <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+        </p>
+      </div> 
+    </div>
     <script>
       function onSignIn(googleUser) {
         var id_token = googleUser.getAuthResponse().id_token;

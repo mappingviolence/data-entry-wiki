@@ -31,6 +31,16 @@
     <servlet-name>wikipage</servlet-name>
     <url-pattern>/wikipage</url-pattern>
   </servlet-mapping>
+
+    <servlet>
+    <servlet-name>dashboard</servlet-name>
+    <servlet-class>org.mappingviolence.servlet.DashboardServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>dashboard</servlet-name>
+    <url-pattern>/dashboard</url-pattern>
+  </servlet-mapping>
   
   <servlet>
   	<servlet-name>admin_settings</servlet-name>
