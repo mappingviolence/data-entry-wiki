@@ -16,4 +16,9 @@ public class Location extends SimpleFormField<Point> {
   public static Point buildPoint(Double lat, Double lng) {
     return PointBuilder.pointBuilder().latitude(lat).longitude(lng).build();
   }
+
+  // TODO
+  public static boolean isValidLocation(Double lat, Double lng) {
+    return true;
+  }
 }

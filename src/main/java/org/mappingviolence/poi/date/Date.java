@@ -289,4 +289,9 @@ public class Date implements Comparable<Date> {
   // assertTrue(false);
   // }
   // }
+
+  // TODO
+  public static boolean isValidDate(String dateStr) {
+    return true;
+  }
 }

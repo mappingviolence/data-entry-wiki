@@ -62,14 +62,19 @@
           <p>${thisPOI.description.value}</p>
         </div>
         <div class="data-element"> 
-          <h2> Citations </h2>
-      <%--    <c:forEach var="citation" items="${thisPOI.citations}">
-            <p> ${citation} </p>
-          </c:forEach>  --%>
+          	<h2>Citations</h2>
+          	<h3>Primary Sources</h3>
+	          	<c:forEach var="citation" items="${thisPOI.primarySources}">
+	            	<p>${citation}</p>
+	          	</c:forEach>
+			<h3>Secondary Sources</h3>
+				<c:forEach var="citation" items="${thisPOI.secondarySources}">
+            		<p>${citation}</p>
+          		</c:forEach>
         </div> 
         <div class="data-element"> 
-          <h2> Research Notes </h2> 
-          <p> ${thisPOI.researchNotes.value} </p>
+          <h2>Research Notes</h2> 
+          <p>${thisPOI.researchNotes.value}</p>
         </div>
 
       </div>
