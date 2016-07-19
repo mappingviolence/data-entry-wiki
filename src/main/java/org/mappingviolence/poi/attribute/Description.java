@@ -18,7 +18,7 @@ public class Description extends SimpleFormField<String> implements FormField<St
 
   @Override
   public boolean isValidValue() {
-    return Markdown.wordCount(value) <= MAX_WORD_COUNT;
+    return Markdown.wordCount(getValue()) <= MAX_WORD_COUNT;
   }
 
 }

@@ -50,7 +50,7 @@
       function onSignIn(googleUser) {
         var id_token = googleUser.getAuthResponse().id_token;
         document.cookie = "id_token=" + id_token + "; path=/";
-        var url = "http://localhost:8080/eddie";
+        var url = "http://725e3ea8.ngrok.io/mapviz";
         window.location.replace(url);
       };
     </script>

@@ -1,8 +1,8 @@
 package org.mappingviolence.attribute;
 
 public class SimpleAttribute<T> implements Attribute<T> {
-  protected String name;
-  protected T value;
+  private String name;
+  private T value;
 
   protected SimpleAttribute() {
   }
@@ -15,6 +15,10 @@ public class SimpleAttribute<T> implements Attribute<T> {
   @Override
   public String getName() {
     return name;
+  }
+
+  protected void setName(String name) {
+    this.name = name;
   }
 
   @Override

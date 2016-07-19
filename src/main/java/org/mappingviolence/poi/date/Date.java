@@ -1,29 +1,20 @@
 package org.mappingviolence.poi.date;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-
 // TODO: Rewrite this class
 // TODO: Remove error checking on creation, maybe not.
 // Idk, let's talk to eddie about this.
 // This shouldn't be an entity, but an embedded
-@Entity
 public class Date implements Comparable<Date> {
 
   public boolean isValid() {
     // TODO: Implement this
     return true;
   }
-
-  @Id
-  private Long id;
 
   private Integer year;
 
@@ -36,7 +27,10 @@ public class Date implements Comparable<Date> {
 
   static {
     Properties prop = new Properties();
-    try (InputStream input = new FileInputStream(new File("WEB-INF/config/date.properties"))) {
+    try (InputStream input = Thread
+        .currentThread()
+        .getContextClassLoader()
+        .getResourceAsStream("config/date.properties")) {
       prop.load(input);
 
       MIN_YEAR = Integer.valueOf(prop.getProperty("min_year"));
@@ -295,4 +289,9 @@ public class Date implements Comparable<Date> {
   // assertTrue(false);
   // }
   // }
+
+  // TODO
+  public static boolean isValidDate(String dateStr) {
+    return true;
+  }
 }

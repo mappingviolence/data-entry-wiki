@@ -20,6 +20,9 @@ public class DatabaseConnection {
     MORPHIA.mapPackage("org.mappingviolence.database");
     MORPHIA.mapPackage("org.mappingviolence.user");
     MORPHIA.mapPackage("org.mappingviolence.poi");
+    MORPHIA.mapPackage("org.mappingviolence.poi.attribute");
+    MORPHIA.mapPackage("org.mappingviolence.poi.identity");
+    MORPHIA.mapPackage("org.mappingviolence.wiki");
   }
 
   private DatabaseConnection() {

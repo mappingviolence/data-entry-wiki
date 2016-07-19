@@ -62,8 +62,8 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
       throws IOException, ServletException {
     User u = new User("hansen.cole.e@gmail.com", Role.ADMIN);
     DatabaseConnection.getDatabase("data-entry-wiki").save(u);
-    User u1 = DatabaseConnection.getDatabase("data-entry-wiki").get(u);
-    resp.getWriter().println(u1);
+    User u1 = new User("edward_jiao@brown.edu", Role.ADMIN);
+    DatabaseConnection.getDatabase("data-entry-wiki").save(u1);
   }
 
   // Update user role
