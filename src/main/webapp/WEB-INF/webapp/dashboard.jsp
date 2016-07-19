@@ -42,7 +42,7 @@
 
 	<t:header /> 
 	
-	<p>Hello ${currentUser.name}</p>
+	<p>Hello ${currentUser.email}</p>
 	
 	<c:if test="${not empty user and not empty user.isEditor and isEditor}">
         <div class=""></div>
