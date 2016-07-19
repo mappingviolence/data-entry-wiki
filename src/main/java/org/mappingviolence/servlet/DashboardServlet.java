@@ -21,6 +21,7 @@ public class DashboardServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
     Query<POIWikiPage> query = ds.createQuery(POIWikiPage.class);
+
     User user = (User) req.getSession(false).getAttribute("currentUser");
 
     List<POIWikiPage> draftPOIs = query
@@ -39,6 +40,7 @@ public class DashboardServlet extends HttpServlet {
     req.setAttribute("draftPOIs", draftPOIs);
     req.setAttribute("reviewPOIs", reviewPOIs);
     req.setAttribute("pubishedPOIs", publishedPOIs);
+    req.setAttribute("currentUser", user);
 
     try {
       req.getRequestDispatcher("/WEB-INF/webapp/dashboard.jsp").forward(req, resp);

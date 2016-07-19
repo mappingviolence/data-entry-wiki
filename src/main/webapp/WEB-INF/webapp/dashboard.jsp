@@ -44,7 +44,7 @@
 	
 	<p>Hello ${currentUser.email}</p>
 	
-	<c:if test="${not empty user and not empty user.isEditor and isEditor}">
+	<c:if test="${not empty currentUser and currentUser.isEditor()}">
         <div class=""></div>
 		<t:wikiTable name="Draft POIs" wikiList="${draftPOIs}" /> 
 		<t:wikiTable name="Created POIs" wikiList="${createdPOIs}" />
