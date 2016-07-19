@@ -16,7 +16,7 @@ public class DateFormField extends SimpleFormField<Date> implements FormField<Da
 
   @Override
   public boolean isValidValue() {
-    return value.isValid();
+    return getValue().isValid();
   }
 
 }

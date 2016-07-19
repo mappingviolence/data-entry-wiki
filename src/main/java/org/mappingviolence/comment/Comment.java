@@ -17,18 +17,17 @@ public class Comment {
 
   public Comment(User author) {
     this();
+    if (author == null) {
+      throw new IllegalArgumentException("author cannot be null");
+    }
     this.author = author;
   }
 
   public Comment(User author, String commentText) {
-    this();
-    if (author == null) {
-      throw new IllegalArgumentException("author cannot be null");
-    }
+    this(author);
     if (commentText == null) {
       throw new IllegalArgumentException("commentText cannot be null");
     }
-    this.author = author;
     this.commentText = commentText;
   }
 

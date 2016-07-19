@@ -24,7 +24,7 @@ public class Servlets {
   public static void sendError(Error err, HttpServletRequest req, HttpServletResponse resp) {
     resp.setStatus(err.getHttpStatusCode());
     PrintWriter pw = getWriter(resp);
-    pw.print("{ \"error\" : 1, \"data\" : \"" + err.getErrorMessage() + "\" }");
+    pw.print("{\"error\" : 1, \"data\" : " + err.getErrorMessage() + " }");
     pw.close();
     return;
   }
@@ -68,7 +68,7 @@ public class Servlets {
     resp.setStatus(httpStatusCode);
     PrintWriter pw = getWriter(resp);
     String dataJson = GSON.toJson(data);
-    pw.print("{ \"success\" : 1, \"data\" : " + dataJson + " }");
+    pw.print("{\"success\" : 1, \"data\" : " + dataJson + " }");
     pw.close();
     return;
   }

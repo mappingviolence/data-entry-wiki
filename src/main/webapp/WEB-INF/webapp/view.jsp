@@ -46,7 +46,7 @@
       <div class="data-element"> 
         <div id="title"> 
           <h1> 
-            ${thisPOI.title} 
+            ${thisPOI.title.value} 
             <button type="button" class="btn btn-default btn-lg">
                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
             </button>
@@ -59,7 +59,7 @@
       <div class="row">
        <div class="col-xs-6">
         <div class="data-element"> 
-          <p>${thisPOI.description}</p>
+          <p>${thisPOI.description.value}</p>
         </div>
         <div class="data-element"> 
           <h2> Citations </h2>
@@ -69,7 +69,7 @@
         </div> 
         <div class="data-element"> 
           <h2> Research Notes </h2> 
-          <p> ${thisPOI.researchNotes} </p>
+          <p> ${thisPOI.researchNotes.value} </p>
         </div>
 
       </div>

@@ -8,19 +8,20 @@ import org.mappingviolence.attribute.SimpleAttribute;
 import org.mappingviolence.comment.Comment;
 
 public class SimpleFormField<T> extends SimpleAttribute<T> implements FormField<T> {
-  protected final String id;
+  private final String id;
 
-  protected List<Comment> comments;
+  private List<Comment> comments;
 
   protected SimpleFormField() {
+    super();
     id = UUID.randomUUID().toString();
     comments = new ArrayList<>();
   }
 
   public SimpleFormField(String name, T value) {
     this();
-    this.name = name;
-    this.value = value;
+    super.setName(name);
+    super.setValue(value);
   }
 
   @Override

@@ -6,8 +6,6 @@ public class SimpleIdentity<T> extends SimpleFormField<T> implements Identity<T>
 
   protected String category;
 
-  protected T value;
-
   @SuppressWarnings("unused")
   private SimpleIdentity() {
   }

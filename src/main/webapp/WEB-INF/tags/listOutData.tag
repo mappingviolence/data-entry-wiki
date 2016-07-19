@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ attribute name="title" required="true" %>
-<%@ attribute name="peopleList" required="true" type="java.util.List" %>
+<%@ attribute name="peopleList" required="true" type="java.util.Collection" %>
 
 
 <tr class="mergedtoprow"> 
@@ -10,13 +10,13 @@
 </tr> 
 <c:forEach var="person" items="${peopleList}"> 
 	<%-- what if there are no names? --%>
-	<tr class="mergedrow"> 
+	<%-- <tr class="mergedrow"> 
 		<td>${person.name}</td> 
-	</tr> 
+	</tr>  --%>
 	<c:forEach var="identity" items="${person.identities}">
 		<tr class="mergedrow"> 
-			<td>${identity.title}</td> 
-			<td>${identity.body}</td> 
+			<td>${identity.category}</td> 
+			<td>${identity.value}</td> 
 		</tr> 
 	</c:forEach>
 </c:forEach> 

@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mappingviolence.database.DatabaseConnection;
 import org.mappingviolence.poi.POI;
+import org.mappingviolence.poi.POIVersion;
 import org.mappingviolence.poi.POIWikiPage;
+import org.mappingviolence.poi.date.Date;
 import org.mappingviolence.user.User;
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Key;
 
 @SuppressWarnings("serial")
 public class WikiPageServlet extends HttpServlet {
@@ -27,6 +28,7 @@ public class WikiPageServlet extends HttpServlet {
     }
 
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
+
     POIWikiPage poiWikiPage = ds.get(POIWikiPage.class, id);
 
     if (poiWikiPage == null) {
@@ -39,6 +41,7 @@ public class WikiPageServlet extends HttpServlet {
 
     Servlets.forward("/WEB-INF/webapp/view.jsp", req, resp);
     return;
+
   }
 
   @Override
@@ -49,17 +52,17 @@ public class WikiPageServlet extends HttpServlet {
 
     POI poi = new POI();
     poi.setTitle(title);
-    poi.setDescription("this is a description");
-    poi.setResearchNotes("research notes");
+    poi.setDescription("This is an event description");
+    poi.setDate(new Date("1914 May 14"));
+    poi.setResearchNotes("My notes are not very long.");
 
-    User user = (User) req.getSession(false).getAttribute("currentUser");
+    POIVersion poiV = new POIVersion(poi, (User) req.getSession().getAttribute("currentUser"));
 
-    POIWikiPage wiki = new POIWikiPage(user);
-    wiki.addVersion(poi, user);
+    POIWikiPage poiW = new POIWikiPage((User) req.getSession().getAttribute("currentUser"), poiV);
 
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
-    Key<POIWikiPage> key = ds.save(wiki);
-    String id = (String) key.getId();
+
+    String id = (String) ds.save(poiW).getId();
 
     Servlets.sendSuccess(id, HttpServletResponse.SC_OK, req, resp, "text/json");
   }

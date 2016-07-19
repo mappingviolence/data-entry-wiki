@@ -1,7 +1,5 @@
 package org.mappingviolence.poi.date;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +15,8 @@ public final class DateModifiers {
 
   static {
     Properties prop = new Properties();
-    try (InputStream input = new FileInputStream(new File("WEB-INF/config/datemodifiers.properties"))) {
+    try (InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(
+        "config/datemodifiers.properties")) {
       prop.load(input);
 
       EARLY = prop.getProperty("early");
@@ -38,15 +37,29 @@ public final class DateModifiers {
       NOV = prop.getProperty("nov");
       DEC = prop.getProperty("dec");
 
-      MONTHS = ImmutableList.<String> builder().add(JAN).add(FEB).add(MAR).add(APR).add(MAY).add(JUN).add(JUL).add(AUG)
-          .add(SEP).add(OCT).add(NOV).add(DEC).build();
+      MONTHS = ImmutableList
+          .<String> builder()
+          .add(JAN)
+          .add(FEB)
+          .add(MAR)
+          .add(APR)
+          .add(MAY)
+          .add(JUN)
+          .add(JUL)
+          .add(AUG)
+          .add(SEP)
+          .add(OCT)
+          .add(NOV)
+          .add(DEC)
+          .build();
 
     } catch (FileNotFoundException e) {
       System.err.println(
           "Could not find datamodifiers.properties file. Please make sure it is in the /src/main/config directory and is named datamodifiers.properties.");
       throw new RuntimeException();
     } catch (IOException e) {
-      throw new RuntimeException("There was a problem reading from the file. Please try again later.");
+      throw new RuntimeException(
+          "There was a problem reading from the file. Please try again later.");
     }
   }
 
@@ -73,11 +86,13 @@ public final class DateModifiers {
         return false;
       }
       if (date.equals(31)) {
-        return monthStr.equals(JAN) || monthStr.equals(MAR) || monthStr.equals(MAY) || monthStr.equals(JUL)
-            || monthStr.equals(AUG) || monthStr.equals(OCT) || monthStr.equals(DEC);
+        return monthStr.equals(JAN) || monthStr.equals(MAR) || monthStr.equals(MAY)
+            || monthStr.equals(JUL) || monthStr.equals(AUG) || monthStr.equals(OCT)
+            || monthStr.equals(DEC);
       }
       if (date.equals(30)) {
-        return monthStr.equals(APR) || monthStr.equals(JUN) || monthStr.equals(SEP) || monthStr.equals(NOV);
+        return monthStr.equals(APR) || monthStr.equals(JUN) || monthStr.equals(SEP)
+            || monthStr.equals(NOV);
       }
       return isValidMonth(monthStr);
     } catch (NumberFormatException e) {
