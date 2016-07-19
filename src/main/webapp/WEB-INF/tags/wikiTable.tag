@@ -14,8 +14,6 @@
 		<c:forEach var="wikiPage" items="${wikiList}"> 
 			<c:set var="wikiData" value="wikiPage.current.data" />
 			<tr>
-				<%-- This supposes that a wiki page is sent, but then the 
-				title attribute assumes that it is a POI --%>
 				<td>${wikiData[title]}</td>
 				<td>${wikiData[creator]}</td>
 			</tr>

@@ -1,0 +1,31 @@
+
+body {
+	font-family: 'Crimson Text', 'CrimsonText', sans-serif !important; 
+}
+
+h1 { 
+	font-size: 80px !important; 
+}
+
+h2 { 
+	font-size: 3em !important;
+}
+
+.display-3 { 
+	padding-top: 1em; 
+	padding-bottom: 0.5em;
+	font-family: 'Montserrat', sans-serif; 
+	font-size: 70px !important; 
+	color: #ff6666 !important;
+	/* 	font-family: 'Open Sans', sans-serif; */
+}
+
+.lead { 
+	font-size: 30px !important; 
+	font-weight: 400i !important; 
+	font-style: italic;
+}
+
+.signinbutton {
+	padding-top: 0.5em;
+}
