@@ -1,6 +1,5 @@
-
 body {
-	font-family: 'Crimson Text', 'CrimsonText', sans-serif !important; 
+	font-family: 'Crimson Text', 'CrimsonText', serif !important; 
 	background-color: #fafafa;
 }
 
@@ -29,4 +28,19 @@ h2 {
 
 .g-signin2 {
 	padding-top: 100px;
+}
+
+.navbar.navbar-default { 
+	background-color: #ff7050; 
+	font-size: 12pt;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: rgba(255,255,255, 0.80);
+}
+
+.infobox {
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: #bbbbbb;
+    padding-left: 10px;
 }

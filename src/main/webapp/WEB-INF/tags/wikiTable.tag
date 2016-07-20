@@ -7,7 +7,7 @@
 
 <div class="container"> 
 	<table class="table"> 
-		<caption>${name}</caption> 	
+		<caption><h2>${name}</h2></caption> 	
 		<thead> 
 			<tr>
 				<th>Title</th>
