@@ -35,12 +35,15 @@ public class SecurityFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse resp = (HttpServletResponse) response;
 
-    if (req.getRequestURI().startsWith("/mapviz/signin.html")) {
+    // TODO: Spin out static file serving to an Apache HTTPD or nginx
+    if (req.getRequestURI().startsWith("/mapviz/static")) {
       chain.doFilter(req, resp);
       return;
     }
 
-    if (req.getRequestURI().startsWith("/eddie")) {
+    // TODO: either lose the mapviz in the path or have the
+    // ROOT application redirect
+    if (req.getRequestURI().startsWith("/mapviz/signin.html")) {
       chain.doFilter(req, resp);
       return;
     }
