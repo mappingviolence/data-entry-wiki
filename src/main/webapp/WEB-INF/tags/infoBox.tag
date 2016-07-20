@@ -8,6 +8,7 @@
 	<table class="infobox" > 
 		<tr class="map"> 
 			<td> ### This is where the map goes TEST TEST ### </td>
+			<t:map />
 		</tr> 
 		<tr> 
 			<td> <h3>${thisPOI.date.value}</h3> </td> 
@@ -21,6 +22,6 @@
 		<tr> 
 			<td>Outcome</td> 
 			<td>${thisPOI.outcome}</td> 
-		</tr>  --%>
+		</tr> --%>
 	</table> 
 </div> 
