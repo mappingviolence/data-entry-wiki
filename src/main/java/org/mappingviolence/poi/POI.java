@@ -42,6 +42,17 @@ public class POI implements CommentContainer {
   private StringSimpleFormField researchNotes;
 
   public POI() {
+    this.title = new StringSimpleFormField("Title", null);
+    this.date = new DateFormField(null);
+    this.description = new Description(null);
+    this.location = new Location(null);
+    this.locationRationale = new StringSimpleFormField("Location Rationale", null);
+    this.victims = new ArrayList<>();
+    this.aggressors = new ArrayList<>();
+    this.tags = new ArrayList<>();
+    this.primarySources = new ArrayList<>();
+    this.secondarySources = new ArrayList<>();
+    this.researchNotes = new StringSimpleFormField("Research Notes", null);
   }
 
   public FormField<String> getTitle() {
@@ -85,7 +96,11 @@ public class POI implements CommentContainer {
   }
 
   public void setLocation(Point point) {
-    location.setValue(point);
+    if (this.location == null) {
+      this.location = new Location(point);
+    } else {
+      this.location.setValue(point);
+    }
   }
 
   public void setLocation(Double lat, Double lng) {
@@ -97,7 +112,11 @@ public class POI implements CommentContainer {
   }
 
   public void setLocationRationale(String locationRationale) {
-    this.locationRationale.setValue(locationRationale);
+    if (this.locationRationale == null) {
+      this.locationRationale = new StringSimpleFormField("Location Rationale", locationRationale);
+    } else {
+      this.locationRationale.setValue(locationRationale);
+    }
   }
 
   public Collection<Person> getVictims() {
