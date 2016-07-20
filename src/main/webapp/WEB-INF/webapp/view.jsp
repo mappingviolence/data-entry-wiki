@@ -63,14 +63,8 @@
         </div>
         <div class="data-element"> 
           	<h2>Citations</h2>
-          	<h3>Primary Sources</h3>
-	          	<c:forEach var="citation" items="${thisPOI.primarySources}">
-	            	<p>${citation}</p>
-	          	</c:forEach>
-			<h3>Secondary Sources</h3>
-				<c:forEach var="citation" items="${thisPOI.secondarySources}">
-            		<p>${citation}</p>
-          		</c:forEach>
+          	<t:citations title="Primary Sources" citations="${thisPOI.primarySources}"/>
+            <t:citations title="Secondary Sources" citations="${thisPOI.secondarySources}"/>
         </div> 
         <div class="data-element"> 
           <h2>Research Notes</h2> 
@@ -86,18 +80,11 @@
     </script>
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/jquery.fittext.js"></script>
-    <script src="js/wow.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/creative.js"></script>
 
 </body>
 
