@@ -7,8 +7,12 @@
 <div class="col-xs-4">
 	<table class="infobox" > 
 		<tr class="map"> 
-			<td> ### This is where the map goes TEST TEST ### </td>
-			<t:map />
+			<div id="locationAddress">
+			</div>
+			<div id="map">
+			</div>
+			<div id="lat"></div>
+			<div id="lng"></div>
 		</tr> 
 		<tr> 
 			<td> <h3>${thisPOI.date.value}</h3> </td> 

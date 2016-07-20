@@ -1,0 +1,30 @@
+<script src="/static/script/geocoding-places.js"></script>
+<script src="/static/script/map.js"></script>
+<script src="/static/script/update-geoinfo.js"></script>
+<script>
+var m;
+      var ready = function() {
+            $(document).ready(function() {
+                  var valid = false;
+                  if ($("#lat").html() != "" && $("#lng").html() != "") {
+                        valid = true;
+                  }
+                  //
+                  initMap("map");
+                  //
+                  m = new Mapping();
+                  m.init("lat", "lng", "locationAddress", map);
+                  
+                  if (valid) {
+                        m.updateMap({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) });
+                        m.updateAutocomplete({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) });
+                  } else {
+                        // This should never actually happen - invalid data should
+                        // not have been able to have been submitted.
+                  }
+                  // I don't know why it's not working in updateMap
+                  m.marker.setVisible(true);
+            });
+      }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVj2Hr9SExCNWU3aA2kCSmIRDZ27QrqV0&libraries=places&callback=ready" async defer></script>
