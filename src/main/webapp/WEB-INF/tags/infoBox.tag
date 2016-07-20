@@ -7,12 +7,10 @@
 <div class="col-xs-4">
 	<table class="infobox" > 
 		<tr class="map"> 
-			<div id="locationAddress">
-			</div>
-			<div id="map">
-			</div>
-			<div id="lat"></div>
-			<div id="lng"></div>
+			<div id="locationAddress"></div>
+			<div id="map"></div>
+			<div id="lat">${thisPOI.location.value.getLatitude()}</div>
+			<div id="lng">${thisPOI.location.value.getLongitude()}</div>
 		</tr> 
 		<tr> 
 			<td> <h3>${thisPOI.date.value}</h3> </td> 
