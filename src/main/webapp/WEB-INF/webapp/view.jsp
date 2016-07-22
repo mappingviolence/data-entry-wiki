@@ -16,7 +16,6 @@
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -73,7 +72,7 @@
 
     <div class="container" id="main">
       <div class="row">
-       <div class="col-xs-6">
+       <div class="col-md-7 offset-md-1">
         <div class="data-element"> 
           <p>${thisPOI.description.value}</p>
         </div>
@@ -88,7 +87,9 @@
         </div>
 
       </div>
-      <t:infoBox thisPOI="${thisPOI}"/>
+      <div class= "col-md-5">
+        <t:infoBox thisPOI="${thisPOI}"/>
+      </div> 
     </div>
   </div>
   

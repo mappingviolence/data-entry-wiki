@@ -4,8 +4,8 @@
 <%@ attribute name="thisPOI" required="true" type="org.mappingviolence.poi.POI" %>
 
 
-<div class="col-xs-4">
-	<table class="infobox" > 
+<div class="infobox">
+	<table> 
 		<tr class="map"> 
 			<div id="locationAddress"></div>
 			<div id="map"></div>
