@@ -41,6 +41,8 @@
     
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3rwW9biPQiijfhhR9YZagdNrf_f3duvM&callback=initMap"></script>
 
+	<script src="static/script/objects.js"></script>
+
     <jsp:include page="/WEB-INF/tags/mapjs.jspf"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

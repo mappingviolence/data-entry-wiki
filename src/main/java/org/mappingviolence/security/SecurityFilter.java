@@ -60,7 +60,7 @@ public class SecurityFilter implements Filter {
                 GoogleHelperObjects.getJsonFactory())
                     .setAudience(
                         Arrays.asList(
-                            "1031670491058-iveiphljv5dr3fgnr3apb4supm2h3rs2.apps.googleusercontent.com"))
+                            "1031670491058-u8qjl8kd4fv9ud5g7ko8r7do7b9acnbb.apps.googleusercontent.com"))
                     .setIssuer("accounts.google.com")
                     .build();
 

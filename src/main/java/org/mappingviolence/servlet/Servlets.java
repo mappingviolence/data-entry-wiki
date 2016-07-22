@@ -133,4 +133,29 @@ public class Servlets {
     }
     return Splitter.on("&").withKeyValueSeparator("=").split(data);
   }
+
+  public static <T> T parseData(HttpServletRequest req, Class<T> clazz) {
+    InputStream is;
+    try {
+      is = req.getInputStream();
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
+    BufferedReader br = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
+    char[] charBuffer = new char[128];
+    int bytesRead = -1;
+    StringBuilder sb = new StringBuilder();
+    try {
+      while ((bytesRead = br.read(charBuffer)) > 0) {
+        sb.append(charBuffer, 0, bytesRead);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
+
+    String jsonData = sb.toString();
+    return GSON.fromJson(jsonData, clazz);
+  }
 }
