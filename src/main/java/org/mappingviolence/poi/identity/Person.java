@@ -10,7 +10,8 @@ import org.mappingviolence.comment.Comment;
 import org.mappingviolence.comment.CommentContainer;
 
 public class Person implements CommentContainer {
-  private Collection<Identity<?>> identities;
+  @SuppressWarnings("rawtypes")
+  private Collection<Identity> identities;
 
   public Person() {
     identities = new ArrayList<>();
@@ -24,11 +25,12 @@ public class Person implements CommentContainer {
     return identities.remove(identity);
   }
 
-  public void setIdentities(Collection<Identity<?>> identities) {
+  public void setIdentities(@SuppressWarnings("rawtypes") Collection<Identity> identities) {
     this.identities = identities;
   }
 
-  public Collection<Identity<?>> getIdentities() {
+  @SuppressWarnings("rawtypes")
+  public Collection<Identity> getIdentities() {
     return identities;
   }
 
