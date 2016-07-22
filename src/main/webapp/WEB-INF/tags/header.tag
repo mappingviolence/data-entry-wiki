@@ -13,7 +13,7 @@
              <span class="icon-bar"></span>
              <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/dashboard">Mapping Violence</a>
+          <a class="navbar-brand" href="dashboard">Mapping Violence</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -22,12 +22,12 @@
           </ul>
           
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="/pool">Database<span class="sr-only">(current)</span></a></li>
-            <li><a href="/dashboard">My Dashboard</a></li>
+            <li class="active"><a href="pool">Database<span class="sr-only">(current)</span></a></li>
+            <li><a href="dashboard">My Dashboard</a></li>
             <li><a href="#">Admin Panel</a></li>
 	          <li><a href="#">Sign Out</a></li>
           </ul>
-        </div> <!-- /.navbar-collapse -->
+        </div> <!-- /.navbar-collapse 
       </div> <!-- /.container-fluid -->
     </nav>
   </div>
