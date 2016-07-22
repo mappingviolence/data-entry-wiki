@@ -51,24 +51,27 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 
 <!-- js to make edit form appear -->
 <script>
-  $(document).ready(function{
-    $("#edit").hide(); 
+  $(document).ready(function() {
+    $("#editbutton").on("click", function() {
+      $("#edit").toggleClass("hidden");
+      console.log("showed edit");
+    })
 
-    $("editbutton").on("click"){
-      $("#edit").show();
-    }
+    console.log("jquery is being reached");
   })
 </script>
 
 <body id="page-top">
     <t:header /> 
 
-    <div class="container" id="edit">
+    <div class="container hidden" id="edit">
       <t:edit/>
     </div>
 
