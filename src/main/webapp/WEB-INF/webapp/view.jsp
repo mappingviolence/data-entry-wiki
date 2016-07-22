@@ -41,7 +41,7 @@
     
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3rwW9biPQiijfhhR9YZagdNrf_f3duvM&callback=initMap"></script>
 
-	<script src="static/script/objects.js"></script>
+	  <script src="static/script/objects.js"></script>
 
     <jsp:include page="/WEB-INF/tags/mapjs.jspf"/>
 
@@ -51,18 +51,33 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
+
+
+<!-- js to make edit form appear -->
+<script>
+  $(document).ready(function{
+    $("#edit").hide(); 
+
+    $("editbutton").on("click"){
+      $("#edit").show();
+    }
+  })
+</script>
 
 <body id="page-top">
     <t:header /> 
+
+    <div class="container" id="edit">
+      <t:edit/>
+    </div>
 
     <div class="container" id="header">     
       <div class="data-element"> 
         <div id="title"> 
           <h1> 
             ${thisPOI.title.value} 
-            <button type="button" class="btn btn-default btn-lg">
+            <button type="button" class="btn btn-default btn-lg" id="editbutton">
                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
             </button>
           </h1>  
