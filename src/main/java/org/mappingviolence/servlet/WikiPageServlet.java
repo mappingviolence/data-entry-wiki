@@ -13,8 +13,9 @@ import org.mappingviolence.form.StringSimpleFormField;
 import org.mappingviolence.poi.POI;
 import org.mappingviolence.poi.POIWikiPage;
 import org.mappingviolence.poi.date.Date;
+import org.mappingviolence.poi.identity.Age;
 import org.mappingviolence.poi.identity.Person;
-import org.mappingviolence.poi.identity.SimpleIdentity;
+import org.mappingviolence.poi.identity.Race;
 import org.mappingviolence.user.User;
 import org.mongodb.morphia.Datastore;
 
@@ -61,17 +62,21 @@ public class WikiPageServlet extends HttpServlet {
         "This is where it was located according to a newspaper article from the Brownsville Daily Herald");
     Collection<Person> victims = new ArrayList<>();
     Person p1 = new Person();
-    p1.addIdentity(new SimpleIdentity<String>("Race", "White"));
+    p1.addIdentity(new Race("White"));
     Person p2 = new Person();
-    p2.addIdentity(new SimpleIdentity<String>("Race", "Black"));
-    p2.addIdentity(new SimpleIdentity<Integer>("Age", 14));
+    p2.addIdentity(new Race("Black"));
+    p2.addIdentity(new Age(14));
+    victims.add(p1);
+    victims.add(p2);
     poi.setVictims(victims);
     Collection<Person> aggressors = new ArrayList<>();
     Person p3 = new Person();
-    p3.addIdentity(new SimpleIdentity<String>("Race", "Black"));
-    p3.addIdentity(new SimpleIdentity<Integer>("Age", 54));
+    p3.addIdentity(new Race("Black"));
+    p3.addIdentity(new Age(54));
     Person p4 = new Person();
-    p4.addIdentity(new SimpleIdentity<String>("Race", "White"));
+    p4.addIdentity(new Race("White"));
+    aggressors.add(p3);
+    aggressors.add(p4);
     poi.setAggressors(aggressors);
     Collection<StringSimpleFormField> tags = new ArrayList<>();
     tags.add(new StringSimpleFormField("Tag", "Murder"));
@@ -85,11 +90,12 @@ public class WikiPageServlet extends HttpServlet {
     secondarySources.add(new StringSimpleFormField("Secondary Source", "Secondary Source 1"));
     secondarySources.add(new StringSimpleFormField("Secondary Source", "Secondary Source 1"));
     poi.setSecondarySources(secondarySources);
+    poi.setResearchNotes("My notes will go here.");
 
     User user = (User) req.getSession().getAttribute("currentUser");
     POIWikiPage poiW = new POIWikiPage(user);
     try {
-      wait(1000);
+      Thread.sleep(1000);
     } catch (InterruptedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -99,6 +105,7 @@ public class WikiPageServlet extends HttpServlet {
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
     String id = (String) ds.save(poiW).getId();
     Servlets.sendSuccess(id, HttpServletResponse.SC_OK, req, resp, "text/json");
+
     /*
      * User currentUser = (User) req.getSession().getAttribute("currentUser");
      * 
@@ -111,6 +118,7 @@ public class WikiPageServlet extends HttpServlet {
      * Servlets.sendSuccess(id, HttpServletResponse.SC_OK, req, resp,
      * "text/json");
      */
+
   }
 
   @Override
