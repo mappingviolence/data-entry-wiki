@@ -160,11 +160,8 @@ public class POI implements CommentContainer {
 
   // idk remove
 
-  public void setPrimarySources(Collection<String> primarySources) {
-    this.primarySources.clear();
-    for (String primarySource : primarySources) {
-      this.primarySources.add(new StringSimpleFormField("Primary Source", primarySource));
-    }
+  public void setPrimarySources(Collection<StringSimpleFormField> primarySources) {
+    this.primarySources = primarySources;
   }
 
   public Collection<FormField<String>> getSecondarySources() {
@@ -179,11 +176,8 @@ public class POI implements CommentContainer {
 
   // idk remove
 
-  public void setSecondarySources(Collection<String> SecondarySources) {
-    this.secondarySources.clear();
-    for (String SecondarySource : SecondarySources) {
-      this.secondarySources.add(new StringSimpleFormField("Secondary Source", SecondarySource));
-    }
+  public void setSecondarySources(Collection<StringSimpleFormField> secondarySources) {
+    this.secondarySources = secondarySources;
   }
 
   public Collection<FormField<String>> getTags() {
@@ -198,11 +192,8 @@ public class POI implements CommentContainer {
 
   // idk remove
 
-  public void setTags(Collection<String> tags) {
-    this.tags.clear();
-    for (String tag : tags) {
-      this.tags.add(new StringSimpleFormField("Tag", tag));
-    }
+  public void setTags(Collection<StringSimpleFormField> tags) {
+    this.tags = tags;
   }
 
   public FormField<String> getResearchNotes() {

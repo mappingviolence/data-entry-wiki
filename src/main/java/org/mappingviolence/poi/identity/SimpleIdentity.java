@@ -9,7 +9,7 @@ public class SimpleIdentity<T> extends SimpleFormField<T> implements Identity<T>
   protected SimpleIdentity() {
   }
 
-  protected SimpleIdentity(String category, T value) {
+  public SimpleIdentity(String category, T value) {
     super(category, value);
     this.category = category;
   }

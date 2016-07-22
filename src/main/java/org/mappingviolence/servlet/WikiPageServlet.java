@@ -1,13 +1,20 @@
 // rough draft of view servlet:
 package org.mappingviolence.servlet;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mappingviolence.database.DatabaseConnection;
+import org.mappingviolence.form.StringSimpleFormField;
 import org.mappingviolence.poi.POI;
 import org.mappingviolence.poi.POIWikiPage;
+import org.mappingviolence.poi.date.Date;
+import org.mappingviolence.poi.identity.Person;
+import org.mappingviolence.poi.identity.SimpleIdentity;
 import org.mappingviolence.user.User;
 import org.mongodb.morphia.Datastore;
 
@@ -17,7 +24,7 @@ public class WikiPageServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
     String id = req.getParameter("id");
 
-    Servlets.sendSuccess(new POI(), 200, req, resp, "text/json");
+    // Servlets.sendSuccess(new POI(), 200, req, resp, "text/json");
 
     if (id == null) {
       req.setAttribute("errorMessage", "There was no id parameter found in the request.");
@@ -45,15 +52,65 @@ public class WikiPageServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
-    User currentUser = (User) req.getSession().getAttribute("currentUser");
+    POI poi = new POI();
+    poi.setTitle("Sample Title: Test 1");
+    poi.setDate(new Date("2015"));
+    poi.setDescription("This is a");
+    poi.setLocation(15.0, 23.54);
+    poi.setLocationRationale(
+        "This is where it was located according to a newspaper article from the Brownsville Daily Herald");
+    Collection<Person> victims = new ArrayList<>();
+    Person p1 = new Person();
+    p1.addIdentity(new SimpleIdentity<String>("Race", "White"));
+    Person p2 = new Person();
+    p2.addIdentity(new SimpleIdentity<String>("Race", "Black"));
+    p2.addIdentity(new SimpleIdentity<Integer>("Age", 14));
+    poi.setVictims(victims);
+    Collection<Person> aggressors = new ArrayList<>();
+    Person p3 = new Person();
+    p3.addIdentity(new SimpleIdentity<String>("Race", "Black"));
+    p3.addIdentity(new SimpleIdentity<Integer>("Age", 54));
+    Person p4 = new Person();
+    p4.addIdentity(new SimpleIdentity<String>("Race", "White"));
+    poi.setAggressors(aggressors);
+    Collection<StringSimpleFormField> tags = new ArrayList<>();
+    tags.add(new StringSimpleFormField("Tag", "Murder"));
+    tags.add(new StringSimpleFormField("Tag", "Texas Rangers"));
+    tags.add(new StringSimpleFormField("Tag", "Congressional Investigation"));
+    poi.setTags(tags);
+    Collection<StringSimpleFormField> primarySources = new ArrayList<>();
+    primarySources.add(new StringSimpleFormField("Primary Source", "Primary Source 1"));
+    poi.setPrimarySources(primarySources);
+    Collection<StringSimpleFormField> secondarySources = new ArrayList<>();
+    secondarySources.add(new StringSimpleFormField("Secondary Source", "Secondary Source 1"));
+    secondarySources.add(new StringSimpleFormField("Secondary Source", "Secondary Source 1"));
+    poi.setSecondarySources(secondarySources);
 
-    POIWikiPage poiW = new POIWikiPage(currentUser);
+    User user = (User) req.getSession().getAttribute("currentUser");
+    POIWikiPage poiW = new POIWikiPage(user);
+    try {
+      wait(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    poiW.addVersion(user, poi);
 
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
-
     String id = (String) ds.save(poiW).getId();
-
     Servlets.sendSuccess(id, HttpServletResponse.SC_OK, req, resp, "text/json");
+    /*
+     * User currentUser = (User) req.getSession().getAttribute("currentUser");
+     * 
+     * POIWikiPage poiW = new POIWikiPage(currentUser);
+     * 
+     * Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
+     * 
+     * String id = (String) ds.save(poiW).getId();
+     * 
+     * Servlets.sendSuccess(id, HttpServletResponse.SC_OK, req, resp,
+     * "text/json");
+     */
   }
 
   @Override
