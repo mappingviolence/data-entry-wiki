@@ -29,24 +29,13 @@ public class POIWikiPage extends WikiPage<POI> {
   @SuppressWarnings("unused")
   private POIWikiPage() {
     super();
-    id = new ObjectId().toHexString();
-    previous = new LinkedList<>();
   }
 
   public POIWikiPage(User creator) {
     super(creator);
     id = new ObjectId().toHexString();
+    current = new POIVersion(creator, new POI());
     previous = new LinkedList<>();
-  }
-
-  public POIWikiPage(User creator, POI data) {
-    this(creator);
-    addVersion(data, creator);
-  }
-
-  public POIWikiPage(User creator, POIVersion firstVersion) {
-    this(creator);
-    addVersion(firstVersion.getData(), creator);
   }
 
   @Override
@@ -74,8 +63,8 @@ public class POIWikiPage extends WikiPage<POI> {
   }
 
   @Override
-  public void addVersion(POI newPOI, User editor) {
-    POIVersion newPOIVersion = new POIVersion(newPOI, editor);
+  public void addVersion(User editor, POI newPOI) {
+    POIVersion newPOIVersion = new POIVersion(editor, newPOI);
     /* Make sure that newVersion is saved to db */
     ds.save(newPOIVersion);
     /*

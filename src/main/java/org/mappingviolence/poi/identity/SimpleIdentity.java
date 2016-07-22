@@ -4,10 +4,9 @@ import org.mappingviolence.form.SimpleFormField;
 
 public class SimpleIdentity<T> extends SimpleFormField<T> implements Identity<T> {
 
-  protected String category;
+  private String category;
 
-  @SuppressWarnings("unused")
-  private SimpleIdentity() {
+  protected SimpleIdentity() {
   }
 
   protected SimpleIdentity(String category, T value) {

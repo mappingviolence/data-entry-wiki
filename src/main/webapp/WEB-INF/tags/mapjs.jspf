@@ -1,6 +1,6 @@
-<script src="/static/script/geocoding-places.js"></script>
-<script src="/static/script/map.js"></script>
-<script src="/static/script/update-geoinfo.js"></script>
+<script src="static/script/geocoding-places.js"></script>
+<script src="static/script/map.js"></script>
+<script src="static/script/update-geoinfo.js"></script>
 <script>
 var m;
       var ready = function() {

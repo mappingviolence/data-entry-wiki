@@ -18,7 +18,7 @@ public class POIVersion extends Version<POI> {
     super();
   }
 
-  public POIVersion(POI data, User editor) {
+  public POIVersion(User editor, POI data) {
     super(editor);
     id = new ObjectId().toHexString();
     this.data = data;
