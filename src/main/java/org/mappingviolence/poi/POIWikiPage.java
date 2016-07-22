@@ -21,6 +21,7 @@ public class POIWikiPage extends WikiPage<POI> {
   @Id
   private String id;
 
+  @Reference
   private POIVersion current;
 
   @Reference
@@ -35,6 +36,7 @@ public class POIWikiPage extends WikiPage<POI> {
     super(creator);
     id = new ObjectId().toHexString();
     current = new POIVersion(creator, new POI());
+    ds.save(current);
     previous = new LinkedList<>();
   }
 

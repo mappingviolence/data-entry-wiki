@@ -1,6 +1,7 @@
 package org.mappingviolence.poi.identity;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ public class Person implements CommentContainer {
   private Collection<Identity<?>> identities;
 
   public Person() {
+    identities = new ArrayList<>();
   }
 
   public <T> boolean addIdentity(Identity<T> newIdentity) {
