@@ -41,7 +41,7 @@
     
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3rwW9biPQiijfhhR9YZagdNrf_f3duvM&callback=initMap"></script>
 
-	<script src="static/script/objects.js"></script>
+	  <script src="static/script/objects.js"></script>
 
     <jsp:include page="/WEB-INF/tags/mapjs.jspf"/>
 
@@ -52,46 +52,78 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
+
+
+<!-- js -->
+<script>
+  $(document).ready(function() {
+
+    /* make edit button appear */
+    $("#editbutton").on("click", function() {
+      $("#edit").toggleClass("hidden");
+      $("#view").toggleClass("hidden");
+    })
+
+    /* populating the form */
+    var title = $("#title h1").text(); 
+    $("input[name='title']").val(title);
+    var date = $("#date").text();
+    $("input[name='date']").val(date); 
+    var description = $("#description p").text();
+    $("textarea[name='description']").val(description);
+    var researchnotes = $("#researchnotes p").text();
+    $("textarea[name='researchnotes']").val(researchnotes);
+
+  })
+</script>
 
 <body id="page-top">
     <t:header /> 
 
-    <div class="container" id="header">     
-      <div class="data-element"> 
-        <div id="title"> 
-          <h1> 
-            ${thisPOI.title.value} 
-            <button type="button" class="btn btn-default btn-lg">
-               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
-            </button>
-          </h1>  
-        </div>  
-      </div> 
-    </div> 
-
-    <div class="container" id="main">
-      <div class="row">
-       <div class="col-md-7 offset-md-1">
-        <div class="data-element"> 
-          <p>${thisPOI.description.value}</p>
-        </div>
-        <div class="data-element"> 
-          	<h2>Citations</h2>
-          	<t:citations title="Primary Sources" citations="${thisPOI.primarySources}"/>
-            <t:citations title="Secondary Sources" citations="${thisPOI.secondarySources}"/>
-        </div> 
-        <div class="data-element"> 
-          <h2>Research Notes</h2> 
-          <p>${thisPOI.researchNotes.value}</p>
-        </div>
-
-      </div>
-      <div class= "col-md-5">
-        <t:infoBox thisPOI="${thisPOI}"/>
-      </div> 
+    <!-- edit form --> 
+    <div class="container hidden" id="edit" style="width:800px;">
+      <t:edit/>
     </div>
-  </div>
+
+    <!-- wiki view --> 
+    <div class="container" id="view"> 
+      <div class="container" id="header">     
+        <div class="data-element"> 
+          <div id="title"> 
+            <h1 style="display: inline-block;">${thisPOI.title.value}</h1>  
+            <button type="button" class="btn btn-default btn-lg" id="editbutton" style="bottom: 10px">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+            </button> 
+          </div> 
+        </div> 
+      </div> 
+      <!-- wiki data--> 
+      <div class="container" id="main">
+        <div class="row">
+         <!-- left side view--> 
+         <div class="col-md-7 offset-md-1">
+          <div class="data-element" id="description"> 
+            <p>${thisPOI.description.value}</p>
+          </div>
+          <div class="data-element" id="citations"> 
+            	<h2>Citations</h2>
+            	<t:citations title="Primary Sources" citations="${thisPOI.primarySources}"/>
+              <t:citations title="Secondary Sources" citations="${thisPOI.secondarySources}"/>
+          </div> 
+          <div class="data-element" id="researchnotes"> 
+            <h2>Research Notes</h2> 
+            <p>${thisPOI.researchNotes.value}</p>
+          </div>
+        <!-- right side infobox--> 
+        </div>
+        <div class= "col-md-5">
+          <t:infoBox thisPOI="${thisPOI}"/>
+        </div> 
+      </div>
+    </div>
+  </div> 
   
 </body>
 

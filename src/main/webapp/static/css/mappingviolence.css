@@ -1,14 +1,31 @@
 body {
 	font-family: 'Crimson Text', 'CrimsonText', serif !important; 
 	background-color: #fafafa;
+	font-size:14pt  !important;
 }
 
+.form-group label, .form-control {
+	font-size:14pt !important;
+}
+
+.form-group label {
+	font-family: 'Montserrat', sans-serif; 
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.form-control {
+	background-color: #fff !important;
+}
+
+
+
 h1 { 
-	font-size: 80px !important; 
+	font-size: 60pt !important; 
 }
 
 h2 { 
-	font-size: 3em !important;
+	font-size: 30pt !important;
 }
 
 .display-3 { 

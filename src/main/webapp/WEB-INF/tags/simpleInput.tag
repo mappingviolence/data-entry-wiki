@@ -5,11 +5,12 @@
 <%@ attribute name="name" required="true" %>
 <%@ attribute name="label" required="true" %>
 <%@ attribute name="helpText" required="false" %>
+
 <%-- <%@ attribute name="poi" required="true" type="java.util.Map" %> --%>
 
  
 <div class="form-group">
-    <label for="title">${label}: 
+    <label for="title">${label}
         <span id="titleHelp" role="helpBtn" class="glyphicon glyphicon-info-sign"></span>
     </label>
     <c:choose>

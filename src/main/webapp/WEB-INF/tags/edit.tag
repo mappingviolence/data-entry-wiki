@@ -4,9 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<div class="container"> 
+<form> 
 	<%-- title --%> 
-	<t:simpleInput name="title" label="Title:" 
+	<t:simpleInput name="title" label="Title:"
 		helpText="Enter a short, concise phrase that identifies this point of interest (POI). The event title is visible to the public."/>
 
 	<%-- date --%> 
@@ -30,9 +30,15 @@
 		helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
 
 	<%-- location --%> 
+	<div class="col-xs-6">
+		<t:simpleInput name="lat" label="Latitude:"/>
+	</div> 
+	<div class="col-xs-6">
+		<t:simpleInput name="long" label="Longitude:"/>
+	</div> 
 
 	<%-- location rationale --%>
-	<t:textArea name="locationRationale" label="Location Rationale:" 
+	<t:textArea name="locationrationale" label="Location Rationale:" 
 		helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
 
 	<%-- victim identities --%> 
@@ -47,6 +53,9 @@
 
 	<%-- secondary sources --%> 
 
-	<t:textArea name="notes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>
+	<%-- research notes --%>
+	<t:textArea name="researchnotes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>
 
-</div> 
+	<button type="button" class="btn btn-primary btn-lg" action="submit">Save</button> 
+
+</form> 
