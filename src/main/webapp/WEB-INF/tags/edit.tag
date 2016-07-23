@@ -34,7 +34,7 @@
 		<t:simpleInput name="lat" label="Latitude:"/>
 	</div> 
 	<div class="col-xs-6">
-		<t:simpleInput name="long" label="Longitude:"/>
+		<t:simpleInput name="lng" label="Longitude:"/>
 	</div> 
 
 	<%-- location rationale --%>
