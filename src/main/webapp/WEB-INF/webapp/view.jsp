@@ -34,14 +34,14 @@
     <link rel="stylesheet" href="static/css/mappingviolence.css" type="text/css">
     
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3rwW9biPQiijfhhR9YZagdNrf_f3duvM&callback=initMap"></script>
 
-	  <script src="static/script/objects.js"></script>
+	<script src="static/script/objects.js"></script>
 
     <jsp:include page="/WEB-INF/tags/mapjs.jspf"/>
 
@@ -72,15 +72,15 @@
     var date = $("#date").text();
     $("input[name='date']").val(date); 
     var description = $("#description p").text();
-    $("textarea[name='description']").val(description);
+    $("textarea[name='description']").text(description);
     var latitude = $("#lat").text(); 
     $("input[name='lat']").val(latitude);
     var longitude = $("#lng").text(); 
     $("input[name='lng']").val(longitude);
-    var description = $("#locationrationale").text();
-    $("textarea[name='locationrationale']").val(locationrationale);
+    var locationrationale = $("#locationrationale").text();
+    $("textarea[name='locationrationale']").text(locationrationale);
     var researchnotes = $("#researchnotes p").text();
-    $("textarea[name='researchnotes']").val(researchnotes);
+    $("textarea[name='researchnotes']").text(researchnotes);
 
     /* help button text */
     var helpBtns = $("label>span[role='helpBtn']");
@@ -125,9 +125,9 @@
             <p>${thisPOI.description.value}</p>
           </div>
           <div class="data-element" id="citations"> 
-            	<h2>Citations</h2>
-            	<t:citations title="Primary Sources" citations="${thisPOI.primarySources}"/>
-              <t:citations title="Secondary Sources" citations="${thisPOI.secondarySources}"/>
+          	<h2>Citations</h2>
+            <t:citations title="Primary Sources" citations="${thisPOI.primarySources}"/>
+            <t:citations title="Secondary Sources" citations="${thisPOI.secondarySources}"/>
           </div> 
           <div class="data-element" id="researchnotes"> 
             <h2>Research Notes</h2> 

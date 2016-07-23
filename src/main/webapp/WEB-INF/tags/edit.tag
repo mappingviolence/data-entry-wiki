@@ -30,13 +30,15 @@
 		helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
 
 	<%-- location --%> 
-	<div class="col-xs-6">
-		<t:simpleInput name="lat" label="Latitude:"/>
-	</div> 
-	<div class="col-xs-6">
-		<t:simpleInput name="lng" label="Longitude:"/>
-	</div> 
-
+	<div class="row">
+		<div class="col-xs-6">
+			<t:simpleInput name="lat" label="Latitude:"/>
+		</div> 
+		<div class="col-xs-6">
+			<t:simpleInput name="lng" label="Longitude:"/>
+		</div> 
+	</div>
+	
 	<%-- location rationale --%>
 	<t:textArea name="locationrationale" label="Location Rationale:" 
 		helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
@@ -56,6 +58,6 @@
 	<%-- research notes --%>
 	<t:textArea name="researchnotes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>
 
-	<button type="button" class="btn btn-primary btn-lg" action="submit">Save</button> 
+	<button type="submit" class="btn btn-primary btn-lg">Save</button> 
 
 </form> 
