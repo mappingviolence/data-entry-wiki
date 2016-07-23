@@ -9,6 +9,7 @@ body {
 }
 
 .form-group .help-block { 
+	position: relative;
 	display: block;
 }
 
