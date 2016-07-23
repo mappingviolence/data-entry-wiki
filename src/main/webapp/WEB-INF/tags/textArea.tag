@@ -20,7 +20,7 @@
             <textarea class="form-control" name="${name}" rows="3">${poi[name]}</textarea>
         </c:when>
         <c:otherwise>
-            <textarea class="form-control" name="${name}" rows="6">${poi[name]}</textarea>
+            <textarea class="form-control" name="${name}" rows="">${poi[name]}</textarea>
         </c:otherwise>
     </c:choose>
         <span id="titleHelpText" class="help-block hidden">
