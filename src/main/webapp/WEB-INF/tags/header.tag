@@ -24,7 +24,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="pool">Database<span class="sr-only">(current)</span></a></li>
             <li><a href="dashboard">My Dashboard</a></li>
-            <li><a href="#">Admin Panel</a></li>
+            <li><a href="admin">Admin Panel</a></li>
 	          <li><a href="#">Sign Out</a></li>
           </ul>
         </div> <!-- /.navbar-collapse 

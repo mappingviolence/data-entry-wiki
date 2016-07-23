@@ -11,6 +11,7 @@ body {
 .form-group .help-block { 
 	position: relative;
 	display: block;
+	font-size: 12pt !important; 
 }
 
 .form-group label {
@@ -23,7 +24,14 @@ body {
 	background-color: #fff !important;
 }
 
-
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td, 
+.table>thead>tr>th { 
+	vertical-align: middle !important; 
+}
 
 thead {
 	font-size: 14pt !important; 
@@ -44,6 +52,13 @@ h1 {
 h2 { 
 	font-size: 30pt !important;
 }
+
+.btn .btn-lg .btn-default .btn-primary { 
+	font-family: 'Montserrat', sans-serif; 
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
 
 .display-3 { 
 	padding-top: 1em; 

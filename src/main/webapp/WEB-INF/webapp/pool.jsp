@@ -56,21 +56,29 @@
 
   <t:header /> 
 
-  <t:wikiTable name="All POIs" wikiList="${allPOIs}" /> 
+  <div class="container"> 
 
-  <!-- jQuery -->
-  <script src="js/jquery.js"></script>
+    <h1>Mapping Violence Database</h1> 
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
+    <p>Below are all the POIs ever created by the Mapping Violence team</p> 
 
-  <!-- Plugin JavaScript -->
-  <script src="js/jquery.easing.min.js"></script>
-  <script src="js/jquery.fittext.js"></script>
-  <script src="js/wow.min.js"></script>
+    <t:wikiTable name="All POIs" wikiList="${allPOIs}" /> 
 
-  <!-- Custom Theme JavaScript -->
-  <script src="js/creative.js"></script>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+
+  </div> 
 
 </body>
 

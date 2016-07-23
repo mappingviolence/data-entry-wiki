@@ -30,10 +30,10 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
       HttpSession session = req.getSession(false);
       User currentUser = (User) session.getAttribute("currentUser");
       if (currentUser == null) {
-        throw new IllegalArgumentException("whoa! asdf 1234 as");
+        throw new IllegalArgumentException("Please login to access this page");
       }
       req.setAttribute("currentUser", currentUser);
-      req.getRequestDispatcher("/WEB-INF/webapp/admin/user-settings.jsp").forward(req, resp);
+      req.getRequestDispatcher("/WEB-INF/webapp/user-settings.jsp").forward(req, resp);
     } catch (ServletException | IOException e) {
       // TODO Auto-generated catch block
       try {
