@@ -9,21 +9,9 @@
 
  
 <div class="form-group">
-    <label for="title">${label} 
-        <span id="titleHelp" role="helpBtn" class="glyphicon glyphicon-info-sign"></span>
+    <label for="${name}">${label} 
+        <span id="${name}Help" role="helpBtn" class="glyphicon glyphicon-info-sign"></span>
     </label>
-    <c:choose>
-        <c:when test="${not empty poi and not empty poi[name]}">
-            <textarea class="form-control" name="${name}" rows="3">${poi[name]}</textarea>
-        </c:when>
-        <c:when test="${not empty originals and not empty originals[name]}">
-            <textarea class="form-control" name="${name}" rows="3">${poi[name]}</textarea>
-        </c:when>
-        <c:otherwise>
-            <textarea class="form-control" name="${name}" rows="6">${poi[name]}</textarea>
-        </c:otherwise>
-    </c:choose>
-        <span id="titleHelpText" class="help-block hidden">
-            ${helpText}
-        </span>
+    <textarea class="form-control" name="${name}" rows="6"></textarea>
+    <span id="${name}HelpText" class="help-block hidden">${helpText}</span>
 </div>
