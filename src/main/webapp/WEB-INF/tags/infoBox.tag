@@ -13,6 +13,8 @@
 			<div id="lng">${thisPOI.location.value.getLongitude()}</div>
 		</tr> 
 		<tr> 
+			<td> <p id="locationrationale">${thisPOI.locationRationale.value}</p></td>
+		<tr> 
 			<td> <h3 id="date">${thisPOI.date.value}</h3> </td> 
 		</tr> 
 		<t:listOutData title="Victims" peopleList="${thisPOI.victims}"/> 

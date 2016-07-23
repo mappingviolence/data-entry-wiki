@@ -18,7 +18,17 @@ body {
 	background-color: #fff !important;
 }
 
+thead {
+	font-size: 14pt !important; 
+	font-family: 'Montserrat', sans-serif; 
+	font-weight: 700; 
+	text-transform: uppercase;
+	color: #BDBDBD;
+}
 
+tbody {
+	font-size: 14pt !important; 
+}
 
 h1 { 
 	font-size: 60pt !important; 

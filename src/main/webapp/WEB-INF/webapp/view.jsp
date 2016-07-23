@@ -73,10 +73,27 @@
     $("input[name='date']").val(date); 
     var description = $("#description p").text();
     $("textarea[name='description']").val(description);
+    var latitude = $("#lat").text(); 
+    $("input[name='lat']").val(latitude);
+    var longitude = $("#lng").text(); 
+    $("input[name='lng']").val(longitude);
+    var description = $("#locationrationale").text();
+    $("textarea[name='locationrationale']").val(locationrationale);
     var researchnotes = $("#researchnotes p").text();
     $("textarea[name='researchnotes']").val(researchnotes);
 
-  })
+    /* help button text */
+    var helpBtns = $("label>span[role='helpBtn']");
+    for (var i = 0; i < helpBtns.length; i++) {
+        var helpBtn = helpBtns[i];
+        $(helpBtn).on("click", function(e) {
+            e.preventDefault();
+            var id = this.id;
+            $("#" + id + "Text").toggleClass("hidden");
+        });
+    }
+
+  });
 </script>
 
 <body id="page-top">
