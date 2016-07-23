@@ -1,3 +1,17 @@
+var POI = function() {
+	this.title;
+	this.date;
+	this.description;
+	this.location;
+	this.locationRationale;
+	this.victims = [];
+	this.aggressors = [];
+	this.tags = [];
+	this.primarySources = [];
+	this.secondarySources = [];
+	this.researchNotes;
+}
+
 var SimpleFormField = function(id, name, value) {
 	this.id = id;
 	this.name = name;	

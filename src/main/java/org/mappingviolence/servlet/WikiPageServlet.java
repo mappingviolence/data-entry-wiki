@@ -3,6 +3,7 @@ package org.mappingviolence.servlet;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.mappingviolence.poi.date.Date;
 import org.mappingviolence.poi.identity.Age;
 import org.mappingviolence.poi.identity.Person;
 import org.mappingviolence.poi.identity.Race;
+import org.mappingviolence.servlet.Servlets.Error;
 import org.mappingviolence.user.User;
 import org.mongodb.morphia.Datastore;
 
@@ -92,7 +94,11 @@ public class WikiPageServlet extends HttpServlet {
     poi.setSecondarySources(secondarySources);
     poi.setResearchNotes("My notes will go here.");
 
-    User user = (User) req.getSession().getAttribute("currentUser");
+    User user = (User) req.getSession(false).getAttribute("currentUser");
+    if (user == null) {
+      Servlets.sendError(Error.INTERNAL_SERVER_ERROR, req, resp);
+      return;
+    }
     POIWikiPage poiW = new POIWikiPage(user);
     try {
       Thread.sleep(1000);
@@ -235,5 +241,49 @@ public class WikiPageServlet extends HttpServlet {
      * poi.setVictims(victims);
      * }
      */
+  }
+
+  @Override
+  public void doDelete(HttpServletRequest req, HttpServletResponse resp) {
+    Map<String, String> map = Servlets.parseData(req);
+    String id = map.get("id");
+    Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
+    POIWikiPage poiW = ds.get(POIWikiPage.class, id);
+    POI poi = poiW.getCurrentData();
+    Servlets.sendSuccess(poi, 200, req, resp, "text/json");
+    return;
+  }
+
+  @Override
+  public void doOptions(HttpServletRequest req, HttpServletResponse resp) {
+    String id = req.getParameter("id");
+    if (id == null) {
+      Servlets.sendError(Error.ID_MISSING, req, resp);
+      return;
+    }
+
+    Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
+
+    POIWikiPage poiWikiPage = ds.get(POIWikiPage.class, id);
+
+    if (poiWikiPage == null) {
+      Servlets.sendError(Error.ID_NOT_FOUND, req, resp);
+      return;
+    }
+
+    POI poi = Servlets.parseData(req, POI.class);
+    if (poi == null) {
+      Servlets.sendError(
+          new Error("Error deserializing json", HttpServletResponse.SC_BAD_REQUEST),
+          req,
+          resp);
+      return;
+    }
+
+    User currentUser = (User) req.getSession(false).getAttribute("currentUser");
+
+    poiWikiPage.addVersion(currentUser, poi);
+    String poiWikiPageId = (String) ds.save(poiWikiPage).getId();
+    Servlets.sendSuccess(poiWikiPageId, HttpServletResponse.SC_OK, req, resp, "text/json");
   }
 }

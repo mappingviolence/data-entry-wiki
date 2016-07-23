@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 public class Servlets {
   public static final Gson GSON = new Gson();
@@ -156,6 +157,10 @@ public class Servlets {
     }
 
     String jsonData = sb.toString();
-    return GSON.fromJson(jsonData, clazz);
+    try {
+      return GSON.fromJson(jsonData, clazz);
+    } catch (JsonSyntaxException e) {
+      return null;
+    }
   }
 }

@@ -8,7 +8,7 @@
 <div class="container"> 
 	<table class="table"> 
 		<caption><h2>${name}</h2></caption> 	
-		<thead> 
+		<thead>
 			<tr>
 				<th>Title</th>
 				<th>Creator</th>
@@ -18,10 +18,10 @@
 		<c:choose>
 			<c:when test="${fn:length(wikiList) gt 0}">
 				<c:forEach var="wikiPage" items="${wikiList}"> 
-					<c:set var="wikiData" value="wikiPage.current.data" />
+					<c:set var="wikiData" value="${wikiPage.getCurrentData()}" />
 					<tr>
-						<td>${wikiData[title]}</td>
-						<td>${wikiData[creator]}</td>
+						<td><a href="wikipage?id=${wikiPage.id}">${wikiData.title.value}</a></td>
+						<td>${wikiPage.getCurrentVersion().editor.email}</td>
 					</tr>
 				</c:forEach>
 			</c:when>
