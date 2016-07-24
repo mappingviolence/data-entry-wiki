@@ -43,13 +43,13 @@
   </servlet-mapping>
   
   <servlet>
-  	<servlet-name>admin_settings</servlet-name>
+  	<servlet-name>admin</servlet-name>
   	<servlet-class>org.mappingviolence.servlet.UpdateUserPermissionsServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-  	<servlet-name>admin_settings</servlet-name>
-  	<url-pattern>/admin/settings</url-pattern>
+  	<servlet-name>admin</servlet-name>
+  	<url-pattern>/admin</url-pattern>
   </servlet-mapping>
   
   <filter>

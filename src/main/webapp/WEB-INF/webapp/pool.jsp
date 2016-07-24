@@ -33,14 +33,10 @@
     <link rel="stylesheet" href="static/css/mappingviolence.css" type="text/css">
     
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3rwW9biPQiijfhhR9YZagdNrf_f3duvM&callback=initMap"></script>
-
-    <jsp:include page="/WEB-INF/tags/mapjs.jspf"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,27 +46,22 @@
     <![endif]-->
 
 
+
 </head>
 
 <body id="page-top">
 
-  <t:header /> 
+  <t:header page="pool"/> 
 
-  <t:wikiTable name="All POIs" wikiList="${allPOIs}" /> 
+  <div class="container"> 
 
-  <!-- jQuery -->
-  <script src="js/jquery.js"></script>
+    <h1>Mapping Violence Database</h1> 
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
+    <p>Below are all the POIs ever created by the Mapping Violence team</p> 
 
-  <!-- Plugin JavaScript -->
-  <script src="js/jquery.easing.min.js"></script>
-  <script src="js/jquery.fittext.js"></script>
-  <script src="js/wow.min.js"></script>
+    <t:wikiTable name="All POIs" wikiList="${allPOIs}" /> 
 
-  <!-- Custom Theme JavaScript -->
-  <script src="js/creative.js"></script>
+  </div> 
 
 </body>
 

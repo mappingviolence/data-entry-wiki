@@ -39,8 +39,6 @@
     
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3rwW9biPQiijfhhR9YZagdNrf_f3duvM&callback=initMap"></script>
 
-    <jsp:include page="/WEB-INF/tags/mapjs.jspf"/>
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -48,39 +46,26 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
 </head>
 
 <body id="page-top">
 
-	<t:header /> 
+	<t:header page="dashboard"/> 
 
     <div class="container">
     	<h1>Hello ${currentUser.email}, welcome to your dashboard.</h1>
 
         <p> This is where you can keep track of POIs that you're working on. </p> 
     	
-    	<c:if test="${not empty user and not empty user.isEditor and isEditor}">
+    	<c:if test="${not empty currentUser and currentUser.isEditor()}">
             <div class=""></div>
     		<t:wikiTable name="Draft POIs" wikiList="${draftPOIs}" /> 
-    		<t:wikiTable name="Created POIs" wikiList="${createdPOIs}" />
+    		<t:wikiTable name="POIs in Database" wikiList="${reviewPOIs}" />
     		<t:wikiTable name="Pubished POIs" wikiList="${publishedPOIs}" /> 
     	</c:if>
     </div> 
 		
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/jquery.fittext.js"></script>
-    <script src="js/wow.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/creative.js"></script>
-
 </body>
 
 </html>

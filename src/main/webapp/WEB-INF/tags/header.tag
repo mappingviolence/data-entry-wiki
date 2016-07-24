@@ -1,5 +1,14 @@
 <%@ tag description="Table of wiki pages" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ attribute name="page" required="true"%>
+
+<script> 
+  $(document).ready(function(){
+    /* makes navbar change active tab */
+      $("#"${page}).addClass("active");
+  });
+</script> 
+
 
   <div> 
   <!-- "background: #ffffff; box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); text-color: black;" -->
@@ -22,9 +31,9 @@
           </ul>
           
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="pool">Database<span class="sr-only">(current)</span></a></li>
-            <li><a href="dashboard">My Dashboard</a></li>
-            <li><a href="#">Admin Panel</a></li>
+            <li id="pool"><a href="pool">Database<span class="sr-only">(current)</span></a></li>
+            <li id="dashboard"><a href="dashboard">My Dashboard</a></li>
+            <li id="admin"><a href="admin">Admin Panel</a></li>
 	          <li><a href="#">Sign Out</a></li>
           </ul>
         </div> <!-- /.navbar-collapse 
