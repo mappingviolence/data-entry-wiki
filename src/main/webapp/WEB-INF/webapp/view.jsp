@@ -92,12 +92,11 @@
             $("#" + id + "Text").toggleClass("hidden");
         });
     }
-
   });
 </script>
 
 <body id="page-top">
-    <t:header /> 
+    <t:header page="pool"/> 
 
     <!-- edit form --> 
     <div class="container hidden" id="edit" style="width:800px;">

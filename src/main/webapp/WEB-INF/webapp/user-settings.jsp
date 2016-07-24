@@ -52,7 +52,7 @@
 </head>
 <body>
 
-<t:header /> 
+<t:header page="admin"/> 
 
 <div class="container"> 
 	<form>
@@ -74,7 +74,7 @@
 						<td>${user.role}</td>
 						<td>
 							<c:if test="${not empty currentUser and not empty user and cf:compareUsers(currentUser, user) and currentUser.isAdmin()}">
-								<select class="btn btn-lg dropdown-toggle" name="changeRole">
+								<select class="btn btn-default btn-lg dropdown-toggle" name="changeRole">
 									<option value="VIEWER">Viewer</option>
 									<option value="COMMENTOR">Commentor</option>
 									<option value="EDITOR">Editor</option>
