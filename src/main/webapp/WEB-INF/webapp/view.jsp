@@ -124,6 +124,40 @@
             $("#" + id + "Text").toggleClass("hidden");
         });
     }
+
+    /* add new tags */
+    $("#tagBtn").on("click", function(e) {
+      e.preventDefault();
+      var $input = $("div.hidden div[data-id='hiddentag']").clone();
+      $("div.hidden div[data-id='hiddentag']").parent().after($input);
+      $(".removebutton").on("click", function(e) { 
+        e.preventDefault();
+        $(this).parent().remove(); 
+      });
+    })
+
+    /* add new secondary sources */ 
+    $("#secondarysourceBtn").on("click", function(e) {
+      e.preventDefault();
+      var $input = $("div.hidden div[data-id='hiddensecondarysource']").clone();
+      $("div.hidden div[data-id='hiddensecondarysource']").parent().after($input);
+      $(".removebutton").on("click", function(e) { 
+        e.preventDefault();
+        $(this).parent().remove(); 
+      });
+    })
+
+    /* add new primary sources */
+    $("#primarysourceBtn").on("click", function(e) {
+      e.preventDefault();
+      var $input = $("div.hidden div[data-id='hiddenprimarysource']").clone();
+      $("div.hidden div[data-id='hiddenprimarysource']").parent().after($input);
+      $(".removebutton").on("click", function(e) { 
+        e.preventDefault();
+        $(this).parent().remove(); 
+      });
+    })
+
   });
 </script>
 
@@ -152,6 +186,10 @@
             <button type="button" class="btn btn-default btn-lg" id="editbutton" style="bottom: 10px">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
             </button> 
+          </div> 
+          <div id="subtitle" class="grey"> 
+            <h4> ID: ${id} </h4> 
+            <h4><i> created by </i>${creator} | <i> last edited by </i>${lasteditor}<br><br></h4> 
           </div> 
         </div> 
       </div> 

@@ -5,7 +5,10 @@
 
 
 <div class="infobox">
-	<table style="width:100%;"> 
+	<table class="infoboxtable"> 
+		<tr class="mergedbottomrow"> 
+			<td><h3 id="date"><strong>${thisPOI.date.value}</strong></h3></td> 
+		</tr> 
 		<tr class="map"> 
 			<td>
 				<div id="locationAddress"></div>

@@ -5,32 +5,31 @@
 <%@ attribute name="wikiList" required="true" type="java.util.List" %>
 
 
-<div class="container"> 
-	<table class="table"> 
-		<caption><h2>${name}</h2></caption> 	
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Creator</th>
-			</tr>
-		</thead>
-		<tbody>
-		<c:choose>
-			<c:when test="${fn:length(wikiList) gt 0}">
-				<c:forEach var="wikiPage" items="${wikiList}"> 
-					<c:set var="wikiData" value="${wikiPage.getCurrentData()}" />
-					<tr>
-						<td><a href="wikipage?id=${wikiPage.id}">${wikiData.title.value}</a></td>
-						<td>${wikiPage.getCurrentVersion().editor.email}</td>
-					</tr>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
+ 
+<table class="table"> 
+	<caption><h2>${name}</h2></caption> 	
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Creator</th>
+		</tr>
+	</thead>
+	<tbody>
+	<c:choose>
+		<c:when test="${fn:length(wikiList) gt 0}">
+			<c:forEach var="wikiPage" items="${wikiList}"> 
+				<c:set var="wikiData" value="${wikiPage.getCurrentData()}" />
 				<tr>
-					<td colspan="2">No POIs in this section</td>
+					<td><a href="wikipage?id=${wikiPage.id}">${wikiData.title.value}</a></td>
+					<td>${wikiPage.getCurrentVersion().editor.email}</td>
 				</tr>
-			</c:otherwise>
-		</c:choose>
-		</tbody>
-	</table>
-</div> 
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			<tr>
+				<td colspan="2">No POIs in this section</td>
+			</tr>
+		</c:otherwise>
+	</c:choose>
+	</tbody>
+</table>
