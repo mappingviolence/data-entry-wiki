@@ -4,6 +4,10 @@ body {
 	font-size:14pt  !important;
 }
 
+.grey {
+	color: #BDBDBD;
+}
+
 .form-group label, .form-control {
 	font-size:14pt !important;
 }
@@ -34,6 +38,14 @@ body {
 .table>thead>tr>td, 
 .table>thead>tr>th { 
 	vertical-align: middle !important; 
+}
+
+.mergedtoprow {
+	border-top: solid 1px #dddddd;
+}
+
+.mergedbottomrow {
+	border-bottom: solid 1px #dddddd;
 }
 
 thead {
@@ -94,5 +106,14 @@ h2 {
     border-left-width: 1px;
     border-left-style: solid;
     border-left-color: #bbbbbb;
-    padding-left: 10px;
+    padding-left: 20px;
+}
+
+.infoboxtable {
+	width: 100%;
+	margin-bottom: 30px; 
+}
+
+.infoboxtable h3 { 
+	margin-top: 10px !important; 
 }

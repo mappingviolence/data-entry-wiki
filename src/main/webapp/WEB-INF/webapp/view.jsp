@@ -144,6 +144,10 @@
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
             </button> 
           </div> 
+          <div id="subtitle" class="grey"> 
+            <h4> ID: ${id} </h4> 
+            <h4><i> created by </i>${creator} | <i> last edited by </i>${lasteditor}<br><br></h4> 
+          </div> 
         </div> 
       </div> 
       <!-- wiki data--> 
