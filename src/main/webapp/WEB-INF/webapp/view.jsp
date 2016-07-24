@@ -63,7 +63,7 @@
     				data: poiString
     			}).done(function(data) {
     				console.log(data);
-    			}).failure(function(data) {
+    			}).fail(function(data) {
     				console.log(data);
     			});
     		});
@@ -136,12 +136,12 @@
     </div>
 
     <!-- wiki view --> 
-    <div class="container" id="view"> 
+    <div class="container" id="view" style="padding-bottom:40px;"> 
       <div class="container" id="header">     
         <div class="data-element"> 
           <div id="title">
           	<c:choose>
-          		<c:when test="${thisPOI.title.value ne \"\"}">
+          		<c:when test="${empty thisPOI.title.value}">
           			<h1 style="display: inline-block;">Untitled</h1>
           		</c:when>
           		<c:otherwise>
