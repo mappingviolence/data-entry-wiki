@@ -54,17 +54,22 @@
     			e.preventDefault();
     			var poi = new POI();
     			var title = buildTitle();
+    			var date = buildDate();
     			
     			poi.title = title;
+    			poi.date = date;
     			
     			var poiString = JSON.stringify(poi);
     			$.ajax({
     				method: "PUT",
     				data: poiString
     			}).done(function(data) {
-    				console.log(data);
+    				var success = JSON.parse(data);
+    				var id = success.data;
+    				var url = "/mapviz/wikipage?id=" + id;
+    				window.location = url;
     			}).fail(function(data) {
-    				console.log(data);
+    				alert("Data not saved.\n" + data);
     			});
     		});
     	});
