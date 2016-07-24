@@ -58,8 +58,10 @@
 	<%-- END --%>
 
 	<%-- primary sources --%> 
+	<t:source name="primarysource" label="Primary Sources:" helpText=""/>
 
 	<%-- secondary sources --%> 
+	<t:source name="secondarysource" label="Secondary Sources:" helpText=""/>
 
 	<%-- research notes --%>
 	<t:textArea name="researchnotes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>

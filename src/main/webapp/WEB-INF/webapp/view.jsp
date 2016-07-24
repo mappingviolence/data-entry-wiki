@@ -89,6 +89,34 @@
             $("#" + id + "Text").toggleClass("hidden");
         });
     }
+
+    /* add new secondary sources */ 
+    $("#secondarysourceBtn").on("click", function(e) {
+      e.preventDefault();
+      var $input = $("div.hidden div[data-id='hiddensecondarysource']").clone();
+      $("div.hidden div[data-id='hiddensecondarysource']").parent().after($input);
+      $(".removebutton").on("click", function(e) { 
+        e.preventDefault();
+        $(this).parent().remove(); 
+      });
+    })
+
+    /* add new primary sources */
+    $("#primarysourceBtn").on("click", function(e) {
+      e.preventDefault();
+      var $input = $("div.hidden div[data-id='hiddenprimarysource']").clone();
+      $("div.hidden div[data-id='hiddenprimarysource']").parent().after($input);
+      $(".removebutton").on("click", function(e) { 
+        e.preventDefault();
+        $(this).parent().remove(); 
+      });
+    })
+
+    $(".removebutton").on("click", function(e) { 
+      e.preventDefault();
+      $(this).parent().remove(); 
+    })
+
   });
 </script>
 
