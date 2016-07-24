@@ -51,6 +51,9 @@
 
 	<%-- aggressor identities --%> 
 
+	<%-- tags --%>
+	<t:source name="tag" label="Tags:" helpText="Tag your POI with commonly-searched phrases. Soon, we'll work together to create a standard list of good tags."/> 
+
 	<%-- Shouldn't these be tags --%>
 		<%-- action type --%> 
 	

@@ -36,7 +36,7 @@
             <li id="admin"><a href="admin">Admin Panel</a></li>
 	          <li><a href="#">Sign Out</a></li>
           </ul>
-        </div> <!-- /.navbar-collapse 
+        </div> <!-- /.navbar-collapse -->
       </div> <!-- /.container-fluid -->
     </nav>
   </div>
