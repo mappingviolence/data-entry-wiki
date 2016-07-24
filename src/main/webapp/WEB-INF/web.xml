@@ -10,7 +10,7 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     version="3.1">
 
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>Mapping Violence Data Entry Wiki</display-name>
   
   <servlet>
   	<servlet-name>pool</servlet-name>
@@ -50,6 +50,16 @@
   <servlet-mapping>
   	<servlet-name>admin</servlet-name>
   	<url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>random</servlet-name>
+  	<servlet-class>org.mappingviolence.servlet.ajax.RandomUUID</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>random</servlet-name>
+  	<url-pattern>/random</url-pattern>
   </servlet-mapping>
   
   <filter>

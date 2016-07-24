@@ -15,8 +15,9 @@
 	</tr>  --%>
 	<c:forEach var="identity" items="${person.identities}">
 		<tr class="mergedrow"> 
-			<th class="col-xs-6">${identity.category}</th> 
-			<td class="col-xs-6">${identity.value}</td> 
+			<td>${identity.category}</td> 
+			<td>${identity.value}</td>
+			<td><input type="hidden" class="hidden" value="${identity.id}" /></td>
 		</tr> 
 	</c:forEach>
 </c:forEach> 

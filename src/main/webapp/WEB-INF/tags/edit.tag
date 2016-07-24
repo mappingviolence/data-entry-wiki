@@ -35,10 +35,10 @@
 			<input id="locationInput" class="form-control" />
 			<div id="mapEdit" style="width:100%;height:380px;"></div>
 		</div>
-		<div class="col-xs-6">
+		<div>
 			<t:simpleInput id="latEdit" name="lat" label="Latitude:"/>
 		</div> 
-		<div class="col-xs-6">
+		<div>
 			<t:simpleInput id="lngEdit" name="lng" label="Longitude:"/>
 		</div> 
 	</div>

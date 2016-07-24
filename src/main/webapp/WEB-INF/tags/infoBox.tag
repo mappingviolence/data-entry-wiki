@@ -7,10 +7,10 @@
 <div class="infobox">
 	<table class="infoboxtable"> 
 		<tr class="mergedbottomrow"> 
-			<td> <b><h3 id="date">${thisPOI.date.value}</h3></b> </td> 
+			<td colspan="2"> <b><h3 id="date">${thisPOI.date.value}</h3></b> </td> 
 		</tr> 
 		<tr class="map"> 
-			<td> 
+			<td colspan="2"> 
 				<div id="locationAddress"></div>
 				<div id="map" style="width:100%;height:400px;"></div>
 				<div id="lat">${thisPOI.location.value.getLatitude()}</div>
