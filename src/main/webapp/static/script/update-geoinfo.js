@@ -30,13 +30,15 @@ Mapping.prototype.updateLatLng = function(autocompleteOrMarker) {
 }
 
 Mapping.prototype.updateMap = function(autocompleteOrLatLng) {
+	console.log("in update map");
 	var location;
 	if (autocompleteOrLatLng.lat) {
+		console.log("in lat lng");
 		location = autocompleteOrLatLng;
 		this.map.setCenter(location);
 		this.map.setZoom(16);  // Why 16? Because it looks good.
 	} else {
-		var place = autocomplete.getPlace();
+		var place = autocompleteOrLatLng.getPlace();
 	    if (!place.geometry) {
 	      window.alert("Autocomplete's returned place contains no geometry");
 	      return;
@@ -44,6 +46,7 @@ Mapping.prototype.updateMap = function(autocompleteOrLatLng) {
 
 	    // If the place has a geometry, then present it on a map.
 	    if (place.geometry.viewport) {
+	      console.log("has view port");
 	      this.map.fitBounds(place.geometry.viewport);
 	    } else {
 	      this.map.setCenter(place.geometry.location);

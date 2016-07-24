@@ -31,11 +31,15 @@
 
 	<%-- location --%> 
 	<div class="row">
+		<div class="col-xs-12">
+			<input id="locationInput" class="form-control" />
+			<div id="mapEdit" style="width:100%;height:380px;"></div>
+		</div>
 		<div class="col-xs-6">
-			<t:simpleInput name="lat" label="Latitude:"/>
+			<t:simpleInput id="latEdit" name="lat" label="Latitude:"/>
 		</div> 
 		<div class="col-xs-6">
-			<t:simpleInput name="lng" label="Longitude:"/>
+			<t:simpleInput id="lngEdit" name="lng" label="Longitude:"/>
 		</div> 
 	</div>
 	
@@ -47,9 +51,11 @@
 
 	<%-- aggressor identities --%> 
 
-	<%-- action type --%> 
-
-	<%-- outcomes --%> 
+	<%-- Shouldn't these be tags --%>
+		<%-- action type --%> 
+	
+		<%-- outcomes --%> 
+	<%-- END --%>
 
 	<%-- primary sources --%> 
 

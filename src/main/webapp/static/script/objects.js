@@ -31,7 +31,7 @@ var User = function(id, email, role) {
 	this.role = role;
 }
 
-var Date = function(year, month, day, modifier) {
+var MyDate = function(year, month, day, modifier) {
 	this.year = year;
 	this.month = month;
 	this.day = day;
