@@ -52,7 +52,7 @@
 </head>
 <body>
 
-<t:header /> 
+<t:header page="" /> 
 
 <div class="container"> 
 	<div class="form-group">
