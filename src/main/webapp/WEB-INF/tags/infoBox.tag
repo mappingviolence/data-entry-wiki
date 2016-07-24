@@ -8,7 +8,7 @@
 	<table> 
 		<tr class="map"> 
 			<div id="locationAddress"></div>
-			<div id="map" style="width:300px;height:200px;"></div>
+			<div id="map" style="width:100%;height:400px;"></div>
 			<div id="lat">${thisPOI.location.value.getLatitude()}</div>
 			<div id="lng">${thisPOI.location.value.getLongitude()}</div>
 		</tr> 
