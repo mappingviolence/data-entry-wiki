@@ -7,7 +7,7 @@
 <div class="infobox">
 	<table class="infoboxtable"> 
 		<tr class="mergedbottomrow"> 
-			<td colspan="2"> <b><h3 id="date">${thisPOI.date.value}</h3></b> </td> 
+			<td colspan="2"><h3 id="date"><strong>${thisPOI.date.value}</strong></h3></td> 
 		</tr> 
 		<tr class="map"> 
 			<td colspan="2"> 
@@ -18,7 +18,7 @@
 			</td> 
 		</tr> 
 		<tr> 
-			<td><p id="locationrationale">${thisPOI.locationRationale.value}</p></td>
+			<td colspan="2"><p id="locationrationale">${thisPOI.locationRationale.value}</p></td>
 		</tr> 
 		<t:listOutData title="Victims" peopleList="${thisPOI.victims}"/> 
 		<t:listOutData title="Aggressors" peopleList="${thisPOI.aggressors}"/> 
