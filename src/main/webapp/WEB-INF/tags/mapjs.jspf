@@ -16,7 +16,7 @@ var ready = function() {
 	    m.init("lat", "lng", "locationAddress", map);
 	    
 	    if (valid) {
-	    	m.updateMap({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) });
+	    	m.updateMap({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) }, 12);
 	        m.updateAutocomplete({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) });
 	    } else {
 			// This should never actually happen - invalid data should
@@ -27,8 +27,10 @@ var ready = function() {
     	console.log("end of ready");
     	ready1(function() {
     		console.log("end of ready 1");
-    		m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
-    		m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
+    		if ($("#latEdit").val() != "" && $("#lngEdit").val() != "") {
+    			m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, 12);
+        		m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
+    		}
     	});
     });
 }
@@ -70,7 +72,7 @@ var ready1 = function(callback) {
 			if (isNaN($(this).val())) {
 				return;
 			}
-			m1.updateMap({ "lat" : parseFloat($(this).val()), "lng" : parseFloat($("#lngEdit").val()) });
+			m1.updateMap({ "lat" : parseFloat($(this).val()), "lng" : parseFloat($("#lngEdit").val()) }, 12);
 			m1.updateAutocomplete({ "lat" : parseFloat($(this).val()), "lng" : parseFloat($("#lngEdit").val()) });
 		});
 		
@@ -78,13 +80,13 @@ var ready1 = function(callback) {
 			if (isNaN($(this).val())) {
 				return;
 			}
-			m1.updateMap({ "lng" : parseFloat($(this).val()), "lat" : parseFloat($("#latEdit").val()) });
+			m1.updateMap({ "lng" : parseFloat($(this).val()), "lat" : parseFloat($("#latEdit").val()) }, 12);
 			m1.updateAutocomplete({ "lng" : parseFloat($(this).val()), "lat" : parseFloat($("#latEdit").val()) });
 		});
 	});
 	
 	if (preLoad) {
-		m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
+		m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, 12);
 		m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
 	}
 	

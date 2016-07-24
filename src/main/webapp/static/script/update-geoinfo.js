@@ -29,14 +29,14 @@ Mapping.prototype.updateLatLng = function(autocompleteOrMarker) {
 	}
 }
 
-Mapping.prototype.updateMap = function(autocompleteOrLatLng) {
+Mapping.prototype.updateMap = function(autocompleteOrLatLng, zoom) {
 	console.log("in update map");
 	var location;
 	if (autocompleteOrLatLng.lat) {
 		console.log("in lat lng");
 		location = autocompleteOrLatLng;
 		this.map.setCenter(location);
-		this.map.setZoom(16);  // Why 16? Because it looks good.
+		this.map.setZoom(zoom);
 	} else {
 		var place = autocompleteOrLatLng.getPlace();
 	    if (!place.geometry) {
@@ -50,7 +50,7 @@ Mapping.prototype.updateMap = function(autocompleteOrLatLng) {
 	      this.map.fitBounds(place.geometry.viewport);
 	    } else {
 	      this.map.setCenter(place.geometry.location);
-	      this.map.setZoom(16);  // Why 16? Because it looks good.
+	      this.map.setZoom(zoom);
 	    }
 	    location = place.geometry.location;
 	}

@@ -5,18 +5,27 @@
 
 
 <div class="infobox">
-	<table> 
+	<table style="width:100%;"> 
 		<tr class="map"> 
-			<div id="locationAddress"></div>
-			<div id="map" style="width:100%;height:400px;"></div>
-			<div id="lat">${thisPOI.location.value.getLatitude()}</div>
-			<div id="lng">${thisPOI.location.value.getLongitude()}</div>
+			<td>
+				<div id="locationAddress"></div>
+				<div id="map" style="width:100%;height:400px;"></div>
+				<div id="lat">${thisPOI.location.value.getLatitude()}</div>
+				<div id="lng">${thisPOI.location.value.getLongitude()}</div>
+				<input type="hidden" class="hidden" value="${thisPOI.location.id}" />
+			</td>
 		</tr> 
-		<tr> 
-			<td><p id="locationrationale">${thisPOI.locationRationale.value}</p></td>
-		<tr> 
-			<td> <h3 id="date">${thisPOI.date.value}</h3> </td> 
-		</tr> 
+		<tr>
+			<td>
+				<p id="locationrationale">${thisPOI.locationRationale.value}</p>
+				<input type="hidden" class="hidden" value="${thisPOI.locationRationale.id}" />
+			</td>
+		<tr>
+			<td>
+				<h3 id="date">${thisPOI.date.value}</h3>
+				<input type="hidden" class="hidden" value="${thisPOI.date.id}" />
+			</td> 
+		</tr>
 		<t:listOutData title="Victims" peopleList="${thisPOI.victims}"/> 
 		<t:listOutData title="Aggressors" peopleList="${thisPOI.aggressors}"/> 
 		<%-- <tr> 

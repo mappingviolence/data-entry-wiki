@@ -4,6 +4,7 @@
 <%@ attribute name="citations" required="true" type="java.util.Collection"%>
 
 <h3>${title}</h3>
-	<c:forEach var="citation" items="${citations}">
-	    <p>${citation.value}</p>
-	</c:forEach>
+<c:forEach var="citation" items="${citations}">
+    <p>${citation.value}</p>
+    <input type="hidden" class="hidden" value="${citation.id}" />
+</c:forEach>

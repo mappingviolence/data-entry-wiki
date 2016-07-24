@@ -64,6 +64,6 @@
 	<%-- research notes --%>
 	<t:textArea name="researchnotes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>
 
-	<button type="submit" class="btn btn-primary btn-lg">Save</button> 
+	<button id="save" type="submit" class="btn btn-primary btn-lg">Save</button> 
 
 </form> 

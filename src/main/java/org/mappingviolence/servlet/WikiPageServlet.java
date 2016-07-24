@@ -13,7 +13,6 @@ import org.mappingviolence.database.DatabaseConnection;
 import org.mappingviolence.poi.POI;
 import org.mappingviolence.poi.POIVersion;
 import org.mappingviolence.poi.POIWikiPage;
-import org.mappingviolence.servlet.Servlets.Error;
 import org.mappingviolence.user.User;
 import org.mappingviolence.wiki.Version;
 import org.mongodb.morphia.Datastore;
@@ -43,10 +42,12 @@ public class WikiPageServlet extends HttpServlet {
     }
 
     req.setAttribute("thisPOI", poiWikiPage.getCurrentData());
+    req.setAttribute("id", poiWikiPage.getId());
+    req.setAttribute("creator", poiWikiPage.getCreator());
+    req.setAttribute("lasteditor", poiWikiPage.getLastEditor());
 
     Servlets.forward("/WEB-INF/webapp/view.jsp", req, resp);
     return;
-
   }
 
   @Override
@@ -54,7 +55,7 @@ public class WikiPageServlet extends HttpServlet {
     User currentUser = (User) req.getSession().getAttribute("currentUser");
     if (currentUser == null) {
       // TODO: Update error message
-      Servlets.sendError(Error.ID_NOT_FOUND, req, resp);
+      Servlets.sendError(Servlets.Error.ID_NOT_FOUND, req, resp);
     }
 
     POIWikiPage poiW = new POIWikiPage(currentUser);
@@ -134,7 +135,7 @@ public class WikiPageServlet extends HttpServlet {
   public void doPut(HttpServletRequest req, HttpServletResponse resp) {
     String id = req.getParameter("id");
     if (id == null) {
-      Servlets.sendError(Error.ID_MISSING, req, resp);
+      Servlets.sendError(Servlets.Error.ID_MISSING, req, resp);
       return;
     }
 
@@ -143,14 +144,14 @@ public class WikiPageServlet extends HttpServlet {
     POIWikiPage poiWikiPage = ds.get(POIWikiPage.class, id);
 
     if (poiWikiPage == null) {
-      Servlets.sendError(Error.ID_NOT_FOUND, req, resp);
+      Servlets.sendError(Servlets.Error.ID_NOT_FOUND, req, resp);
       return;
     }
 
     POI poi = Servlets.parseData(req, POI.class);
     if (poi == null) {
       Servlets.sendError(
-          new Error("Error deserializing json", HttpServletResponse.SC_BAD_REQUEST),
+          new Servlets.Error("Error deserializing json", HttpServletResponse.SC_BAD_REQUEST),
           req,
           resp);
       return;
@@ -159,7 +160,7 @@ public class WikiPageServlet extends HttpServlet {
     User currentUser = (User) req.getSession(false).getAttribute("currentUser");
     if (currentUser == null) {
       // TODO: Update error message
-      Servlets.sendError(Error.ID_NOT_FOUND, req, resp);
+      Servlets.sendError(Servlets.Error.ID_NOT_FOUND, req, resp);
     }
 
     poiWikiPage.addVersion(currentUser, poi);

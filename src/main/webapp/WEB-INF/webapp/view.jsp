@@ -47,6 +47,36 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <script>
+    	$(document).ready(function() {
+    		$("button#save").on("click", function(e) {
+    			e.preventDefault();
+    			var poi = new POI();
+    			var title = buildTitle();
+    			
+    			poi.title = title;
+    			
+    			var poiString = JSON.stringify(poi);
+    			$.ajax({
+    				method: "PUT",
+    				data: poiString
+    			}).done(function(data) {
+    				console.log(data);
+    			}).failure(function(data) {
+    				console.log(data);
+    			});
+    		});
+    	});
+    	
+    	var buildTitle = function() {
+    		var id = $("#title input[type='hidden']").val();
+    		var text = $("input[name='title']").val();
+    		
+    		var title = new SimpleFormField(id, "Title", text);
+    		return title;
+    	}
+    </script>
 </head>
 
 
@@ -59,8 +89,13 @@
       $("#edit").toggleClass("hidden");
       $("#view").toggleClass("hidden");
       google.maps.event.trigger(map1, 'resize');
-      m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
-	  m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
+      if ($("#latEdit").val() != "" && $("#lngEdit").val() != "") {
+	      m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, 12);
+		  m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
+      } else {
+    	  m1.updateMap({ "lat" : 31.9686, "lng" : -99.9018 }, 5);
+		  //m1.updateAutocomplete({ "lat" : 31.9686, "lng" : -99.9018 });
+      }
     })
 
     /* populating the form */
@@ -104,8 +139,16 @@
     <div class="container" id="view"> 
       <div class="container" id="header">     
         <div class="data-element"> 
-          <div id="title"> 
-            <h1 style="display: inline-block;">${thisPOI.title.value}</h1>  
+          <div id="title">
+          	<c:choose>
+          		<c:when test="${thisPOI.title.value ne \"\"}">
+          			<h1 style="display: inline-block;">Untitled</h1>
+          		</c:when>
+          		<c:otherwise>
+          			<h1 style="display: inline-block;">${thisPOI.title.value}</h1>
+          		</c:otherwise>
+          	</c:choose>
+            <input type="hidden" class="hidden" value="${thisPOI.title.id}" /> 
             <button type="button" class="btn btn-default btn-lg" id="editbutton" style="bottom: 10px">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
             </button> 
@@ -117,8 +160,9 @@
         <div class="row">
          <!-- left side view--> 
          <div class="col-md-7 offset-md-1">
-          <div class="data-element" id="description"> 
+          <div class="data-element" id="description">
             <p>${thisPOI.description.value}</p>
+            <input type="hidden" class="hidden" value="${thisPOI.description.id}" />
           </div>
           <div class="data-element" id="citations"> 
           	<h2>Citations</h2>
@@ -128,6 +172,7 @@
           <div class="data-element" id="researchnotes"> 
             <h2>Research Notes</h2> 
             <p>${thisPOI.researchNotes.value}</p>
+            <input type="hidden" class="hidden" value="${thisPOI.researchNotes.id}" />
           </div>
         <!-- right side infobox--> 
         </div>
