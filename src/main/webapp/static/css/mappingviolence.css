@@ -61,11 +61,11 @@ tbody {
 }
 
 h1 { 
-	font-size: 60pt !important; 
+	font-size: 50pt !important; 
 }
 
 h2 { 
-	font-size: 30pt !important;
+	font-size: 35pt !important;
 }
 
 .btn:not(.btn-raised), .input-group-btn 
