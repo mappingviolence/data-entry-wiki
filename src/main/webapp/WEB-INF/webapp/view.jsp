@@ -55,21 +55,33 @@
     			var poi = new POI();
     			var title = buildTitle();
     			var date = buildDate();
+    			var description = buildDescription();
+    			var location = buildLocation();
+    			var locationRationale = buildLocationRationale();
+    			
+    			var researchNotes = buildResearchNotes();
     			
     			poi.title = title;
-    			poi.date = date;
+    			//poi.date = date;
+    			poi.description = description;
+    			//poi.location = location;
+    			poi.locationRationale = locationRationale;
+    			
+    			poi.researchNotes = researchNotes;
     			
     			var poiString = JSON.stringify(poi);
+    			console.log(poi, poiString);
     			$.ajax({
     				method: "PUT",
     				data: poiString
     			}).done(function(data) {
-    				var success = JSON.parse(data);
-    				var id = success.data;
+    				console.log(data);
+    				var id = data.data;
     				var url = "/mapviz/wikipage?id=" + id;
     				window.location = url;
     			}).fail(function(data) {
-    				alert("Data not saved.\n" + data);
+    				console.log(data);
+    				alert("Data not saved.\nPlease fix errors and try again.");
     			});
     		});
     	});
@@ -80,6 +92,51 @@
     		
     		var title = new SimpleFormField(id, "Title", text);
     		return title;
+    	}
+    	
+    	var buildDate = function() {
+    		var id = $("#date input[type='hidden']").val();
+    		var text = $("input[name='date']").val();
+    		
+    		var date = new MyDate();
+    		
+    		var dateField = new SimpleFormField(id, "Date", date);
+    		return dateField;
+    	}
+    	
+    	var buildDescription = function() {
+    		var id = $("#description input[type='hidden']").val();
+    		var text = $("textarea[name='description']").val();
+    		
+    		var description = new SimpleFormField(id, "Description", text);
+    		return description;
+    	}
+    	
+    	var buildLocation = function() {
+    		var id = $("#location input[type='hidden']").val();
+    		var lat = $("input#latEdit").val();
+    		var lng = $("input#lngEdit").val();
+    		
+    		var point = new Point(lat, lng);
+    		
+    		var location = new SimpleFormField(id, "Location", point);
+    		return location;
+    	}
+    	
+    	var buildLocationRationale = function() {
+    		var id = $("#locationrationale input[type='hidden']").val();
+    		var text = $("textarea[name='locationrationale']").val();
+    		
+    		var locationRationale = new SimpleFormField(id, "Location Rationale", text);
+    		return locationRationale;
+    	}
+    	
+    	var buildResearchNotes = function() {
+    		var id = $("#researchnotes input[type='hidden']").val();
+    		var text = $("textarea[name='researchnotes']").val();
+    		
+    		var researchNotes = new SimpleFormField(id, "Research Notes", text);
+    		return researchNotes;
     	}
     </script>
 </head>
@@ -106,7 +163,7 @@
     /* populating the form */
     var title = $("#title h1").text(); 
     $("input[name='title']").val(title);
-    var date = $("#date").text();
+    var date = $("#date h3 strong").text();
     $("input[name='date']").val(date); 
     var description = $("#description p").text();
     $("textarea[name='description']").text(description);
@@ -114,7 +171,7 @@
     $("input[name='lat']").val(latitude);
     var longitude = $("#lng").text(); 
     $("input[name='lng']").val(longitude);
-    var locationrationale = $("#locationrationale").text();
+    var locationrationale = $("#locationrationale p").text();
     $("textarea[name='locationrationale']").text(locationrationale);
     var researchnotes = $("#researchnotes p").text();
     $("textarea[name='researchnotes']").text(researchnotes);

@@ -36,11 +36,11 @@
 			<div id="mapEdit" style="width:100%;height:380px;"></div>
 		</div>
 		<div>
-			<t:simpleInput id="latEdit" name="lat" label="Latitude:"/>
+			<t:simpleInput htmlId="latEdit" name="lat" label="Latitude:"/>
 		</div> 
 		<div>
-			<t:simpleInput id="lngEdit" name="lng" label="Longitude:"/>
-		</div> 
+			<t:simpleInput htmlId="lngEdit" name="lng" label="Longitude:"/>
+		</div>
 	</div>
 	
 	<%-- location rationale --%>
@@ -69,6 +69,6 @@
 	<%-- research notes --%>
 	<t:textArea name="researchnotes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>
 
-	<button type="submit" class="btn btn-primary btn-lg">Save</button> 
+	<button id="save" type="submit" class="btn btn-primary btn-lg">Save</button> 
 
 </form> 

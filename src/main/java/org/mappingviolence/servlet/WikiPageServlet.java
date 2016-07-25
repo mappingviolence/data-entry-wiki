@@ -161,6 +161,7 @@ public class WikiPageServlet extends HttpServlet {
     if (currentUser == null) {
       // TODO: Update error message
       Servlets.sendError(Servlets.Error.ID_NOT_FOUND, req, resp);
+      return;
     }
 
     poiWikiPage.addVersion(currentUser, poi);
