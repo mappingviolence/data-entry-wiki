@@ -32,13 +32,11 @@
     <link rel="stylesheet" href="static/css/mappingviolence.css" type="text/css">
     
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3rwW9biPQiijfhhR9YZagdNrf_f3duvM&callback=initMap"></script>
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -73,7 +71,7 @@
         <p> This is where you can keep track of POIs that you're working on.</p>
 
         <p> Drafts are only visible to you. When you think you draft is ready, you can send it to the database. Anyone on the team can see and contribute to POIs in the Database. When Professor Martinez decides that a POI is ready for publication, she will publish it to the Mapping Violence website. Our goal this summer is to get many POIs in the "published" category.    </p> 
-    	<button class="btn btn-default btn-large" id="newdraft"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>  New Draft</button>
+    	<button class="btn btn-default btn-large" id="newdraft"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Draft</button>
     	<c:if test="${not empty currentUser and currentUser.isEditor()}">
             <div class=""></div>
     		<t:wikiTable name="Draft POIs" wikiList="${draftPOIs}" /> 

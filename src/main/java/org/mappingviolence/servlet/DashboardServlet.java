@@ -25,15 +25,15 @@ public class DashboardServlet extends HttpServlet {
     User user = (User) req.getSession(false).getAttribute("currentUser");
 
     List<POIWikiPage> draftPOIs = query
-        .filter("creator =", user)
+        .filter("creator.email =", user.getEmail())
         .filter("status =", Status.DRAFT)
         .asList();
     List<POIWikiPage> reviewPOIs = query
-        .filter("creator =", user)
+        .filter("creator.email =", user.getEmail())
         .filter("status =", Status.IN_POOL)
         .asList();
     List<POIWikiPage> publishedPOIs = query
-        .filter("creator =", user)
+        .filter("creator.email =", user.getEmail())
         .filter("status =", Status.PUBLISHED)
         .asList();
 
