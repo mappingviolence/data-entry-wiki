@@ -39,7 +39,7 @@ var MyDate = function(year, month, day, modifier) {
 }
 
 var Point = function(lat, lng) {
-	this.point = [lat, lng];
+	this.coordinates = [lng, lat];
 }
 
 var Person = function() {

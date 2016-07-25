@@ -40,6 +40,8 @@
     <script src="static/script/objects.js"></script>
 
     <jsp:include page="/WEB-INF/tags/mapjs.jspf"/>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.4.2/showdown.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -64,7 +66,7 @@
     			poi.title = title;
     			//poi.date = date;
     			poi.description = description;
-    			//poi.location = location;
+    			poi.location = location;
     			poi.locationRationale = locationRationale;
     			
     			poi.researchNotes = researchNotes;
@@ -116,10 +118,11 @@
     		var id = $("#location input[type='hidden']").val();
     		var lat = $("input#latEdit").val();
     		var lng = $("input#lngEdit").val();
-    		
+    		console.log(lat, lng);
     		var point = new Point(lat, lng);
     		
     		var location = new SimpleFormField(id, "Location", point);
+    		console.log(location);
     		return location;
     	}
     	
@@ -152,10 +155,10 @@
       $("#view").toggleClass("hidden");
       google.maps.event.trigger(map1, 'resize');
       if ($("#latEdit").val() != "" && $("#lngEdit").val() != "") {
-	      m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, 12);
+	      m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, setZoom);
 		  m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
       } else {
-    	  m1.updateMap({ "lat" : 31.9686, "lng" : -99.9018 }, 5);
+    	  m1.updateMap({ "lat" : 31.9686, "lng" : -99.9018 }, unsetZoom);
 		  //m1.updateAutocomplete({ "lat" : 31.9686, "lng" : -99.9018 });
       }
     })
@@ -230,6 +233,11 @@
         $(this).parent().remove(); 
       });
     })
+    
+    var converter = new showdown.Converter();
+    var text = $("#description p").text();
+    var html = converter.makeHtml(text);
+    $("#description p").html(html);
 
   });
 </script>

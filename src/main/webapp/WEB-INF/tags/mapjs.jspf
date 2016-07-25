@@ -2,6 +2,8 @@
 <script src="static/script/map.js"></script>
 <script src="static/script/update-geoinfo.js"></script>
 <script>
+var setZoom = 8;
+var unsetZoom = 5;
 var m, map;
 var ready = function() {
 	$(document).ready(function() {
@@ -16,7 +18,7 @@ var ready = function() {
 	    m.init("lat", "lng", "locationAddress", map);
 	    
 	    if (valid) {
-	    	m.updateMap({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) }, 12);
+	    	m.updateMap({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) }, setZoom);
 	        m.updateAutocomplete({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) });
 	    } else {
 			// This should never actually happen - invalid data should
@@ -28,7 +30,7 @@ var ready = function() {
     	ready1(function() {
     		console.log("end of ready 1");
     		if ($("#latEdit").val() != "" && $("#lngEdit").val() != "") {
-    			m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, 12);
+    			m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, setZoom);
         		m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
     		}
     	});
@@ -72,7 +74,7 @@ var ready1 = function(callback) {
 			if (isNaN($(this).val())) {
 				return;
 			}
-			m1.updateMap({ "lat" : parseFloat($(this).val()), "lng" : parseFloat($("#lngEdit").val()) }, 12);
+			m1.updateMap({ "lat" : parseFloat($(this).val()), "lng" : parseFloat($("#lngEdit").val()) }, setZoom);
 			m1.updateAutocomplete({ "lat" : parseFloat($(this).val()), "lng" : parseFloat($("#lngEdit").val()) });
 		});
 		
@@ -80,13 +82,13 @@ var ready1 = function(callback) {
 			if (isNaN($(this).val())) {
 				return;
 			}
-			m1.updateMap({ "lng" : parseFloat($(this).val()), "lat" : parseFloat($("#latEdit").val()) }, 12);
+			m1.updateMap({ "lng" : parseFloat($(this).val()), "lat" : parseFloat($("#latEdit").val()) }, setZoom);
 			m1.updateAutocomplete({ "lng" : parseFloat($(this).val()), "lat" : parseFloat($("#latEdit").val()) });
 		});
 	});
 	
 	if (preLoad) {
-		m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, 12);
+		m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, setZoom);
 		m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
 	}
 	
