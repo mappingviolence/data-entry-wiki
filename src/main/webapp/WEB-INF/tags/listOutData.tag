@@ -6,7 +6,7 @@
 
 
 <tr class="mergedtoprow"> 
-	<td><b><h3>${title}</h3></b></td> 
+	<td><h3><strong>${title}</strong></h3></td> 
 </tr> 
 <c:forEach var="person" items="${peopleList}"> 
 	<%-- what if there are no names? --%>

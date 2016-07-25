@@ -60,6 +60,8 @@
     			var description = buildDescription();
     			var location = buildLocation();
     			var locationRationale = buildLocationRationale();
+    			var primarySources = buildPrimarySources();
+    			var secondarySources = buildSecondarySources();
     			
     			var researchNotes = buildResearchNotes();
     			
@@ -68,6 +70,7 @@
     			poi.description = description;
     			poi.location = location;
     			poi.locationRationale = locationRationale;
+    			poi.primarySources = primarySources;
     			
     			poi.researchNotes = researchNotes;
     			
@@ -134,6 +137,25 @@
     		return locationRationale;
     	}
     	
+    	var buildPrimarySources = function() {
+    		var ids = [];
+    		var $primarySources = $(".primarySource");
+    		var $primarySourcesId = $primarySources.next();
+    		for (var i = 0; i < $primarySourcesId.size(); i++) {
+    			ids.push($($primarySourcesId[i]).val());
+    		}
+    		var texts = [];
+    		var newPrimarySources = $("input[name='primarysource']");
+    		for (var i = 0; i < newPrimarySources.size(); i++) {
+    			texts.push($(newPrimarySources[i]).val());
+    		}
+    		
+    		var primarySources = [];
+    		for (var i = 0; i < texts.size(); i++) {
+    			primarySources.push(new SimpleFormField(ids[i], "Primary Sources", texts[i]));
+    		}
+    	}
+    	
     	var buildResearchNotes = function() {
     		var id = $("#researchnotes input[type='hidden']").val();
     		var text = $("textarea[name='researchnotes']").val();
@@ -148,6 +170,14 @@
 <!-- js -->
 <script>
   $(document).ready(function() {
+	  
+	var randomId = function(callback) {
+		$.ajax({
+			url: "/mapviz/random"
+		}).done(function(data) {
+			callback(data.data);
+		});
+	}
 
     /* make edit button appear */
     $("#editbutton").on("click", function() {
@@ -162,22 +192,6 @@
 		  //m1.updateAutocomplete({ "lat" : 31.9686, "lng" : -99.9018 });
       }
     })
-
-    /* populating the form */
-    var title = $("#title h1").text(); 
-    $("input[name='title']").val(title);
-    var date = $("#date h3 strong").text();
-    $("input[name='date']").val(date); 
-    var description = $("#description p").text();
-    $("textarea[name='description']").text(description);
-    var latitude = $("#lat").text(); 
-    $("input[name='lat']").val(latitude);
-    var longitude = $("#lng").text(); 
-    $("input[name='lng']").val(longitude);
-    var locationrationale = $("#locationrationale p").text();
-    $("textarea[name='locationrationale']").text(locationrationale);
-    var researchnotes = $("#researchnotes p").text();
-    $("textarea[name='researchnotes']").text(researchnotes);
 
     /* help button text */
     var helpBtns = $("label>span[role='helpBtn']");
@@ -202,37 +216,93 @@
     })
 
     /* add new secondary sources */ 
-    $("#secondarysourceBtn").on("click", function(e) {
+    $("#secondarysourceBtn").on("click", function(e, callback) {
       e.preventDefault();
-      var $input = $("div.hidden div[data-id='hiddensecondarysource']").clone();
-      $("div.hidden div[data-id='hiddensecondarysource']").parent().after($input);
-      $(".removebutton").on("click", function(e) { 
-        e.preventDefault();
-        $(this).parent().remove(); 
-      });
+      var $input = $("div.hidden div[data-id='secondarysource']").clone();
+      randomId(function(id) {
+    	  $input.children("input[type='hidden']").val(id);
+          console.log($input);
+          $("#secondarysourceContainer").append($input);
+          $(".removebutton").off();
+          $(".removebutton").on("click", function(e) { 
+            e.preventDefault();
+            $(this).parent().remove(); 
+          });
+          if (callback) {
+        	  callback();
+          }
+      })
     })
 
     /* add new primary sources */
-    $("#primarysourceBtn").on("click", function(e) {
+    $("#primarysourceBtn").on("click", function(e, callback) {
       e.preventDefault();
-      var $input = $("div.hidden div[data-id='hiddenprimarysource']").clone();
-      $("div.hidden div[data-id='hiddenprimarysource']").parent().after($input);
-      $(".removebutton").on("click", function(e) { 
-        e.preventDefault();
-        $(this).parent().remove(); 
-      });
+      var $input = $("div.hidden div[data-id='primarysource']").clone();
+      randomId(function(id) {
+    	  $input.children("input[type='hidden']").val(id);
+          console.log($input);
+          $("#primarysourceContainer").append($input);
+          $(".removebutton").off();
+          $(".removebutton").on("click", function(e) { 
+            e.preventDefault();
+            $(this).parent().remove(); 
+          });
+          if (callback) {
+        	  callback();
+          }
+      })
     })
 
     /* add new victim */ 
     $("#victimBtn").on("click", function(e) { 
       e.preventDefault();
       var $victim = $("div[data-id='hiddenvictim']").clone();
+      $victim.val(randomId());
       $("div[data-id='hiddenvictim']").parent().after($victim);
+      $(".removebutton").off();
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
         $(this).parent().remove(); 
       });
     })
+    
+    /* populating the form */
+    var title = $("#title h1").text(); 
+    $("input[name='title']").val(title);
+    var date = $("#date h3 strong").text();
+    $("input[name='date']").val(date); 
+    var description = $("#description p").text();
+    $("textarea[name='description']").text(description);
+    var latitude = $("#lat").text(); 
+    $("input[name='lat']").val(latitude);
+    var longitude = $("#lng").text(); 
+    $("input[name='lng']").val(longitude);
+    var locationrationale = $("#locationrationale p").text();
+    $("textarea[name='locationrationale']").text(locationrationale);
+    var $primarySources = $(".primarySource");
+    for (var i = 0; i < $primarySources.size(); i++) {
+    	var primarySourceText = $($primarySources[i]).text();
+    	var primarySourceId = $($primarySources[i]).next().val();
+    	$("#primarysourceBtn").trigger("click", [function() {
+    		var $primarySource = $("#primarysourceContainer").children().last();
+        	$primarySource.children("input[name='primarysource']").val(primarySourceText);
+        	$primarySource.children("input[type='hidden']").val(primarySourceId);
+    	}]);
+    }
+    var $secondarySources = $(".secondarySource");
+    for (var i = 0; i < $secondarySources.size(); i++) {
+    	var secondarySourceText = $($secondarySources[i]).text();
+    	var secondarySourceId = $($secondarySources[i]).next().val();
+    	$("#secondarysourceBtn").trigger("click", [function() {
+    		var $secondarySource = $("#secondarysourceContainer").children().last();
+        	$secondarySource.children("input[name='secondarysource']").val(secondarySourceText);
+        	$secondarySource.children("input[type='hidden']").val(secondarySourceId);
+    	}]);
+    }
+    
+    
+    var researchnotes = $("#researchnotes p").text();
+    $("textarea[name='researchnotes']").text(researchnotes);
     
     var converter = new showdown.Converter();
     var text = $("#description p").text();
@@ -270,7 +340,7 @@
           </div> 
           <div id="subtitle" class="grey"> 
             <h4> ID: ${id} </h4> 
-            <h4><i> created by </i>${creator} | <i> last edited by </i>${lasteditor}<br><br></h4> 
+            <h4><em> created by </em>${creator} | <em> last edited by </em>${lasteditor}<br><br></h4> 
           </div> 
         </div> 
       </div> 
@@ -285,8 +355,8 @@
           </div>
           <div class="data-element" id="citations"> 
           	<h2>Citations</h2>
-            <t:citations title="Primary Sources" citations="${thisPOI.primarySources}"/>
-            <t:citations title="Secondary Sources" citations="${thisPOI.secondarySources}"/>
+            <t:citations typeClass="primarySource" title="Primary Sources" citations="${thisPOI.primarySources}"/>
+            <t:citations typeClass="secondarySource" title="Secondary Sources" citations="${thisPOI.secondarySources}"/>
           </div> 
           <div class="data-element" id="researchnotes"> 
             <h2>Research Notes</h2> 

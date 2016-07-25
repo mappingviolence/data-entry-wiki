@@ -12,11 +12,13 @@
     </label>
     
     <div class="hidden"> 
-        <div data-id="hidden${name}">
-            <input class="form-control" type="text" name="${name}" placeholder="type source here"> 
+        <div data-id="${name}">
+            <input class="form-control" type="text" name="${name}" placeholder="type source here">
+            <input type="hidden" class="hidden" />
             <a class="removebutton" href="#">remove</a> 
         </div> 
-    </div> 
+    </div>
+    <div id="${name}Container"></div> 
     <div class="text-center">
         <button id="${name}Btn" type="button" class="btn btn-default add_field_button">Add ${label}</button>
     </div>
