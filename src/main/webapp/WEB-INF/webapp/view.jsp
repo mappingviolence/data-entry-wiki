@@ -158,7 +158,7 @@
     	  m1.updateMap({ "lat" : 31.9686, "lng" : -99.9018 }, 5);
 		  //m1.updateAutocomplete({ "lat" : 31.9686, "lng" : -99.9018 });
       }
-    })
+    });
 
     /* populating the form */
     var title = $("#title h1").text(); 
@@ -173,6 +173,9 @@
     $("input[name='lng']").val(longitude);
     var locationrationale = $("#locationrationale p").text();
     $("textarea[name='locationrationale']").text(locationrationale);
+
+    
+
     var researchnotes = $("#researchnotes p").text();
     $("textarea[name='researchnotes']").text(researchnotes);
 
@@ -192,6 +195,7 @@
       e.preventDefault();
       var $input = $("div.hidden div[data-id='hiddentag']").clone();
       $("div.hidden div[data-id='hiddentag']").parent().after($input);
+      /* remove button */ 
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
         $(this).parent().remove(); 
@@ -203,6 +207,7 @@
       e.preventDefault();
       var $input = $("div.hidden div[data-id='hiddensecondarysource']").clone();
       $("div.hidden div[data-id='hiddensecondarysource']").parent().after($input);
+      /* remove button */ 
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
         $(this).parent().remove(); 
@@ -214,6 +219,7 @@
       e.preventDefault();
       var $input = $("div.hidden div[data-id='hiddenprimarysource']").clone();
       $("div.hidden div[data-id='hiddenprimarysource']").parent().after($input);
+      /* remove button */ 
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
         $(this).parent().remove(); 
@@ -223,13 +229,28 @@
     /* add new victim */ 
     $("#victimBtn").on("click", function(e) { 
       e.preventDefault();
-      var $victim = $("div[data-id='hiddenvictim']").clone();
-      $("div[data-id='hiddenvictim']").parent().after($victim);
+      var $victim = $("div.hidden div[data-id='victim']").clone();
+      $("#victimpersons").append($victim);
+      $(".victimidentityBtn").off(); // so that event handlers don't build up 
+
+      /* add victim identity */
+      $(".victimidentityBtn").on("click", function(e) {
+          e.preventDefault(); 
+          var $victimidentity = $("div.hidden div[data-id='victimidentity']").clone();
+          $(this).parent().before($victimidentity);
+
+          $(".removebutton").on("click", function(e) { 
+            e.preventDefault();
+            $(this).parent().remove(); 
+          });
+      });
+
+      /* remove button */ 
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
         $(this).parent().remove(); 
       });
-    })
+    });
 
   });
 </script>
