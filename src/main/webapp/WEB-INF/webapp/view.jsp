@@ -174,7 +174,7 @@
     var locationrationale = $("#locationrationale p").text();
     $("textarea[name='locationrationale']").text(locationrationale);
 
-    
+
 
     var researchnotes = $("#researchnotes p").text();
     $("textarea[name='researchnotes']").text(researchnotes);
@@ -238,6 +238,32 @@
           e.preventDefault(); 
           var $victimidentity = $("div.hidden div[data-id='victimidentity']").clone();
           $(this).parent().before($victimidentity);
+
+          $(".removebutton").on("click", function(e) { 
+            e.preventDefault();
+            $(this).parent().remove(); 
+          });
+      });
+
+      /* remove button */ 
+      $(".removebutton").on("click", function(e) { 
+        e.preventDefault();
+        $(this).parent().remove(); 
+      });
+    });
+
+     /* add new aggressor */ 
+    $("#aggressorBtn").on("click", function(e) { 
+      e.preventDefault();
+      var $aggressor = $("div.hidden div[data-id='aggressor']").clone();
+      $("#aggressorpersons").append($aggressor);
+      $(".aggressoridentityBtn").off(); // so that event handlers don't build up 
+
+      /* add aggressor identity */
+      $(".aggressoridentityBtn").on("click", function(e) {
+          e.preventDefault(); 
+          var $aggressoridentity = $("div.hidden div[data-id='aggressoridentity']").clone();
+          $(this).parent().before($aggressoridentity);
 
           $(".removebutton").on("click", function(e) { 
             e.preventDefault();
