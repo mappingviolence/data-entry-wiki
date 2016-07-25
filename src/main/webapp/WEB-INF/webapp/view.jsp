@@ -163,6 +163,17 @@
       });
     })
 
+    /* add new victim */ 
+    $("#victimBtn").on("click", function(e) { 
+      e.preventDefault();
+      var $victim = $("div[data-id='hiddenvictim']").clone();
+      $("div[data-id='hiddenvictim']").parent().after($victim);
+      $(".removebutton").on("click", function(e) { 
+        e.preventDefault();
+        $(this).parent().remove(); 
+      });
+    })
+
   });
 </script>
 

@@ -10,6 +10,7 @@
     <label for="${name}"> ${label}
     	<span id="${name}Help" role="helpBtn" class="glyphicon glyphicon-info-sign"></span>
     </label>
+    
     <div class="hidden"> 
         <div data-id="hidden${name}">
             <input class="form-control" type="text" name="${name}" placeholder="type source here"> 

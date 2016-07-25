@@ -6,55 +6,47 @@
 <%@ attribute name="label" required="true" %>
 <%@ attribute name="helpText" required="false" %>
 
-<!-- 
-<div class="form-group">
-    <div id="%{name}Wrapper" class="input_fields_wrap">
-        <label for="${name}"> ${label}
-        	<span id="${name}Help" role="helpBtn" class="glyphicon glyphicon-info-sign"></span>
-        </label>
-        <span id="${name}HelpText" class="help-block hidden">
-		    ${helpText}
-	    </span>
-        <c:choose>
-            <c:when test="${not empty poi and not empty poi.[name]}">
-                <c:forEach var="${name}" items="${poi.[name]}" varStatus="num">
 
-                	<%-- comments 
-                    <c:set var="comment" value="secondarySource${num.count}Comments"></c:set>
-                    <c:choose>
-                        <c:when test="${poi.rejected and not empty comments.comments[comment]}">
-                            <p> <b>Admin Comment:</b> ${comments.comments[comment]}</p>
-                        </c:when>
-                        <c:otherwise></c:otherwise>
-                    </c:choose> --%>
+<div class="form-group">
+    <div class="row">
+        <div class="col-xs-12"> 
+            <label for="${name}hidden"> ${label}s 
+                <span id="${name}Help" role="helpBtn" class="glyphicon glyphicon-info-sign"></span>
+            </label>
+            <input id="${name}hidden" class="hidden" type="hidden" class="form-control" name="${name}Identity">
+        </div> 
+        <!-- person --> 
+        <div class="hidden" data-id="hidden${name}"> 
+            <!-- identity --> 
+            <div class="hidden" data-id="hidden${name}identity">
+                <div class="col-xs-6">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="${name}[]" value="${source}" />
-                        <a href="#" class="remove_field">Remove</a>
+                        <label for="${name}Category">${label} Identity Category</label>
+                        <select class="btn btn-default btn-lg dropdown-toggle" id="${name}Category" name="${name}Category" class="form-control">
+                            <option value="Race">Race</option>
+                            <option value="Nationality">Nationality</option>
+                            <option value="Occupation">Occupation</option>
+                            <option value="Ethnicity">Ethnicity</option>
+                            <option value="Gender">Gender</option>
+                            <option value="Age">Age</option>
+                            <option value="Name">Name</option>
+                        </select>
                     </div>
-                </c:forEach>
-            </c:when>
-            <c:when test="${fn:length(orgSecondarySources) gt 0}">
-                <c:forEach var="source" items="${orgSecondarySources}" varStatus="num">
-                    <c:set var="comment" value="secondarySource${num.count}Comments"></c:set>
-                    <c:choose>
-                        <c:when test="${poi.rejected and not empty comments.comments[comment]}">
-                            <p><b>Admin Comment:</b> ${comments.comments[comment]}</p>
-                        </c:when>
-                        <c:otherwise></c:otherwise>
-                    </c:choose>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="secondarySource[]" value="${secondarySource}" />
-                        <a href="#" class="remove_field">Remove</a>
-                    </div>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="secondarySource[]" />
-                    <a href="#" class="remove_field">Remove</a>
                 </div>
-            </c:otherwise>
-        </c:choose>
-    </div>
+
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="${name}">${label} Identity</label>
+                        <input id="${name}" type="text" class="form-control" name="${name}Identity">
+                    </div>
+                </div>         
+            </div> <!-- identity-->
+            <div class="text-center">
+                <button id="${name}identityBtn" type="button" class="btn btn-default add_field_button">Add ${label} Identity</button>
+            </div> 
+        </div> <!-- person --> 
+        <div class="text-center">
+            <button id="${name}Btn" type="button" class="btn btn-default add_field_button">Add ${label}</button>
+        </div>
+    </div> 
 </div>
--->
