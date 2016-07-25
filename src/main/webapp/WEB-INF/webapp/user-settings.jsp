@@ -100,7 +100,7 @@
 	<form role="">
 		<div>
 			<input class="form-control" type="text" name="email" />
-			<select class="btn btn-secondary dropdown-toggle" name="role">
+			<select class="btn btn-default btn-lg dropdown-toggle" name="role">
 				<option class="dropdown-item" value="VIEWER">Viewer</option>
 				<option class="dropdown-item" value="COMMENTOR">Commentor</option>
 				<option class="dropdown-item" value="EDITOR">Editor</option>

@@ -35,10 +35,10 @@
 			<input id="locationInput" class="form-control" />
 			<div id="mapEdit" style="width:100%;height:380px;"></div>
 		</div>
-		<div>
+		<div class="col-xs-6">
 			<t:simpleInput htmlId="latEdit" name="lat" label="Latitude:"/>
 		</div> 
-		<div>
+		<div class="col-xs-6">
 			<t:simpleInput htmlId="lngEdit" name="lng" label="Longitude:"/>
 		</div>
 	</div>
@@ -48,8 +48,10 @@
 		helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
 
 	<%-- victim identities --%> 
+	<t:person name="victim" label="Victim" />
 
 	<%-- aggressor identities --%> 
+	<t:person name="aggressor" label="Aggressor"/>
 
 	<%-- tags --%>
 	<t:source name="tag" label="Tags:" helpText="Tag your POI with commonly-searched phrases. Soon, we'll work together to create a standard list of good tags."/> 
