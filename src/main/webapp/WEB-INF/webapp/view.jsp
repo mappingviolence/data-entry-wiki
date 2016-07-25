@@ -191,7 +191,7 @@
     	  m1.updateMap({ "lat" : 31.9686, "lng" : -99.9018 }, unsetZoom);
 		  //m1.updateAutocomplete({ "lat" : 31.9686, "lng" : -99.9018 });
       }
-    })
+    });
 
     /* help button text */
     var helpBtns = $("label>span[role='helpBtn']");
@@ -209,6 +209,7 @@
       e.preventDefault();
       var $input = $("div.hidden div[data-id='hiddentag']").clone();
       $("div.hidden div[data-id='hiddentag']").parent().after($input);
+      /* remove button */ 
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
         $(this).parent().remove(); 
@@ -256,15 +257,48 @@
     /* add new victim */ 
     $("#victimBtn").on("click", function(e) { 
       e.preventDefault();
-      var $victim = $("div[data-id='hiddenvictim']").clone();
-      $victim.val(randomId());
-      $("div[data-id='hiddenvictim']").parent().after($victim);
-      $(".removebutton").off();
+      var $victim = $("div.hidden div[data-id='victim']").clone();
+      $("#victimpersons").append($victim);
+      $(".victimidentityBtn").off(); // so that event handlers don't build up 
+
+      /* add victim identity */
+      $(".victimidentityBtn").on("click", function(e) {
+          e.preventDefault(); 
+          var $victimidentity = $("div.hidden div[data-id='victimidentity']").clone();
+          $(this).parent().before($victimidentity);
+
+          $(".removebutton").on("click", function(e) { 
+            e.preventDefault();
+            $(this).parent().remove(); 
+          });
+      });
+    });
+    
+    /* add new aggressor */ 
+    $("#aggressorBtn").on("click", function(e) { 
+      e.preventDefault();
+      var $aggressor = $("div.hidden div[data-id='aggressor']").clone();
+      $("#aggressorpersons").append($aggressor);
+      $(".aggressoridentityBtn").off(); // so that event handlers don't build up 
+
+      /* add aggressor identity */
+      $(".aggressoridentityBtn").on("click", function(e) {
+          e.preventDefault(); 
+          var $aggressoridentity = $("div.hidden div[data-id='aggressoridentity']").clone();
+          $(this).parent().before($aggressoridentity);
+
+          $(".removebutton").on("click", function(e) { 
+            e.preventDefault();
+            $(this).parent().remove(); 
+          });
+      });
+
+      /* remove button */ 
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
         $(this).parent().remove(); 
       });
-    })
+    });
     
     /* populating the form */
     var title = $("#title h1").text(); 
@@ -308,7 +342,6 @@
     var text = $("#description p").text();
     var html = converter.makeHtml(text);
     $("#description p").html(html);
-
   });
 </script>
 

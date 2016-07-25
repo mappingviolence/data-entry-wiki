@@ -7,25 +7,18 @@
 <div class="infobox">
 	<table class="infoboxtable"> 
 		<tr class="mergedbottomrow"> 
-			<td colspan="2" id="date">
-				<h3><strong>${thisPOI.date.value}</strong></h3>
-				<input type="hidden" class="hidden" value="${thisPOI.date.id}" /> 
-			</td> 
+			<td colspan="2"><h3 id="date"><strong>${thisPOI.date.value}</strong></h3></td> 
 		</tr> 
 		<tr class="map"> 
-			<td colspan="2" id="location"> 
+			<td colspan="2"> 
 				<div id="locationAddress"></div>
 				<div id="map" style="width:100%;height:400px;"></div>
 				<div id="lat">${thisPOI.location.value.getLatitude()}</div>
 				<div id="lng">${thisPOI.location.value.getLongitude()}</div>
-				<input type="hidden" class="hidden" value="${thisPOI.location.id}" /> 
 			</td> 
 		</tr> 
 		<tr> 
-			<td colspan="2" id="locationrationale">
-				<p>${thisPOI.locationRationale.value}</p>
-				<input type="hidden" class="hidden" value="${thisPOI.locationRationale.id}" />
-			</td>
+			<td colspan="2"><p id="locationrationale">${thisPOI.locationRationale.value}</p></td>
 		</tr> 
 		<t:listOutData title="Victims" peopleList="${thisPOI.victims}"/> 
 		<t:listOutData title="Aggressors" peopleList="${thisPOI.aggressors}"/> 

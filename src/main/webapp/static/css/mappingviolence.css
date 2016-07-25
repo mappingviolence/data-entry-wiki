@@ -61,16 +61,21 @@ tbody {
 }
 
 h1 { 
-	font-size: 60pt !important; 
+	font-size: 50pt !important; 
 }
 
 h2 { 
-	font-size: 30pt !important;
+	font-size: 35pt !important;
 }
 
-.btn .btn-lg .btn-default .btn-primary { 
-	font-family: 'Montserrat', sans-serif; 
-	font-weight: 700;
+.btn:not(.btn-raised), .input-group-btn 
+.btn:not(.btn-raised), .btn:not(.btn-raised)
+.btn-default, .input-group-btn
+ .btn:not(.btn-raised).btn-default.btn 
+ .btn-lg .btn-default .btn-primary { 
+	font-family: 'Montserrat', sans-serif !important; 
+	font-weight: 700 !important;
+	color: #ff7050 !important;
 	text-transform: uppercase;
 }
 
