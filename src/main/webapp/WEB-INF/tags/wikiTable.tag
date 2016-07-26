@@ -20,7 +20,14 @@
 			<c:forEach var="wikiPage" items="${wikiList}"> 
 				<c:set var="wikiData" value="${wikiPage.getCurrentData()}" />
 				<tr>
-					<td><a href="wikipage?id=${wikiPage.id}">${wikiData.title.value}</a></td>
+					<c:choose>
+		          		<c:when test="${empty wikiData.title.value}">
+		          			<td><a href="wikipage?id=${wikiPage.id}">Untitled</a></td>
+		          		</c:when>
+		          		<c:otherwise>
+		          			<td><a href="wikipage?id=${wikiPage.id}">${wikiData.title.value}</a></td>
+		          		</c:otherwise>
+		          	</c:choose>
 					<td>${wikiPage.getCurrentVersion().editor.email}</td>
 				</tr>
 			</c:forEach>
