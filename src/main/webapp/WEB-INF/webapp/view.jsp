@@ -256,19 +256,39 @@
         });
     }
     
+    // Configure remove
+    $(".removebutton").on("click", function(e) { 
+      e.preventDefault();
+      $(this).parent().remove(); 
+    });
+    
     /* add new victim */ 
     $("#victimBtn").on("click", function(e) { 
       e.preventDefault();
       var $victim = $("div.hidden div[data-id='victim']").clone();
-      $("#victimpersons").append($victim);
+      $("#victimContainer").append($victim);
       $(".victimidentityBtn").off(); // so that event handlers don't build up 
 
       /* add victim identity */
-      $(".victimidentityBtn").on("click", function(e) {
+      $(".victimidentityBtn").on("click", function(e, i, callback) {
           e.preventDefault(); 
           var $victimidentity = $("div.hidden div[data-id='victimidentity']").clone();
-          $(this).parent().before($victimidentity);
-
+          var $this = $(this);
+          randomId(function(id) {
+        	  $victimidentity.children("input[type='hidden']").val(id);
+              console.log($victimidentity);
+              $this.before($victimidentity);
+              $(".removebutton").off();
+              $(".removebutton").on("click", function(e) { 
+                e.preventDefault();
+                $this.parent().remove(); 
+              });
+              if (callback) {
+            	  callback(i);
+              }
+          });        
+          
+          $(".removebutton").off();
           $(".removebutton").on("click", function(e) { 
             e.preventDefault();
             $(this).parent().remove(); 
@@ -276,6 +296,7 @@
       });
       
       /* remove button */ 
+      $(".removebutton").off();
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
         $(this).parent().remove(); 
@@ -295,13 +316,15 @@
           var $aggressoridentity = $("div.hidden div[data-id='aggressoridentity']").clone();
           $(this).parent().before($aggressoridentity);
 
+          $(".removebutton").off();
           $(".removebutton").on("click", function(e) { 
             e.preventDefault();
             $(this).parent().remove(); 
           });
       });
 
-      /* remove button */ 
+      /* remove button */
+      $(".removebutton").off();
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
         $(this).parent().remove(); 
@@ -372,9 +395,9 @@
     $("input[name='date']").val(date); 
     var description = $("#description p").text();
     $("textarea[name='description']").text(description);
-    var latitude = $("#lat").text(); 
+    var latitude = $("#lat").text();
     $("input[name='lat']").val(latitude);
-    var longitude = $("#lng").text(); 
+    var longitude = $("#lng").text();
     $("input[name='lng']").val(longitude);
     var locationrationale = $("#locationrationale").text();
     $("textarea[name='locationrationale']").text(locationrationale);
