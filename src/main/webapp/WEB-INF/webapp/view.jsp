@@ -54,15 +54,18 @@
     	$(document).ready(function() {
     		$("button#save").on("click", function(e) {
     			e.preventDefault();
+    			var loading = "<div id='loading' class='text-center' style='width:100%;position:fixed;top:10px;'><div style='width:30%;margin:auto;background:#fa9797;height:100px;'>Loading. Please Wait</div></div>";
+    			$("body").children().last().after(loading);
     			var poi = new POI();
     			var title = buildTitle();
     			var date = buildDate();
     			var description = buildDescription();
     			var location = buildLocation();
     			var locationRationale = buildLocationRationale();
+    			
+    			var tags = buildTags();
     			var primarySources = buildPrimarySources();
     			var secondarySources = buildSecondarySources();
-    			
     			var researchNotes = buildResearchNotes();
     			
     			poi.title = title;
@@ -70,8 +73,10 @@
     			poi.description = description;
     			poi.location = location;
     			poi.locationRationale = locationRationale;
-    			poi.primarySources = primarySources;
     			
+    			poi.tags = tags;
+    			poi.primarySources = primarySources;
+    			poi.secondarySources = secondarySources;
     			poi.researchNotes = researchNotes;
     			
     			var poiString = JSON.stringify(poi);
@@ -87,6 +92,8 @@
     			}).fail(function(data) {
     				console.log(data);
     				alert("Data not saved.\nPlease fix errors and try again.");
+    			}).complete(function() {
+    				$("#loading").remove();
     			});
     		});
     	});
@@ -137,23 +144,67 @@
     		return locationRationale;
     	}
     	
+    	var buildTags = function() {
+    		var ids = [];
+    		var $tags = $("#tagContainer div[data-id='tag']");
+    		var $tagsId = $tags.children("input[type='hidden']");
+    		for (var i = 0; i < $tagsId.size(); i++) {
+    			ids.push($($tagsId[i]).val());
+    		}
+    		var texts = [];
+    		var newTags = $("#tagContainer div[data-id='tag'] input[name='tag']");
+    		for (var i = 0; i < newTags.size(); i++) {
+    			texts.push($(newTags[i]).val());
+    		}
+    		
+    		var tags = [];
+    		for (var i = 0; i < texts.length; i++) {
+    			tags.push(new SimpleFormField(ids[i], "Tag", texts[i]));
+    		}
+    		
+    		return tags;
+    	}
+    	
     	var buildPrimarySources = function() {
     		var ids = [];
-    		var $primarySources = $(".primarySource");
-    		var $primarySourcesId = $primarySources.next();
+    		var $primarySources = $("#primarysourceContainer div[data-id='primarysource']");
+    		var $primarySourcesId = $primarySources.children("input[type='hidden']");
     		for (var i = 0; i < $primarySourcesId.size(); i++) {
     			ids.push($($primarySourcesId[i]).val());
     		}
     		var texts = [];
-    		var newPrimarySources = $("input[name='primarysource']");
+    		var newPrimarySources = $("#primarysourceContainer div[data-id='primarysource'] input[name='primarysource']");
     		for (var i = 0; i < newPrimarySources.size(); i++) {
     			texts.push($(newPrimarySources[i]).val());
     		}
     		
     		var primarySources = [];
-    		for (var i = 0; i < texts.size(); i++) {
-    			primarySources.push(new SimpleFormField(ids[i], "Primary Sources", texts[i]));
+    		for (var i = 0; i < texts.length; i++) {
+    			primarySources.push(new SimpleFormField(ids[i], "Primary Source", texts[i]));
     		}
+    		
+    		return primarySources;
+    	}
+    	
+    	var buildSecondarySources = function() {
+    		var ids = [];
+    		var $secondarySources = $("#secondarysourceContainer div[data-id='secondarysource']");
+    		var $secondarySourcesId = $secondarySources.children("input[type='hidden']");
+    		for (var i = 0; i < $secondarySourcesId.size(); i++) {
+    			ids.push($($secondarySourcesId[i]).val());
+    		}
+    		var texts = [];
+    		var newSecondarySources = $("#secondarysourceContainer div[data-id='secondarysource'] input[name='secondarysource']");
+    		for (var i = 0; i < newSecondarySources.size(); i++) {
+    			texts.push($(newSecondarySources[i]).val());
+    		}
+    		
+    		var secondarySources = [];
+    		for (var i = 0; i < texts.length; i++) {
+    			secondarySources.push(new SimpleFormField(ids[i], "Secondary Source", texts[i]));
+    		}
+    		
+    		return secondarySources;
     	}
     	
     	var buildResearchNotes = function() {
@@ -171,6 +222,7 @@
 <script>
   $(document).ready(function() {
 	  
+	// pull out to random.js
 	var randomId = function(callback) {
 		$.ajax({
 			url: "/mapviz/random"
@@ -203,57 +255,7 @@
             $("#" + id + "Text").toggleClass("hidden");
         });
     }
-
-    /* add new tags */
-    $("#tagBtn").on("click", function(e) {
-      e.preventDefault();
-      var $input = $("div.hidden div[data-id='hiddentag']").clone();
-      $("div.hidden div[data-id='hiddentag']").parent().after($input);
-      /* remove button */ 
-      $(".removebutton").on("click", function(e) { 
-        e.preventDefault();
-        $(this).parent().remove(); 
-      });
-    })
-
-    /* add new secondary sources */ 
-    $("#secondarysourceBtn").on("click", function(e, callback) {
-      e.preventDefault();
-      var $input = $("div.hidden div[data-id='secondarysource']").clone();
-      randomId(function(id) {
-    	  $input.children("input[type='hidden']").val(id);
-          console.log($input);
-          $("#secondarysourceContainer").append($input);
-          $(".removebutton").off();
-          $(".removebutton").on("click", function(e) { 
-            e.preventDefault();
-            $(this).parent().remove(); 
-          });
-          if (callback) {
-        	  callback();
-          }
-      })
-    })
-
-    /* add new primary sources */
-    $("#primarysourceBtn").on("click", function(e, callback) {
-      e.preventDefault();
-      var $input = $("div.hidden div[data-id='primarysource']").clone();
-      randomId(function(id) {
-    	  $input.children("input[type='hidden']").val(id);
-          console.log($input);
-          $("#primarysourceContainer").append($input);
-          $(".removebutton").off();
-          $(".removebutton").on("click", function(e) { 
-            e.preventDefault();
-            $(this).parent().remove(); 
-          });
-          if (callback) {
-        	  callback();
-          }
-      })
-    })
-
+    
     /* add new victim */ 
     $("#victimBtn").on("click", function(e) { 
       e.preventDefault();
@@ -271,6 +273,12 @@
             e.preventDefault();
             $(this).parent().remove(); 
           });
+      });
+      
+      /* remove button */ 
+      $(".removebutton").on("click", function(e) { 
+        e.preventDefault();
+        $(this).parent().remove(); 
       });
     });
     
@@ -299,6 +307,63 @@
         $(this).parent().remove(); 
       });
     });
+
+    /* add new tags */
+    $("#tagBtn").on("click", function(e, i, callback) {
+      e.preventDefault();
+      var $input = $("div.hidden div[data-id='tag']").clone();
+      randomId(function(id) {
+    	  $input.children("input[type='hidden']").val(id);
+          console.log($input);
+          $("#tagContainer").append($input);
+          $(".removebutton").off();
+          $(".removebutton").on("click", function(e) { 
+            e.preventDefault();
+            $(this).parent().remove(); 
+          });
+          if (callback) {
+        	  callback(i);
+          }
+      })
+    })
+    
+    /* add new primary sources */
+    $("#primarysourceBtn").on("click", function(e, i, callback) {
+      e.preventDefault();
+      var $input = $("div.hidden div[data-id='primarysource']").clone();
+      randomId(function(id) {
+    	  $input.children("input[type='hidden']").val(id);
+          console.log($input);
+          $("#primarysourceContainer").append($input);
+          $(".removebutton").off();
+          $(".removebutton").on("click", function(e) { 
+            e.preventDefault();
+            $(this).parent().remove(); 
+          });
+          if (callback) {
+        	  callback(i);
+          }
+      })
+    })
+
+    /* add new secondary sources */ 
+    $("#secondarysourceBtn").on("click", function(e, i, callback) {
+      e.preventDefault();
+      var $input = $("div.hidden div[data-id='secondarysource']").clone();
+      randomId(function(id) {
+    	  $input.children("input[type='hidden']").val(id);
+          console.log($input);
+          $("#secondarysourceContainer").append($input);
+          $(".removebutton").off();
+          $(".removebutton").on("click", function(e) { 
+            e.preventDefault();
+            $(this).parent().remove(); 
+          });
+          if (callback) {
+        	  callback(i);
+          }
+      })
+    })
     
     /* populating the form */
     var title = $("#title h1").text(); 
@@ -311,13 +376,23 @@
     $("input[name='lat']").val(latitude);
     var longitude = $("#lng").text(); 
     $("input[name='lng']").val(longitude);
-    var locationrationale = $("#locationrationale p").text();
+    var locationrationale = $("#locationrationale").text();
     $("textarea[name='locationrationale']").text(locationrationale);
+    var $tags = $(".tag");
+    for (var i = 0; i < $tags.size(); i++) {
+    	$("#tagBtn").trigger("click", [i, function(j) {
+    		var tagText = $($tags[j]).text();
+        	var tagId = $($tags[j]).next().val();
+    		var $tag = $("#tagContainer").children().last();
+        	$tag.children("input[name='tag']").val(tagText);
+        	$tag.children("input[type='hidden']").val(tagId);
+    	}]);
+    }
     var $primarySources = $(".primarySource");
     for (var i = 0; i < $primarySources.size(); i++) {
-    	var primarySourceText = $($primarySources[i]).text();
-    	var primarySourceId = $($primarySources[i]).next().val();
-    	$("#primarysourceBtn").trigger("click", [function() {
+    	$("#primarysourceBtn").trigger("click", [i, function(j) {
+    		var primarySourceText = $($primarySources[j]).text();
+        	var primarySourceId = $($primarySources[j]).next().val();
     		var $primarySource = $("#primarysourceContainer").children().last();
         	$primarySource.children("input[name='primarysource']").val(primarySourceText);
         	$primarySource.children("input[type='hidden']").val(primarySourceId);
@@ -325,9 +400,9 @@
     }
     var $secondarySources = $(".secondarySource");
     for (var i = 0; i < $secondarySources.size(); i++) {
-    	var secondarySourceText = $($secondarySources[i]).text();
-    	var secondarySourceId = $($secondarySources[i]).next().val();
-    	$("#secondarysourceBtn").trigger("click", [function() {
+    	$("#secondarysourceBtn").trigger("click", [i, function(j) {
+    		var secondarySourceText = $($secondarySources[j]).text();
+        	var secondarySourceId = $($secondarySources[j]).next().val();
     		var $secondarySource = $("#secondarysourceContainer").children().last();
         	$secondarySource.children("input[name='secondarysource']").val(secondarySourceText);
         	$secondarySource.children("input[type='hidden']").val(secondarySourceId);
