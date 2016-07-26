@@ -71,7 +71,7 @@
         <p> This is where you can keep track of POIs that you're working on.</p>
 
         <p> Drafts are only visible to you. When you think you draft is ready, you can send it to the database. Anyone on the team can see and contribute to POIs in the Database. When Professor Martinez decides that a POI is ready for publication, she will publish it to the Mapping Violence website. Our goal this summer is to get many POIs in the "published" category.    </p> 
-    	<button class="btn btn-default btn-large" id="newdraft"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>New Draft</button>
+    	<button class="btn btn-default btn-large" id="newdraft"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>  New Draft</button>
     	<c:if test="${not empty currentUser and currentUser.isEditor()}">
             <div class=""></div>
     		<t:wikiTable name="Draft POIs" wikiList="${draftPOIs}" /> 
