@@ -49,7 +49,12 @@
     </div> 
     <script>
       function onSignIn(googleUser) {
+    	var profile = googleUser.getBasicProfile();
         var id_token = googleUser.getAuthResponse().id_token;
+        var givenName = profile.getGivenName();
+        var familyName = profile.getFamilyName();
+        document.cookie = "givenName=" + givenName + "; path=/";
+        document.cookie = "familyName=" + familyName + "; path=/";
         document.cookie = "id_token=" + id_token + "; path=/";
         var url = "http://localhost:8080/mapviz/dashboard";
         window.location.replace(url);

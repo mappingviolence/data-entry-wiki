@@ -81,6 +81,17 @@ public class SecurityFilter implements Filter {
                 HttpSession newSession = req.getSession();
                 newSession.setAttribute("userAccessToken", payload.getAccessTokenHash());
                 User curentUser = User.getUserByEmail(payload.getEmail());
+                for (Cookie c : cookies) {
+                  String cookieName = c.getName();
+                  switch (cookieName) {
+                    case "givenName":
+                      curentUser.setGivenName(c.getValue());
+                      break;
+                    case "familyName":
+                      curentUser.setFamilyName(c.getValue());
+                      break;
+                  }
+                }
                 newSession.setAttribute("currentUser", curentUser);
                 Cookie respCookie = new Cookie(cookie.getName(), "");
                 respCookie.setMaxAge(0);

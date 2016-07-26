@@ -21,6 +21,10 @@ public class User {
 
   private String email;
 
+  private String givenName;
+
+  private String familyName;
+
   private Role role;
 
   @SuppressWarnings("unused")
@@ -45,29 +49,55 @@ public class User {
 
   public String getEmail() {
     if (email == null) {
-      email = getUser().email;
+      fill(getUser());
     }
     return email;
   }
 
   public void setEmail(String email) {
     this.email = email;
+    db.save(this);
+  }
+
+  public String getGivenName() {
+    if (givenName == null) {
+      fill(getUser());
+    }
+    return givenName;
+  }
+
+  public void setGivenName(String givenName) {
+    this.givenName = givenName;
+    db.save(this);
+  }
+
+  public String getFamilyName() {
+    if (familyName == null) {
+      fill(getUser());
+    }
+    return familyName;
+  }
+
+  public void setFamilyName(String familyName) {
+    this.familyName = familyName;
+    db.save(this);
   }
 
   public Role getRole() {
     if (role == null) {
-      role = getUser().role;
+      fill(getUser());
     }
     return role;
   }
 
   public void setRole(Role newRole) {
     role = newRole;
+    db.save(this);
   }
 
   @Override
   public String toString() {
-    return email;
+    return givenName + familyName;
   }
 
   public static User getUser(String id) {
@@ -80,6 +110,13 @@ public class User {
 
   private User getUser() {
     return getUser(id.toHexString());
+  }
+
+  private void fill(User dbUser) {
+    this.email = dbUser.email;
+    this.givenName = dbUser.givenName;
+    this.familyName = dbUser.familyName;
+    this.role = dbUser.role;
   }
 
   public boolean delete() {

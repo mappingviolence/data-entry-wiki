@@ -66,7 +66,7 @@
 	<t:header page="dashboard"/> 
 
     <div class="container">
-    	<h1>Hello ${currentUser.email}, welcome to your dashboard.</h1>
+    	<h1>Hello ${currentUser.givenName}, welcome to your dashboard.</h1>
 
         <p> This is where you can keep track of POIs that you're working on.</p>
 

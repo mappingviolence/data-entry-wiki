@@ -12,18 +12,23 @@ public class DatabaseConnection {
   private static final Morphia MORPHIA;
 
   static {
-    CLIENT = new MongoClient(new ServerAddress("http://63a3ec57.ngrok.io"));
-    MORPHIA = new Morphia();
+    try {
+      CLIENT = new MongoClient(new ServerAddress("0.tcp.ngrok.io", 10471));
+      MORPHIA = new Morphia();
 
-    // tell Morphia where to find your classes
-    // can be called multiple times with different packages or classes
-    // TODO
-    MORPHIA.mapPackage("org.mappingviolence.database");
-    MORPHIA.mapPackage("org.mappingviolence.user");
-    MORPHIA.mapPackage("org.mappingviolence.poi");
-    MORPHIA.mapPackage("org.mappingviolence.poi.attribute");
-    MORPHIA.mapPackage("org.mappingviolence.poi.identity");
-    MORPHIA.mapPackage("org.mappingviolence.wiki");
+      // tell Morphia where to find your classes
+      // can be called multiple times with different packages or classes
+      // TODO
+      MORPHIA.mapPackage("org.mappingviolence.database");
+      MORPHIA.mapPackage("org.mappingviolence.user");
+      MORPHIA.mapPackage("org.mappingviolence.poi");
+      MORPHIA.mapPackage("org.mappingviolence.poi.attribute");
+      MORPHIA.mapPackage("org.mappingviolence.poi.identity");
+      MORPHIA.mapPackage("org.mappingviolence.wiki");
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw e;
+    }
   }
 
   private DatabaseConnection() {
