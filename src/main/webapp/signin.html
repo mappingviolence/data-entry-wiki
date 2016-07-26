@@ -51,7 +51,7 @@
       function onSignIn(googleUser) {
         var id_token = googleUser.getAuthResponse().id_token;
         document.cookie = "id_token=" + id_token + "; path=/";
-        var url = "http://fb143ddb.ngrok.io/mapviz/dashboard";
+        var url = "http://localhost:8080/mapviz/dashboard";
         window.location.replace(url);
       };
     </script>

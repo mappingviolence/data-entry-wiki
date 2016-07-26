@@ -5,13 +5,14 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
 import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
 
 public class DatabaseConnection {
   private static final MongoClient CLIENT;
   private static final Morphia MORPHIA;
 
   static {
-    CLIENT = new MongoClient();
+    CLIENT = new MongoClient(new ServerAddress("http://63a3ec57.ngrok.io"));
     MORPHIA = new Morphia();
 
     // tell Morphia where to find your classes
