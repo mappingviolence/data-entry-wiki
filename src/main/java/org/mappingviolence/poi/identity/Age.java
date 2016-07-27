@@ -1,6 +1,6 @@
 package org.mappingviolence.poi.identity;
 
-public class Age extends SimpleIdentity<Integer> implements Identity<Integer> {
+public class Age extends AbstractIdentity<Integer> implements Identity<Integer> {
 
   @SuppressWarnings("unused")
   private Age() {

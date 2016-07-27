@@ -1,6 +1,6 @@
 package org.mappingviolence.poi.identity;
 
-public class Race extends SimpleIdentity<String> {
+public class Race extends SimpleIdentity {
 
   @SuppressWarnings("unused")
   private Race() {
