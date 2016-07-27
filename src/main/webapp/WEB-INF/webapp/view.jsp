@@ -448,7 +448,7 @@
 
     <!-- edit form --> 
     <div class="container hidden" id="edit" style="width:800px;">
-      <t:edit/>
+      <t:edit thisPOI="thisPOI"/>
     </div>
 
     <!-- wiki view --> 

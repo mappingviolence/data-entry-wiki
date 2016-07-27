@@ -14,11 +14,12 @@
 		</li> 
 	</c:forEach>
 	<div class="form-group"> 
-		<label for="add${name}comment" class="control-label col-sm-2" > 
+		<label for="add${name}comment" class="control-label col-sm-2"> 
+			Add a New Comment 
+		</label> 
 		<div class="col-sm-10">
 			<input class="form-control" type="text" name="add${name}comment">
 		</div> 
 	</div> 
-
 
 </div> 
