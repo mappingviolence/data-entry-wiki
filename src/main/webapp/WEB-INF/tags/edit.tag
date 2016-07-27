@@ -3,14 +3,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@ attribute name="thisPOI" required="true" %> 
+<%@ attribute name="thisPOI" required="true" type="org.mappingviolence.poi.POI" %>
 
 
 <form> 
-	<%-- title --%> 	
-	<t:simpleInput name="title" label="Title:"
-		helpText="Enter a short, concise phrase that identifies this point of interest (POI). The event title is visible to the public."/>
-	<t:comments comments="thisPOI.title.comments" />
+	<%-- title --%> 
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+			<t:simpleInput name="title" label="Title:"
+				helpText="Enter a short, concise phrase that identifies this point of interest (POI). The event title is visible to the public."/>
+		</div>
+		<div class="col-sm-4 col-md-3">
+			<t:comments name="title" comments="${thisPOI.title.comments}" />
+		</div>
+	</div>
 
 	<%-- date --%> 
 	<t:simpleInput name="date" label="Date:" >

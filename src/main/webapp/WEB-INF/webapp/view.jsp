@@ -447,8 +447,8 @@
     <t:header page="pool"/> 
 
     <!-- edit form --> 
-    <div class="container hidden" id="edit" style="width:800px;">
-      <t:edit thisPOI="thisPOI"/>
+    <div class="container hidden" id="edit">
+      <t:edit thisPOI="${thisPOI}"/>
     </div>
 
     <!-- wiki view --> 

@@ -31,6 +31,10 @@ body {
 	margin-top: 10px; 
 }
 
+.comments .form-control {
+	background-color: #fafafa !important;
+}
+
 .table>tbody>tr>td,
 .table>tbody>tr>th,
 .table>tfoot>tr>td,

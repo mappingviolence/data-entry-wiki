@@ -3,23 +3,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ attribute name="name" required="true" %>
-<%@ attribute name="comments" required="true" %> 
+<%@ attribute name="comments" required="true" type="java.util.List"%> 
 
 
 <div class="comments" id="${name}comments"> 
-	<c:forEach var="comment" items="comments">
-		<li> 
-			<i>${comment.author.email}</i> 
-			${comment.commentText}
-		</li> 
-	</c:forEach>
 	<div class="form-group"> 
-		<label for="add${name}comment" class="control-label col-sm-2"> 
-			Add a New Comment 
-		</label> 
-		<div class="col-sm-10">
-			<input class="form-control" type="text" name="add${name}comment">
+		
+		<label for"hidden${name}comment">comments</label>
+		<!-- hidden --> 
+		<div class="hidden"> 
+			<input class="form-control" type="text" name="hidden${name}comment">
+		</div> 
+		<!-- END hidden --> 
+		<c:forEach var="comment" items="${comments}">
+			<li> 
+				<i>${comment.author.email}</i> 
+				${comment.commentText}
+			</li> 
+		</c:forEach>
+
+		<div class="row">
+			<div class="col-xs-10">
+				<input class="form-control" type="text" name="add${name}comment" placeholder="add a new comment">
+			</div> 
+			<div class="col-xs-2"> 
+				<button id="add${name}comment" type="submit" class="btn btn-default btn-lg">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				</button> 
+			</div> 
 		</div> 
 	</div> 
-
 </div> 
