@@ -10,27 +10,25 @@ import org.mappingviolence.comment.Comment;
 import org.mappingviolence.comment.CommentContainer;
 
 public class Person implements CommentContainer {
-  @SuppressWarnings("rawtypes")
-  private Collection<Identity> identities;
+  private Collection<SimpleIdentity> identities;
 
   public Person() {
     identities = new ArrayList<>();
   }
 
-  public <T> boolean addIdentity(Identity<T> newIdentity) {
+  public <T> boolean addIdentity(SimpleIdentity newIdentity) {
     return identities.add(newIdentity);
   }
 
-  public <T> boolean removeIdentity(Identity<T> identity) {
+  public <T> boolean removeIdentity(SimpleIdentity identity) {
     return identities.remove(identity);
   }
 
-  public void setIdentities(@SuppressWarnings("rawtypes") Collection<Identity> identities) {
+  public void setIdentities(Collection<SimpleIdentity> identities) {
     this.identities = identities;
   }
 
-  @SuppressWarnings("rawtypes")
-  public Collection<Identity> getIdentities() {
+  public Collection<SimpleIdentity> getIdentities() {
     return identities;
   }
 
