@@ -13,7 +13,7 @@ public class DatabaseConnection {
 
   static {
     try {
-      CLIENT = new MongoClient(new ServerAddress("0.tcp.ngrok.io", 10471));
+      CLIENT = new MongoClient(new ServerAddress("0.tcp.ngrok.io", 14903));
       MORPHIA = new Morphia();
 
       // tell Morphia where to find your classes
