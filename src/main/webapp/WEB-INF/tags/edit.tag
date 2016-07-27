@@ -19,45 +19,75 @@
 	</div>
 
 	<%-- date --%> 
-	<t:simpleInput name="date" label="Date:" >
-		<jsp:attribute name="helpText">
-            Enter the date the event happened using the following options without brackets: [Year], [Modifier1 Year], [Year Month], [Year Modifier1 Month], [Year Month Date], or [Year Month Modifier2 Date].<br> 
-			<br> 
-			Examples: "2001", "Late 2001", "2001 October", "2001 Mid October", "2001 October 27", "2001 October Around 27".<br>
-			<br>
-			- Year must be an integer between 1850 and 9999 (inclusive).<br>
-			- Month is the non-abbreviated spelling of one of the twelve months (e.g. January).<br>
-			- Date is an integer between 1 and 31 (or 30).<br>
-			- Modifier1 is either: "Early", "Mid", "Late" (without quotes).<br>
-			- Modifier2 is "Around" (without quotes).
-      	</jsp:attribute>
-    </t:simpleInput>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+			<t:simpleInput name="date" label="Date:" >
+				<jsp:attribute name="helpText">
+		            Enter the date the event happened using the following options without brackets: [Year], [Modifier1 Year], [Year Month], [Year Modifier1 Month], [Year Month Date], or [Year Month Modifier2 Date].<br> 
+					<br> 
+					Examples: "2001", "Late 2001", "2001 October", "2001 Mid October", "2001 October 27", "2001 October Around 27".<br>
+					<br>
+					- Year must be an integer between 1850 and 9999 (inclusive).<br>
+					- Month is the non-abbreviated spelling of one of the twelve months (e.g. January).<br>
+					- Date is an integer between 1 and 31 (or 30).<br>
+					- Modifier1 is either: "Early", "Mid", "Late" (without quotes).<br>
+					- Modifier2 is "Around" (without quotes).
+		      	</jsp:attribute>
+		    </t:simpleInput>
+		</div>
+		<div class="col-sm-4 col-md-3">
+			<t:comments name="date" comments="${thisPOI.date.comments}" />
+		</div>
+	</div>
 
 
 	<%-- description --%> 
-	<t:textArea name="description" label="Description:" 
-		helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+			<t:textArea name="description" label="Description:" 
+				helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
+		</div>
+		<div class="col-sm-4 col-md-3">
+			<t:comments name="description" comments="${thisPOI.description.comments}" />
+		</div>
+	</div>
 
 	<%-- location --%> 
 	<div class="row">
-		<div class="col-xs-12">
-			<input id="locationInput" class="form-control" />
-			<div id="mapEdit" style="width:100%;height:380px;"></div>
+		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+			<div class="row">
+				<div class="col-xs-12">
+					<input id="locationInput" class="form-control" />
+					<div id="mapEdit" style="width:100%;height:380px;"></div>
+				</div>
+				<div class="col-xs-6">
+					<t:simpleInput htmlId="latEdit" name="lat" label="Latitude:"/>
+				</div> 
+				<div class="col-xs-6">
+					<t:simpleInput htmlId="lngEdit" name="lng" label="Longitude:"/>
+				</div>
+			</div>
 		</div>
-		<div class="col-xs-6">
-			<t:simpleInput htmlId="latEdit" name="lat" label="Latitude:"/>
-		</div> 
-		<div class="col-xs-6">
-			<t:simpleInput htmlId="lngEdit" name="lng" label="Longitude:"/>
+		<div class="col-sm-4 col-md-3">
+			<t:comments name="location" comments="${thisPOI.location.comments}" />
 		</div>
 	</div>
 	
 	<%-- location rationale --%>
-	<t:textArea name="locationrationale" label="Location Rationale:" 
-		helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+			<t:textArea name="locationrationale" label="Location Rationale:" 
+				helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
+		</div>
+		<div class="col-sm-4 col-md-3">
+			<t:comments name="locationrationale" comments="${thisPOI.locationRationale.comments}" />
+		</div>
+	</div>
 
 	<%-- victim identities --%> 
+
 	<t:person name="victim" label="Victim" />
+
 
 	<%-- aggressor identities --%> 
 	<t:person name="aggressor" label="Aggressor"/>
