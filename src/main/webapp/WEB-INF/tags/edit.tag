@@ -85,12 +85,11 @@
 	</div>
 
 	<%-- victim identities --%> 
-
-	<t:person name="victim" label="Victim" />
-
+	<%-- THESE COMMENTS WILL NOT WORK --%> 
+	<t:person name="victim" label="Victim" people="${thisPOI.victims}"/>
 
 	<%-- aggressor identities --%> 
-	<t:person name="aggressor" label="Aggressor"/>
+	<t:person name="aggressor" label="Aggressor" people="${thisPOI.aggressors}"/>
 
 	<%-- tags --%>
 	<t:source name="tag" label="Tags:" helpText="Tag your POI with commonly-searched phrases. Soon, we'll work together to create a standard list of good tags."/> 
@@ -108,7 +107,14 @@
 	<t:source name="secondarysource" label="Secondary Sources:" helpText=""/>
 
 	<%-- research notes --%>
-	<t:textArea name="researchnotes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+			<t:textArea name="researchnotes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>
+		</div>
+		<div class="col-sm-4 col-md-3">
+			<t:comments name="researchnotes" comments="${thisPOI.researchNotes.comments}" />
+		</div>
+	</div>
 
 	<button id="save" type="submit" class="btn btn-primary btn-lg">Save</button> 
 

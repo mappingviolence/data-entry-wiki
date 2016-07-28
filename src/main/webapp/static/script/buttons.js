@@ -45,7 +45,7 @@ $(document).ready(function() {
           randomId(function(id) {
         	  $victimidentity.children("input[type='hidden']").val(id);
               console.log($victimidentity);
-              $this.before($victimidentity);
+              $this.parent().before($victimidentity);
               $(".removebutton").off();
               $(".removebutton").on("click", function(e) { 
                 e.preventDefault();

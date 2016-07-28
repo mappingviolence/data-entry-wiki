@@ -9,18 +9,27 @@
 <div class="comments" id="${name}comments"> 
 	<div class="form-group"> 
 		
-		<label for"hidden${name}comment">comments</label>
+		<label for"hidden${name}commentlabel">comments</label>
 		<!-- hidden --> 
 		<div class="hidden"> 
-			<input class="form-control" type="text" name="hidden${name}comment">
+			<input class="form-control" type="text" name="hidden${name}commentlabel">
 		</div> 
-		<!-- END hidden --> 
-		<c:forEach var="comment" items="${comments}">
+		<!-- hidden comment -->
+		<div class="hidden"> 
 			<li> 
 				<i>${comment.author.email}</i> 
 				${comment.commentText}
 			</li> 
-		</c:forEach>
+		</div> 
+		<!-- END hidden --> 
+		<div class="commentswrapper">
+			<c:forEach var="comment" items="${comments}">
+				<li> 
+					<i>${comment.author.email}</i> 
+					${comment.commentText}
+				</li> 
+			</c:forEach>
+		</div> 
 
 		<div class="row">
 			<div class="col-xs-10">
