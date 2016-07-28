@@ -210,11 +210,14 @@
 			</tbody>
 		</table>
 	</form>
-	<c:if test="${not empty currentUser and not empty user and cf:compareUsers(currentUser, user) and currentUser.isAdmin()}">
+	<c:if test="${not empty currentUser and currentUser.isAdmin()}">
 		<form class="form-group" role="add-user">
 			<div class="row">
+				<div class="col-xs-12">
+					Add new users
+				</div>
 				<div class="col-md-4 col-sm-8 col-xs-12">
-					<input class="form-control" type="text" name="email" />
+					<input class="form-control" type="text" name="email" placeholder="new user's email" />
 				</div>
 			</div>
 			<div class="row">
