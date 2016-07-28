@@ -75,23 +75,36 @@ $(document).ready(function() {
     $("#aggressorBtn").on("click", function(e) { 
       e.preventDefault();
       var $aggressor = $("div.hidden div[data-id='aggressor']").clone();
-      $("#aggressorpersons").append($aggressor);
+      $("#aggressorContainer").append($aggressor);
       $(".aggressoridentityBtn").off(); // so that event handlers don't build up 
 
       /* add aggressor identity */
-      $(".aggressoridentityBtn").on("click", function(e) {
+      $(".aggressoridentityBtn").on("click", function(e, i, callback) {
           e.preventDefault(); 
           var $aggressoridentity = $("div.hidden div[data-id='aggressoridentity']").clone();
-          $(this).parent().before($aggressoridentity);
-
+          var $this = $(this);
+          randomId(function(id) {
+            $aggressoridentity.children("input[type='hidden']").val(id);
+              console.log($aggressoridentity);
+              $this.parent().before($aggressoridentity);
+              $(".removebutton").off();
+              $(".removebutton").on("click", function(e) { 
+                e.preventDefault();
+                $(this).parent().remove(); 
+              });
+              if (callback) {
+                callback(i);
+              }
+          });        
+          
           $(".removebutton").off();
           $(".removebutton").on("click", function(e) { 
             e.preventDefault();
             $(this).parent().remove(); 
           });
       });
-
-      /* remove button */
+      
+      /* remove button */ 
       $(".removebutton").off();
       $(".removebutton").on("click", function(e) { 
         e.preventDefault();
