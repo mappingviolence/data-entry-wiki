@@ -40,7 +40,7 @@ public class User {
     }
     this.email = email;
     this.role = role;
-    // db.save(this);
+    db.save(this);
   }
 
   public String getId() {
@@ -97,7 +97,11 @@ public class User {
 
   @Override
   public String toString() {
-    return givenName + familyName;
+    if (givenName == null || familyName == null) {
+      return "";
+    } else {
+      return givenName + " " + familyName;
+    }
   }
 
   public static User getUser(String id) {

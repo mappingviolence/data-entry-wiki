@@ -60,10 +60,36 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
-    User u = new User("hansen.cole.e@gmail.com", Role.ADMIN);
-    DatabaseConnection.getDatabase("data-entry-wiki").save(u);
-    User u1 = new User("edward_jiao@brown.edu", Role.ADMIN);
-    DatabaseConnection.getDatabase("data-entry-wiki").save(u1);
+    Map<String, String> data = Servlets.parseData(req);
+    String email = data.get("email");
+    if (email == null || "".equals(email) || !email.contains("@")) {
+      Servlets.sendError(
+          new Servlets.Error("email not valid", HttpServletResponse.SC_BAD_REQUEST),
+          req,
+          resp);
+      return;
+    }
+    String roleStr = data.get("role");
+    if (roleStr == null || "".equals(roleStr)) {
+      Servlets.sendError(
+          new Servlets.Error("role not valid", HttpServletResponse.SC_BAD_REQUEST),
+          req,
+          resp);
+      return;
+    }
+    Role role;
+    try {
+      role = Enum.valueOf(User.Role.class, roleStr);
+    } catch (IllegalArgumentException | NullPointerException e) {
+      Servlets.sendError(
+          new Servlets.Error("role not valid", HttpServletResponse.SC_BAD_REQUEST),
+          req,
+          resp);
+      return;
+    }
+    new User(email, role);
+    Servlets.sendSuccess("User successfully added", 200, req, resp, "text/json");
+    return;
   }
 
   // Update user role
@@ -83,6 +109,7 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
               HttpServletResponse.SC_BAD_REQUEST),
           req,
           resp);
+      return;
     } else {
       User user = User.getUser(id);
       // TODO: Check for invalid role
@@ -96,10 +123,15 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
         Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
         ds.save(user);
 
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().print(
-            "{ \"success\" : { \"msg\" : \"" + user.getEmail()
-                + "'s permissions were succesfully changed.\" } }");
+        req.getSession(false).setAttribute("currentUser", user);
+
+        Servlets.sendSuccess(
+            "User permissions successfully updated",
+            HttpServletResponse.SC_OK,
+            req,
+            resp,
+            "text/json");
+        return;
 
       }
     }
@@ -119,10 +151,13 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
         return;
       } else {
         if (user.delete()) {
-          resp.setStatus(HttpServletResponse.SC_OK);
-          resp.getWriter().print(
-              "{ \"success\" : { \"msg\" : \"" + user.getEmail()
-                  + " was successfully deleted.\" } }");
+          Servlets.sendSuccess(
+              "User succesfully deleted",
+              HttpServletResponse.SC_OK,
+              req,
+              resp,
+              "text/json");
+          return;
         } else {
           Servlets.sendError(
               new Servlets.Error(
@@ -131,9 +166,9 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
                   HttpServletResponse.SC_NOT_FOUND),
               req,
               resp);
+          return;
         }
       }
-
     } else {
       Servlets.sendError(Servlets.Error.ID_MISSING, req, resp);
       return;
