@@ -82,6 +82,16 @@
   	<url-pattern>/comment</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>status</servlet-name>
+  	<servlet-class>org.mappingviolence.servlet.ajax.UpdateStatusServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>status</servlet-name>
+  	<url-pattern>/status</url-pattern>
+  </servlet-mapping>
+  
   <filter>
   	<filter-name>security</filter-name>
   	<filter-class>org.mappingviolence.security.SecurityFilter</filter-class>
