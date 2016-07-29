@@ -30,11 +30,14 @@ $(document).ready(function() {
         url: "/mapviz/status",
         data: { 
           id: $POIid, 
-          commentText: "IN_POOL"
+          status: "IN_POOL"
         }
       }).done(function(data) {
+        console.log(data);
         $("#edit").toggleClass("hidden");
         $("#view").toggleClass("hidden");
+      }).fail(function(data) {
+        console.log(data);
       });
     }); 
 

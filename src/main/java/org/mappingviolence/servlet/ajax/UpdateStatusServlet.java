@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Map;
+
 import org.mappingviolence.database.DatabaseConnection;
 import org.mappingviolence.poi.POIWikiPage;
 import org.mappingviolence.servlet.Servlets;
@@ -14,13 +16,14 @@ import org.mongodb.morphia.Datastore;
 public class UpdateStatusServlet extends HttpServlet {
   @Override
   public void doPut(HttpServletRequest req, HttpServletResponse resp) {
-    String id = req.getParameter("id");
+    Map<String, String> data = Servlets.parseData(req);
+    String id = data.get("id");
     if (id == null || "".equals(id)) {
       Servlets.sendError(Servlets.Error.ID_MISSING, req, resp);
       return;
     }
 
-    String statusStr = req.getParameter("status");
+    String statusStr = data.get("status");
     if (statusStr == null || "".equals(statusStr)) {
       Servlets.sendError(
           new Servlets.Error("No status found in request", HttpServletResponse.SC_OK),

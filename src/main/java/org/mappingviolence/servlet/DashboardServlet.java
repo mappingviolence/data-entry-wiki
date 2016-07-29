@@ -20,19 +20,18 @@ public class DashboardServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
-    Query<POIWikiPage> query = ds.createQuery(POIWikiPage.class);
 
     User user = (User) req.getSession(false).getAttribute("currentUser");
 
-    List<POIWikiPage> draftPOIs = query
+    List<POIWikiPage> draftPOIs = ds.createQuery(POIWikiPage.class)
         .filter("creator.email =", user.getEmail())
         .filter("status =", Status.DRAFT)
         .asList();
-    List<POIWikiPage> reviewPOIs = query
+    List<POIWikiPage> reviewPOIs = ds.createQuery(POIWikiPage.class)
         .filter("creator.email =", user.getEmail())
         .filter("status =", Status.IN_POOL)
         .asList();
-    List<POIWikiPage> publishedPOIs = query
+    List<POIWikiPage> publishedPOIs = ds.createQuery(POIWikiPage.class)
         .filter("creator.email =", user.getEmail())
         .filter("status =", Status.PUBLISHED)
         .asList();

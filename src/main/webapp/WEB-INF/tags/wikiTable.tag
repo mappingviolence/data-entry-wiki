@@ -15,8 +15,9 @@
 		</tr>
 	</thead>
 	<tbody>
+	<%-- 
 	<c:choose>
-		<c:when test="${fn:length(wikiList) gt 0}">
+		<c:when test="${fn:length(wikiList) gt 0}"> --%> 
 			<c:forEach var="wikiPage" items="${wikiList}"> 
 				<c:set var="wikiData" value="${wikiPage.getCurrentData()}" />
 				<tr>
@@ -31,12 +32,13 @@
 					<td>${wikiPage.getCurrentVersion().editor.email}</td>
 				</tr>
 			</c:forEach>
+		<%--
 		</c:when>
 		<c:otherwise>
 			<tr>
 				<td colspan="2">No POIs in this section</td>
 			</tr>
 		</c:otherwise>
-	</c:choose>
+	</c:choose> --%>
 	</tbody>
 </table>
