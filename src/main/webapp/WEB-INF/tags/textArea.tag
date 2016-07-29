@@ -12,6 +12,6 @@
     <label for="${name}">${label} 
         <span id="${name}Help" role="helpBtn" class="glyphicon glyphicon-info-sign"></span>
     </label>
-    <textarea class="form-control" name="${name}" rows="6"></textarea>
+    <textarea class="form-control expanding" name="${name}" rows="6"></textarea>
     <span id="${name}HelpText" class="help-block hidden">${helpText}</span>
 </div>

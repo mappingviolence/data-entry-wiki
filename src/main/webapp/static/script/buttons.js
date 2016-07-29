@@ -3,6 +3,7 @@ $(document).ready(function() {
     $("#editbutton").on("click", function() {
       $("#edit").toggleClass("hidden");
       $("#view").toggleClass("hidden");
+      $("textarea").expanding();
       google.maps.event.trigger(map1, 'resize');
       if ($("#latEdit").val() != "" && $("#lngEdit").val() != "") {
 	      m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, setZoom);
@@ -25,10 +26,28 @@ $(document).ready(function() {
     }
     
     // Configure remove
-    $(".removebutton").on("click", function(e) { 
+    var doRemoveButton = function(e) {
       e.preventDefault();
-      $(this).parent().remove(); 
-    });
+      switch ($(this).attr("data-parent")) {
+        case "1": 
+          $(this).parent().remove();
+          break; 
+        case "2": 
+          $(this).parent().parent().remove();
+          break; 
+        case "3": 
+          $(this).parent().parent().parent().remove();
+          break; 
+        case "4": 
+          $(this).parent().parent().parent().parent().remove();
+          break; 
+        case "5": 
+          $(this).parent().parent().parent().parent().parent().remove();
+          break; 
+      };     
+    };
+
+    $(".removebutton").on("click", doRemoveButton);
     
     /* add new victim */ 
     $("#victimBtn").on("click", function(e) { 
@@ -45,58 +64,53 @@ $(document).ready(function() {
           randomId(function(id) {
         	  $victimidentity.children("input[type='hidden']").val(id);
               console.log($victimidentity);
-              $this.before($victimidentity);
+              $this.parent().before($victimidentity);
               $(".removebutton").off();
-              $(".removebutton").on("click", function(e) { 
-                e.preventDefault();
-                $(this).parent().remove(); 
-              });
+              $(".removebutton").on("click", doRemoveButton);
               if (callback) {
             	  callback(i);
               }
           });        
           
           $(".removebutton").off();
-          $(".removebutton").on("click", function(e) { 
-            e.preventDefault();
-            $(this).parent().remove(); 
-          });
+          $(".removebutton").on("click", doRemoveButton);
       });
       
       /* remove button */ 
       $(".removebutton").off();
-      $(".removebutton").on("click", function(e) { 
-        e.preventDefault();
-        $(this).parent().remove(); 
-      });
+      $(".removebutton").on("click", doRemoveButton);
     });
     
     /* add new aggressor */ 
     $("#aggressorBtn").on("click", function(e) { 
       e.preventDefault();
       var $aggressor = $("div.hidden div[data-id='aggressor']").clone();
-      $("#aggressorpersons").append($aggressor);
+      $("#aggressorContainer").append($aggressor);
       $(".aggressoridentityBtn").off(); // so that event handlers don't build up 
 
       /* add aggressor identity */
-      $(".aggressoridentityBtn").on("click", function(e) {
+      $(".aggressoridentityBtn").on("click", function(e, i, callback) {
           e.preventDefault(); 
           var $aggressoridentity = $("div.hidden div[data-id='aggressoridentity']").clone();
-          $(this).parent().before($aggressoridentity);
-
+          var $this = $(this);
+          randomId(function(id) {
+            $aggressoridentity.children("input[type='hidden']").val(id);
+              console.log($aggressoridentity);
+              $this.parent().before($aggressoridentity);
+              $(".removebutton").off();
+              $(".removebutton").on("click", doRemoveButton);
+              if (callback) {
+                callback(i);
+              }
+          });        
+          
           $(".removebutton").off();
-          $(".removebutton").on("click", function(e) { 
-            e.preventDefault();
-            $(this).parent().remove(); 
-          });
+          $(".removebutton").on("click", doRemoveButton);
       });
-
-      /* remove button */
+      
+      /* remove button */ 
       $(".removebutton").off();
-      $(".removebutton").on("click", function(e) { 
-        e.preventDefault();
-        $(this).parent().remove(); 
-      });
+      $(".removebutton").on("click", doRemoveButton);
     });
 
     /* add new tags */
@@ -108,10 +122,7 @@ $(document).ready(function() {
           console.log($input);
           $("#tagContainer").append($input);
           $(".removebutton").off();
-          $(".removebutton").on("click", function(e) { 
-            e.preventDefault();
-            $(this).parent().remove(); 
-          });
+          $(".removebutton").on("click", doRemoveButton);
           if (callback) {
         	  callback(i);
           }
@@ -127,10 +138,7 @@ $(document).ready(function() {
           console.log($input);
           $("#primarysourceContainer").append($input);
           $(".removebutton").off();
-          $(".removebutton").on("click", function(e) { 
-            e.preventDefault();
-            $(this).parent().remove(); 
-          });
+          $(".removebutton").on("click", doRemoveButton);
           if (callback) {
         	  callback(i);
           }
@@ -146,10 +154,7 @@ $(document).ready(function() {
           console.log($input);
           $("#secondarysourceContainer").append($input);
           $(".removebutton").off();
-          $(".removebutton").on("click", function(e) { 
-            e.preventDefault();
-            $(this).parent().remove(); 
-          });
+          $(".removebutton").on("click", doRemoveButton);
           if (callback) {
         	  callback(i);
           }
