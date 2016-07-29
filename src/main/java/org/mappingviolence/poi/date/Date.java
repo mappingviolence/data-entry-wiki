@@ -3,7 +3,12 @@ package org.mappingviolence.poi.date;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
+
+import com.google.common.collect.ImmutableList;
+
+import me.colehansen.grammar.Grammar;
 
 // TODO: Rewrite this class
 // TODO: Remove error checking on creation, maybe not.
@@ -20,9 +25,12 @@ public class Date implements Comparable<Date> {
 
   private String month;
 
-  private Integer date;
+  private Integer day;
 
   private String modifier;
+
+  private static Grammar<Date> dateGrammar;
+
   private static final Integer MIN_YEAR, MAX_YEAR;
 
   static {
@@ -45,125 +53,81 @@ public class Date implements Comparable<Date> {
       throw new RuntimeException(
           "There was a problem reading from the file. Please try again later.");
     }
+
+    Grammar.Builder<Date> b = Grammar.builder();
+    b.addGrammar("[1,2][0-9]{3}", (String[] strs) -> {
+      assert strs.length == 1;
+      Integer year = Integer.valueOf(strs[0]);
+      return Date.builder().setYear(year).build();
+    });
+    b.addGrammar("(Late|Mid|Early) [1,2][0-9]{3}", (String[] strs) -> {
+      assert strs.length == 2;
+      String mod = strs[0];
+      Integer year = Integer.valueOf(strs[1]);
+      return Date.builder().setModifier(mod).setYear(year).build();
+    });
+    b.addGrammar(
+        "[1,2][0-9]{3} (January|February|March|April|May|June|July|August|September|October|November|December)",
+        (String[] strs) -> {
+          assert strs.length == 2;
+          Integer year = Integer.valueOf(strs[0]);
+          String month = strs[1];
+          return Date.builder().setYear(year).setMonth(month).build();
+        });
+    b.addGrammar(
+        "[1,2][0-9]{3} (Late|Mid|Early) (January|February|March|April|May|June|July|August|September|October|November|December)",
+        (String[] strs) -> {
+          assert strs.length == 3;
+          Integer year = Integer.valueOf(strs[0]);
+          String mod = strs[1];
+          String month = strs[2];
+          return Date.builder().setYear(year).setMonth(month).setModifier(mod).build();
+        });
+    b.addGrammar(
+        "[1,2][0-9]{3} (January|February|March|April|May|June|July|August|September|October|November|December) ([1-9]|1[0-9]|2[0-9]|3[01])",
+        (String[] strs) -> {
+          assert strs.length == 3;
+          Integer year = Integer.valueOf(strs[0]);
+          String month = strs[1];
+          Integer day = Integer.valueOf(strs[2]);
+          return Date.builder().setYear(year).setMonth(month).setDay(day).build();
+        });
+    b.addGrammar(
+        "[1,2][0-9]{3} (January|February|March|April|May|June|July|August|September|October|November|December) Around ([1-9]|1[0-9]|2[0-9]|3[01])",
+        (String[] strs) -> {
+          assert strs.length == 4;
+          Integer year = Integer.valueOf(strs[0]);
+          String month = strs[1];
+          String modifier = strs[2];
+          Integer day = Integer.valueOf(strs[3]);
+          return Date
+              .builder()
+              .setYear(year)
+              .setMonth(month)
+              .setDay(day)
+              .setModifier(modifier)
+              .build();
+        });
+    dateGrammar = b.build();
   }
 
-  protected Date() {
+  private Date() {
+
   }
 
-  public Date(String dateStr) {
-    if (dateStr == null) {
-      throw new IllegalArgumentException("The provided date string cannot be null.");
-    }
-    String[] parts = dateStr.split(" ");
-    switch (parts.length) {
-      case 1:
-        if (isValidYear(parts[0])) {
-          this.year = parseYear(parts[0]);
-        } else {
-          throw new IllegalArgumentException(
-              "The provided date string did match the date grammar.");
-        }
-        break;
-      case 2:
-        if (isValidModifierYear(parts[0], parts[1])) {
-          this.modifier = parts[0];
-          this.year = parseYear(parts[1]);
-        } else if (isValidYearMonth(parts[0], parts[1])) {
-          this.year = parseYear(parts[0]);
-          this.month = parts[1];
-        } else {
-          throw new IllegalArgumentException(
-              "The provided date string did match the date grammar.");
-        }
-        break;
-      case 3:
-        if (isValidYearMonthDate(parts[0], parts[1], parts[2])) {
-          this.year = parseYear(parts[0]);
-          this.month = parts[1];
-          this.date = parseDate(parts[2]);
-        } else if (isValidYearModifierMonth(parts[0], parts[1], parts[2])) {
-          this.year = parseYear(parts[0]);
-          this.modifier = parts[1];
-          this.month = parts[2];
-        } else {
-          throw new IllegalArgumentException(
-              "The provided date string did match the date grammar.");
-        }
-        break;
-      case 4:
-        if (isValidYearMonthModifierDate(parts[0], parts[1], parts[2], parts[3])) {
-          this.year = parseYear(parts[0]);
-          this.month = parts[1];
-          this.modifier = parts[2];
-          this.date = parseDate(parts[3]);
-        } else {
-          throw new IllegalArgumentException(
-              "The provided date string did match the date grammar.");
-        }
-        break;
-      default:
-        throw new IllegalArgumentException("The provided date string did match the date grammar.");
-    }
+  public static Date buildDate(String dateStr) {
+    return dateGrammar.parse(dateStr);
   }
 
-  private static Integer parseYear(String yearStr) {
-    try {
-      Integer year = Integer.valueOf(yearStr);
-      if (year < MIN_YEAR) {
-        throw new IllegalArgumentException(
-            "The provided date is earlier than the earliest allowed date.");
-      }
-      return year;
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException("The provided date string did match the date grammar.");
-    }
+  public static Builder builder() {
+    return new Builder();
   }
 
-  private static Integer parseDate(String dateStr) {
-    try {
-      Integer date = Integer.valueOf(dateStr);
-      if (date < 0 || date > 31) {
-        throw new IllegalArgumentException("The provided date is not a valid date.");
-      }
-      return date;
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException("The provided date string did match the date grammar.");
-    }
-  }
-
-  private static boolean isValidYear(String yearStr) {
-    try {
-      Integer year = Integer.valueOf(yearStr);
-      if (year < MIN_YEAR || year > MAX_YEAR) {
-        return false;
-      }
-      return true;
-    } catch (NumberFormatException e) {
+  private static boolean isValidYear(Integer year) {
+    if (year < MIN_YEAR || year > MAX_YEAR) {
       return false;
     }
-  }
-
-  private static boolean isValidModifierYear(String modifier, String year) {
-    return DateModifiers.isValidYearModifier(modifier) && isValidYear(year);
-  }
-
-  private static boolean isValidYearMonth(String year, String month) {
-    return DateModifiers.isValidMonth(month) && isValidYear(year);
-  }
-
-  private static boolean isValidYearMonthDate(String year, String month, String date) {
-    return isValidYear(year) && DateModifiers.isValidMonthDate(month, date);
-  }
-
-  private static boolean isValidYearModifierMonth(String yearStr, String modStr, String monthStr) {
-    return isValidYear(yearStr) && DateModifiers.isValidMonthModifier(modStr)
-        && DateModifiers.isValidMonth(monthStr);
-  }
-
-  private static boolean isValidYearMonthModifierDate(String yearStr, String monthStr,
-      String modStr, String dateStr) {
-    return isValidYear(yearStr) && DateModifiers.isValidMonthDate(monthStr, dateStr)
-        && DateModifiers.isValidDayModifier(modStr);
+    return true;
   }
 
   public Integer getYear() {
@@ -174,8 +138,8 @@ public class Date implements Comparable<Date> {
     return month;
   }
 
-  public Integer getDate() {
-    return date;
+  public Integer getDay() {
+    return day;
   }
 
   public String getModifier() {
@@ -207,91 +171,109 @@ public class Date implements Comparable<Date> {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    if (year != null && month != null && modifier != null && date != null) {
+    if (year != null && month != null && modifier != null && day != null) {
       sb.append(year);
       sb.append(" ");
       sb.append(month);
       sb.append(" ");
       sb.append(modifier);
       sb.append(" ");
-      sb.append(date);
-    } else if (year != null && month != null && date != null && modifier == null) {
+      sb.append(day);
+    } else if (year != null && month != null && day != null && modifier == null) {
       sb.append(year);
       sb.append(" ");
       sb.append(month);
       sb.append(" ");
-      sb.append(date);
-    } else if (year != null && modifier != null && month != null && date == null) {
+      sb.append(day);
+    } else if (year != null && modifier != null && month != null && day == null) {
       sb.append(year);
       sb.append(" ");
       sb.append(modifier);
       sb.append(" ");
       sb.append(month);
-    } else if (year != null && modifier == null && month != null && date == null) {
+    } else if (year != null && modifier == null && month != null && day == null) {
       sb.append(year);
       sb.append(" ");
       sb.append(month);
-    } else if (year != null && modifier != null && month == null && date == null) {
+    } else if (year != null && modifier != null && month == null && day == null) {
       sb.append(modifier);
       sb.append(" ");
       sb.append(year);
       sb.append(" ");
-    } else if (year != null && modifier == null && month == null && date == null) {
+    } else if (year != null && modifier == null && month == null && day == null) {
       sb.append(year);
     }
     return sb.toString();
   }
-  // @Test
-  // public static void main(String[] args) {
-  // try {
-  // Date d1 = new Date("1912");
-  // assertEquals((Integer) 1912, d1.year);
-  // assertEquals(null, d1.month);
-  // assertEquals(null, d1.modifier);
-  // assertEquals(null, d1.date);
-  // } catch (Exception e) {
-  // assertTrue(false);
-  // }
-  // try {
-  // Date d1 = new Date("1903 June");
-  // assertEquals((Integer) 1903, d1.year);
-  // assertEquals(null, d1.month);
-  // assertEquals(null, d1.modifier);
-  // assertEquals(null, d1.date);
-  // } catch (Exception e) {
-  // assertTrue(false);
-  // }
-  // try {
-  // Date d1 = new Date("1904 Mid July");
-  // assertEquals((Integer) 1904, d1.year);
-  // assertEquals(null, d1.month);
-  // assertEquals(null, d1.modifier);
-  // assertEquals(null, d1.date);
-  // } catch (Exception e) {
-  // assertTrue(false);
-  // }
-  // try {
-  // Date d1 = new Date("1905 January 17");
-  // assertEquals((Integer) 1912, d1.year);
-  // assertEquals(null, d1.month);
-  // assertEquals(null, d1.modifier);
-  // assertEquals(null, d1.date);
-  // } catch (Exception e) {
-  // assertTrue(false);
-  // }
-  // try {
-  // Date d1 = new Date("-1903 November Around 1");
-  // assertEquals((Integer) 1912, d1.year);
-  // assertEquals(null, d1.month);
-  // assertEquals(null, d1.modifier);
-  // assertEquals(null, d1.date);
-  // } catch (Exception e) {
-  // assertTrue(false);
-  // }
-  // }
 
-  // TODO
-  public static boolean isValidDate(String dateStr) {
-    return true;
+  public static class Builder {
+    private Date date;
+
+    private static List<String> monthsWith30 = ImmutableList
+        .of("Janurary", "March", "May", "July", "August", "October", "December");
+    private static List<String> monthsWith31 = ImmutableList
+        .of("April", "June", "September", "November");
+
+    public Builder() {
+      this.date = new Date();
+    }
+
+    public Builder setYear(Integer year) {
+      if (!isValidYear(year)) {
+        throw new IllegalArgumentException("Invalid year.");
+      }
+      date.year = year;
+      return this;
+    }
+
+    public Builder setMonth(String month) {
+      if (!monthsWith30.contains(month) && !monthsWith31.contains(month)
+          && "February".equals(month)) {
+        throw new IllegalArgumentException(month + " is not a valid month");
+      }
+      date.month = month;
+      return this;
+    }
+
+    public Builder setDay(Integer day) {
+      if (day < 0) {
+        throw new IllegalArgumentException("Day must be greater than 0");
+      }
+      if (date.month == null) {
+        if (day > 28) {
+          throw new IllegalArgumentException(
+              "You must set the month before the date to set a day of 29, 30, or 31");
+        }
+      } else {
+        if (date.month.equals("Feburary")) {
+          if (day > 29) {
+            throw new IllegalArgumentException("Feburary has at most 29 days");
+          }
+        } else if (monthsWith30.contains(date.month)) {
+          if (day > 30) {
+            throw new IllegalArgumentException(date.month + " does not have " + day + " days");
+          }
+        } else if (monthsWith31.contains(date.month)) {
+          if (day > 31) {
+            throw new IllegalArgumentException(date.month + " does not have " + day + " days");
+          }
+        }
+      }
+      date.day = day;
+      return this;
+    }
+
+    public Builder setModifier(String modifier) {
+      if (!"Around".equals(modifier) && !"Early".equals(modifier) && !"Mid".equals(modifier)
+          && !"Late".equals(modifier)) {
+        throw new IllegalArgumentException(modifier + " is an invalid modifier");
+      }
+      date.modifier = modifier;
+      return this;
+    }
+
+    public Date build() {
+      return date;
+    }
   }
 }
