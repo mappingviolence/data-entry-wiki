@@ -18,7 +18,7 @@ public class PoolServlet extends HttpServlet {
     Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
 
     List<POIWikiPage> poiPages = new ArrayList<>();
-    poiPages = ds.find(POIWikiPage.class).asList();
+    poiPages = ds.find(POIWikiPage.class).filter("status !=", "DRAFT").asList();
 
     req.setAttribute("allPOIs", poiPages);
 
