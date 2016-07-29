@@ -24,7 +24,18 @@ $(document).ready(function() {
 
     $("#putinpool").on("click", function(e) { 
       e.preventDefault(); 
-
+      var $POIid = $("#poiId").text(); 
+      $.ajax({
+        method: "PUT",
+        url: "/mapviz/status",
+        data: { 
+          id: $POIid, 
+          commentText: "IN_POOL"
+        }
+      }).done(function(data) {
+        $("#edit").toggleClass("hidden");
+        $("#view").toggleClass("hidden");
+      });
     }); 
 
     $(".addcomment").on("click", function(e) {
