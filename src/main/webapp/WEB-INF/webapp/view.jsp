@@ -84,7 +84,7 @@
 
     <!-- edit form --> 
     <div class="container hidden" id="edit">
-      <t:edit thisPOI="${thisPOI}"/>
+      <t:edit thisPOI="${thisPOI}" status="${status}"/>
     </div>
 
     <!-- wiki view --> 

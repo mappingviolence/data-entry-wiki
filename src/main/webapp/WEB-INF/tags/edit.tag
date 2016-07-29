@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ attribute name="thisPOI" required="true" type="org.mappingviolence.poi.POI" %>
-
+<%@ attribute name="status" required="true" %>
 
 <form> 
 	<%-- title --%> 
@@ -119,7 +119,15 @@
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
 			<button id="save" type="submit" class="btn btn-primary btn-lg">Save</button> 
-			<button id="cancel" class="btn btn-primary btn-lg grey">Cancel</button> 
+			<button id="cancel" type="button" class="btn btn-primary btn-lg grey">Cancel</button> 
+			<c:choose> 
+				<c:when test="${status eq 'DRAFT'}">
+					<button id="putinpool" class="btn btn-primary btn-lg grey">Share with team</button> 
+				</c:when> 
+				<c:otherwise> 
+					<p>test</p>
+				</c:otherwise>
+			</c:choose> 
 		</div> 
 	</div> 
 

@@ -45,7 +45,7 @@
                     <div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">    
                         <div class="form-group">
                             <label for="${name}"> <br> </label> <!-- empty label for style -->
-                            <input class="form-control" type="text" name="${name}" placeholder="type source here">
+                            <input class="form-control" type="text" name="${name}" placeholder="type source here" value="${item.value}">
                             <input type="hidden" class="hidden" />
                             <a class="removebutton" data-parent="4" href="#">remove</a>
                         </div> 

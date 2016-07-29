@@ -14,6 +14,19 @@ $(document).ready(function() {
       }
     });
 
+    /* cancel button takes you back to view page from edit page w/o saving data */ 
+    $("#cancel").on("click", function(e) {
+      e.preventDefault();
+      $("#edit").toggleClass("hidden"); 
+      $("#view").toggleClass("hidden"); 
+      return false;
+    });
+
+    $("#putinpool").on("click", function(e) { 
+      e.preventDefault(); 
+
+    }); 
+
     /* help button text */
     var helpBtns = $("label>span[role='helpBtn']");
     for (var i = 0; i < helpBtns.length; i++) {

@@ -37,7 +37,7 @@
 				 name="add${name}comment" placeholder="add a new comment" rows="1"></textarea>
 			</div> 
 			<div class="col-xs-2"> 
-				<button id="add${name}comment" type="submit" class="btn btn-default btn-lg">
+				<button id="add${name}comment" type="submit" class="btn btn-default btn-lg addcomment">
 					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 				</button> 
 			</div> 

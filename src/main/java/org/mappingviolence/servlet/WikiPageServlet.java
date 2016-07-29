@@ -45,7 +45,7 @@ public class WikiPageServlet extends HttpServlet {
     req.setAttribute("id", poiWikiPage.getId());
     req.setAttribute("creator", poiWikiPage.getCreator());
     req.setAttribute("lasteditor", poiWikiPage.getLastEditor());
-
+    req.setAttribute("status", poiWikiPage.getStatus());
     Servlets.forward("/WEB-INF/webapp/view.jsp", req, resp);
     return;
   }
