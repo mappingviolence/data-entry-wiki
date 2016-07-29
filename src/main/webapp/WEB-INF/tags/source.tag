@@ -29,9 +29,11 @@
                         <a class="removebutton" data-parent="4" href="#">remove</a>
                     </div> 
                 </div> 
+                <%--  There is no way to save comments on new form elements before they are saved, so we are removing the comments section for the hidden input
                 <div class="col-sm-4 col-md-3">
-                    <t:comments name="locationrationale" comments="${thisPOI.locationRationale.comments}" />
+                    <t:comments name="${name}"/>
                 </div>
+                --%> 
             </div> 
         </div>
     </div>
@@ -51,7 +53,7 @@
                         </div> 
                     </div> 
                     <div class="col-sm-4 col-md-3">
-                        <t:comments name="locationrationale" comments="${thisPOI.locationRationale.comments}" />
+                        <t:comments name="${name}" comments="${item.comments}" id="${item.id}"/>
                     </div>
                 </div> 
             </div>

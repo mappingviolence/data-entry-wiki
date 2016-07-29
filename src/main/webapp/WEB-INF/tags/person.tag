@@ -56,7 +56,7 @@
                             <div class="col-xs-6">
                                 <div class="form-group">
                                     <label for="${name}">${label} Identity</label>
-                                    <input id="${name}" type="text" class="form-control" name="${name}Identity" value="${identity.value}">
+                                    <input id="${name}" type="text" class="form-control" name="${name}Identity">
                                 </div>
                             </div>  
                         </div>
@@ -64,10 +64,12 @@
                     <input type="hidden" class="hidden" />
                     <a class="removebutton" data-parent="3" href="#">remove ${name} identity</a>    
                 </div>
-                <!-- comments --> 
+                <!-- comments -->
+                <%--  There is no way to save comments on new form elements before they are saved, so we are removing the comments section for the hidden input
+
                 <div class="col-sm-4 col-md-3">
-                    <t:comments name="${name}" comments="${identity.comments}" />
-                </div>
+                    <t:comments name="${name}" id="${identity.id}" />
+                </div> --%> 
                 <!-- END comments --> 
             </div>
         </div>   
@@ -109,11 +111,11 @@
                     </div>
                     <!-- comments --> 
                     <div class="col-sm-4 col-md-3">
-                        <t:comments name="${name}" comments="${identity.comments}" />
+                        <t:comments name="${name}" comments="${identity.comments}" id="${identity.id}" />
                     </div>
                     <!-- END comments --> 
                 </div>
-            </div>         
+            </div>   
         </c:forEach> <!-- identity forEach--> 
     </c:forEach> <!-- person forEach--> 
     <!-- END populate identities and comments --> 

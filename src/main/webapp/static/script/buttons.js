@@ -27,6 +27,26 @@ $(document).ready(function() {
 
     }); 
 
+    $(".addcomment").on("click", function(e) {
+      var $id = $(this).attr("id"); 
+      var $commentText = $(this).parent().parent().find("textarea").attr("value") /* find the value */ 
+      $.ajax({
+        method: "POST",
+        url: "/mapviz/comment?id=" + $id, 
+        body: { 
+          id: $id, 
+          commentText: $commentText
+        }
+      }).done(function(data) {
+        var $commentsWrapper = $(this).parent().parent().parent().find("commentswrapper");
+        var $firstName = data.author.givenName; 
+        var $lastName = data.author.familyName; 
+        $commentsWrapper.append(
+          "<li> <i>" + $firstName + " " + $lastName + "</i>" + data.commentText + "</li>"
+         );
+      });
+    }); 
+
     /* help button text */
     var helpBtns = $("label>span[role='helpBtn']");
     for (var i = 0; i < helpBtns.length; i++) {

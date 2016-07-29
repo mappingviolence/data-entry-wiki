@@ -14,7 +14,7 @@
 				helpText="Enter a short, concise phrase that identifies this point of interest (POI). The event title is visible to the public."/>
 		</div>
 		<div class="col-sm-4 col-md-3">
-			<t:comments name="title" comments="${thisPOI.title.comments}" />
+			<t:comments name="title" comments="${thisPOI.title.comments}" id="${thisPOI.title.id}" />
 		</div>
 	</div>
 
@@ -36,7 +36,7 @@
 		    </t:simpleInput>
 		</div>
 		<div class="col-sm-4 col-md-3">
-			<t:comments name="date" comments="${thisPOI.date.comments}" />
+			<t:comments name="date" comments="${thisPOI.date.comments}" id="${thisPOI.date.id}" />
 		</div>
 	</div>
 
@@ -48,7 +48,7 @@
 				helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
 		</div>
 		<div class="col-sm-4 col-md-3">
-			<t:comments name="description" comments="${thisPOI.description.comments}" />
+			<t:comments name="description" comments="${thisPOI.description.comments}" id="${thisPOI.description.id}"/>
 		</div>
 	</div>
 
@@ -69,7 +69,7 @@
 			</div>
 		</div>
 		<div class="col-sm-4 col-md-3">
-			<t:comments name="location" comments="${thisPOI.location.comments}" />
+			<t:comments name="location" comments="${thisPOI.location.comments}" id="${thisPOI.location.id}"/>
 		</div>
 	</div>
 	
@@ -80,12 +80,11 @@
 				helpText="Explain why you selected this location for the event and whether this is an exact or general location."/>
 		</div>
 		<div class="col-sm-4 col-md-3">
-			<t:comments name="locationrationale" comments="${thisPOI.locationRationale.comments}" />
+			<t:comments name="locationrationale" comments="${thisPOI.locationRationale.comments}" id="${thisPOI.locationRationale.id}" />
 		</div>
 	</div>
 
 	<%-- victim identities --%> 
-	<%-- THESE COMMENTS WILL NOT WORK --%> 
 	<t:person name="victim" label="Victim" people="${thisPOI.victims}"/>
 
 	<%-- aggressor identities --%> 
@@ -112,10 +111,11 @@
 			<t:textArea name="researchnotes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>
 		</div>
 		<div class="col-sm-4 col-md-3">
-			<t:comments name="researchnotes" comments="${thisPOI.researchNotes.comments}" />
+			<t:comments name="researchnotes" comments="${thisPOI.researchNotes.comments}" id="${thisPOI.date.id}" />
 		</div>
 	</div>
 
+	<%-- buttons --%> 
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
 			<button id="save" type="submit" class="btn btn-primary btn-lg">Save</button> 
