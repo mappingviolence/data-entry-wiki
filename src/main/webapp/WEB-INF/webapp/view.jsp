@@ -91,7 +91,9 @@
 
     <!-- previous versions --> 
     <div class="container hidden" id="versions"> 
+      <t:versions versions="${previousVersions}" poiId="${id}"/>
     </div> 
+
 
     <!-- wiki view --> 
     <div class="container" id="view" style="padding-bottom:40px;"> 
@@ -109,6 +111,9 @@
             <input type="hidden" class="hidden" value="${thisPOI.title.id}" /> 
             <button type="button" class="btn btn-default btn-lg" id="editbutton" style="bottom: 10px">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+            </button> 
+            <button type="button" class="btn btn-default btn-lg grey" id="editbutton" style="bottom: 10px; color: #BDBDBD !important;">
+              <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Previous Versions 
             </button> 
           </div> 
           <div id="subtitle" class="grey"> 
