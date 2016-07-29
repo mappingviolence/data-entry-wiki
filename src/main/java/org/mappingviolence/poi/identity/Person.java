@@ -33,7 +33,7 @@ public class Person implements CommentContainer {
   }
 
   @Override
-  public Map<Field, List<Comment>> getComments(Field field) {
+  public Map<Field, List<Comment>> getComments() {
     // TODO Auto-generated method stub
     return null;
   }

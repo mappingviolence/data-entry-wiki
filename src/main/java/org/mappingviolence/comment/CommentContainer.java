@@ -1,18 +1,19 @@
 package org.mappingviolence.comment;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public interface CommentContainer {
-  public Map<Field, List<Comment>> getComments(Field field);
+  public Map<Field, List<Comment>> getComments();
 
   public List<Comment> getComments(String attributeId);
 
   public static List<Comment> getComments(Object obj, String attributeId) {
     Field[] fields = obj.getClass().getDeclaredFields();
     for (Field field : fields) {
-      if (field.getType().equals(Commentable.class)) {
+      if (Arrays.asList(field.getType().getInterfaces()).contains(Commentable.class)) {
         try {
           Object fieldVal = field.get(obj);
           Commentable attribute = Commentable.class.cast(fieldVal);
@@ -25,7 +26,7 @@ public interface CommentContainer {
       }
     }
     for (Field field : fields) {
-      if (field.getType().equals(CommentContainer.class)) {
+      if (Arrays.asList(field.getType().getInterfaces()).contains(CommentContainer.class)) {
         List<Comment> comments;
         try {
           comments = CommentContainer.getComments(field.get(obj), attributeId);

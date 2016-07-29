@@ -3,6 +3,7 @@ package org.mappingviolence.poi;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -208,10 +209,25 @@ public class POI implements CommentContainer {
     }
   }
 
+  // UNTESTED
   @Override
-  public Map<Field, List<Comment>> getComments(Field field) {
-    // TODO
-    return null;
+  public Map<Field, List<Comment>> getComments() {
+    Map<Field, List<Comment>> commentsMap = new HashMap<>();
+    Field[] fields = getClass().getDeclaredFields();
+    for (Field field : fields) {
+      try {
+        Class<?> clazz = field.getType();
+        Object formFieldObj = clazz.cast(field.get(this));
+        if (formFieldObj instanceof FormField<?>) {
+          FormField<?> formField = (FormField<?>) formFieldObj;
+          commentsMap.put(field, formField.getComments());
+        }
+      } catch (IllegalArgumentException | IllegalAccessException e) {
+        e.printStackTrace();
+        return null;
+      }
+    }
+    return commentsMap;
   }
 
   @Override

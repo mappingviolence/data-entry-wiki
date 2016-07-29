@@ -61,8 +61,8 @@ public abstract class WikiPage<T extends CommentContainer> implements CommentCon
   public abstract void addVersion(User editor, T newVersion);
 
   @Override
-  public Map<Field, List<Comment>> getComments(Field field) {
-    return getCurrentVersion().getData().getComments(field);
+  public Map<Field, List<Comment>> getComments() {
+    return getCurrentVersion().getData().getComments();
   }
 
   @Override
