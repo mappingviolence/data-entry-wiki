@@ -106,6 +106,7 @@ public class Servlets {
       is = req.getInputStream();
     } catch (IOException e) {
       e.printStackTrace();
+      //throw new IllegalArgumentException(e);
       return null;
     }
     BufferedReader br = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
@@ -118,6 +119,7 @@ public class Servlets {
       }
     } catch (IOException e) {
       e.printStackTrace();
+      //throw new IllegalArgumentException(e);
       return null;
     }
 
@@ -127,11 +129,14 @@ public class Servlets {
       System.err.println(data);
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
+      //throw new IllegalArgumentException(e);
       return null;
     }
+    //throw new IllegalArgumentException(data);
     if (!data.contains("=")) {
       return new HashMap<>();
     }
+    
     return Splitter.on("&").withKeyValueSeparator("=").split(data);
   }
 

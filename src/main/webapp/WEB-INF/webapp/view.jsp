@@ -86,8 +86,12 @@
 
     <!-- edit form --> 
     <div class="container hidden" id="edit">
-      <t:edit thisPOI="${thisPOI}" status="${status}"/>
+      <t:edit thisPOI="${thisPOI}" status="${status}" poiId="${id}"/>
     </div>
+
+    <!-- previous versions --> 
+    <div class="container hidden" id="versions"> 
+    </div> 
 
     <!-- wiki view --> 
     <div class="container" id="view" style="padding-bottom:40px;"> 

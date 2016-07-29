@@ -21,9 +21,9 @@ import org.mongodb.morphia.Datastore;
 public class CommentServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) {
-    String poiId = req.getParameter("id");
     Map<String, String> data = Servlets.parseData(req);
-    String formFieldId = data.get("id");
+    String poiId = req.getParameter("id");
+    String formFieldId = data.get("formFieldId");
     String commentText = data.get("commentText");
     if (poiId == null) {
       throw new RuntimeException("poiId");

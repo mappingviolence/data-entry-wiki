@@ -28,21 +28,25 @@ $(document).ready(function() {
     }); 
 
     $(".addcomment").on("click", function(e) {
-      var $id = $(this).attr("id"); 
-      var $commentText = $(this).parent().parent().find("textarea").attr("value") /* find the value */ 
+      e.preventDefault();
+      var $this = $(this)
+      var $id = $(this).attr("data-id"); 
+      var $POIid = $("#poiId").text(); 
+      var $commentText = $(this).first().parent().parent().children().first().children().first().children("textarea").val(); /* find the value */ 
       $.ajax({
         method: "POST",
-        url: "/mapviz/comment?id=" + $id, 
-        body: { 
-          id: $id, 
+        url: "/mapviz/comment?id=" + $POIid, 
+        data: { 
+          formFieldId: $id, 
           commentText: $commentText
         }
       }).done(function(data) {
-        var $commentsWrapper = $(this).parent().parent().parent().find("commentswrapper");
-        var $firstName = data.author.givenName; 
-        var $lastName = data.author.familyName; 
+        console.log(this, data, $this.parent().parent().parent().find(".commentswrapper"));
+        var $commentsWrapper = $this.parent().parent().parent().find(".commentswrapper");
+        var $firstName = data.data.author.givenName; 
+        var $lastName = data.data.author.familyName; 
         $commentsWrapper.append(
-          "<li> <i>" + $firstName + " " + $lastName + "</i>" + data.commentText + "</li>"
+          "<li> <i>" + $firstName + " " + $lastName + "</i> " + data.data.commentText + "</li>"
          );
       });
     }); 

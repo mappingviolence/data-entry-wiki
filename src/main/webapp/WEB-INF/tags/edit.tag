@@ -1,13 +1,20 @@
 <%-- edit page --%> 
 <%@ tag description="Form to edit a wiki page" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@ attribute name="thisPOI" required="true" type="org.mappingviolence.poi.POI" %>
-<%@ attribute name="status" required="true" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ attribute name="thisPOI" required="true" type="org.mappingviolence.poi.POI"%>
+<%@ attribute name="status" required="true"%>
+<%@ attribute name="poiId" required="true"%>
 
 <form> 
 	<%-- title --%> 
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+			<h3>You are currently editing the POI with ID <strong id="poiId">${poiId}</strong> </h3>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
 			<t:simpleInput name="title" label="Title:"
@@ -103,7 +110,7 @@
 	<t:source name="primarysource" label="Primary Sources:" helpText="" dataList="${thisPOI.primarySources}"/>
 
 	<%-- secondary sources --%> 
-	<t:source name="secondarysource" label="Secondary Sources:" helpText="" dataList="${thisPOI.primarySources}"/>
+	<t:source name="secondarysource" label="Secondary Sources:" helpText="" dataList="${thisPOI.secondarySources}"/>
 
 	<%-- research notes --%>
 	<div class="row">
@@ -111,7 +118,7 @@
 			<t:textArea name="researchnotes" label="Research Notes:" helpText="This is to document important considerations about the research you have done. This will not be public information, but it will be used by the internal research team and the admins."/>
 		</div>
 		<div class="col-sm-4 col-md-3">
-			<t:comments name="researchnotes" comments="${thisPOI.researchNotes.comments}" id="${thisPOI.date.id}" />
+			<t:comments name="researchnotes" comments="${thisPOI.researchNotes.comments}" id="${thisPOI.researchNotes.id}" />
 		</div>
 	</div>
 

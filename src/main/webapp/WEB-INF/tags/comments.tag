@@ -15,27 +15,28 @@
 		<div class="hidden"> 
 			<input class="form-control" type="text" name="hidden${name}commentlabel">
 		</div> 
-		<!-- hidden comment -->
-		<div class="hidden"> 
-			<li> 
-				<i>${comment.author.email}</i> 
-				${comment.commentText}
-			</li> 
-		</div> 
+
 		<!-- END hidden --> 
 		<div class="commentswrapper">
-			<c:choose> 
+			<c:forEach var="comment" items="${comments}">
+				<li> 
+					<i>${comment.author.givenName} ${comment.author.familyName}</i> 
+					${comment.commentText}
+				</li> 
+			</c:forEach>
+			<%--<c:choose> 
 				<c:when test="not empty ${comments}"> 
 					<c:forEach var="comment" items="${comments}">
 						<li> 
-							<i>${comment.author.email}</i> 
+							<i>${comment.author.givenName} ${comment.author.familyName}</i> 
 							${comment.commentText}
 						</li> 
 					</c:forEach>
 				</c:when> 
 				<c:otherwise> 
+					<p> OTHERWISE </p>
 				</c:otherwise> 
-			</c:choose> 
+			</c:choose>  --%>
 		</div> 
 
 		<div class="row">
