@@ -33,14 +33,123 @@
     <link rel="stylesheet" href="static/css/mappingviolence.css" type="text/css">
     
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
     <!-- Bootstrap Core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3rwW9biPQiijfhhR9YZagdNrf_f3duvM&callback=initMap"></script>
+    <script src="static/script/loading.js"></script>
 
-    <jsp:include page="/WEB-INF/tags/mapjs.jspf"/>
+	<script>
+		$(document).ready(function() {
+			$("button[type='submit']").on("click", function(e) {
+				e.preventDefault();
+				var $body = $("body");
+				debugger;
+				startLoading($body);
+        		var $this = $(this);
+				switch ($this.attr("data-action")) {
+				case "add-user":
+					console.log("in add-user");
+					console.log(startLoading);
+					addUser(function() {
+						endLoading($("#loading"));
+					});
+					break;
+		        case "change-permission":
+		        	changePermissions($this, function() {
+		        		endLoading($("#loading"));
+		        	});
+		        	break;
+		        case "remove-user":
+		        	removeUser($this, function() {
+		        		endLoading($("#loading"))
+		        	});
+		        	break;
+		        default:
+		           console.log("click doesn't correspond with any valid action");
+		        }
+				return false;
+			});
+		});
+		
+		var addUser = function(callback) {
+			var $form = $("form[role='add-user']");
+			var email = $form.find("input[name='email']").val()
+			var role = $form.find("select[name='role']").val()
+			$.ajax(
+				{
+					method: "POST",
+					data: {email : email,
+						   role : role}
+				}
+			).done(function(data, textStatus, httpResponse) {
+					alert(data.data);
+					if (callback) {
+						callback();
+					}
+					document.location.reload();
+				}
+			).fail(function(httpResponse, errText, errThrown) {
+					if (callback) {
+						callback();
+					}
+					alert(httpResponse.data);
+				}
+			);
+		}
+		
+		var changePermissions = function($this, callback) {
+			var $form = $("form[role='modify-user']");
+			var id = $this.attr("data-id");
+			var role = $this.prev().val();
+			console.log(id, role);
+			$.ajax(
+				{
+					method: "PUT",
+					data: {id : id,
+						   role : role}
+				}
+			).done(function(data, textStatus, httpResponse) {
+					alert(data.data);
+					if (callback) {
+						callback();
+					}
+					document.location.reload();
+				}
+			).fail(function(httpResponse, errText, errThrown) {
+					if (callback) {
+						callback();
+					}
+					alert(errText, httpResponse.data);
+				}
+			);
+		}
+		
+		var removeUser = function($this, callback) {
+			var id = $this.attr("data-id");
+			$.ajax(
+	            {
+	            	method: "DELETE",
+	    			data: {id : id}
+	            }
+			).done(function(data, textStatus, httpResponse) {
+					console.log(data, textStatus, httpResponse);
+					if (callback) {
+						callback();
+					}
+	            	alert(data.data);
+	            	document.location.reload();
+				}
+			).fail(function(httpResponse, errText, errThrown) {
+					if (callback) {
+						callback();
+					}
+					alert(httpResponse.data);
+				}
+			);
+		}
+</script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,25 +164,29 @@
 <t:header page="admin"/> 
 
 <div class="container"> 
-	<form>
+	<form class="form-group" role="modify-user">
 		<table class="table">
             <caption><h2>The Current Team</h2></caption> 
 			<thead>
 				<tr>
+					<th>User Name</th>
 					<th>User email</th>
 					<th>Current Role</th>
-					<th>Change Permissions</th>
-					<th>Remove Users</th>
+					<c:if test="${not empty currentUser and not empty user and cf:compareUsers(currentUser, user) and currentUser.isAdmin()}">
+						<th>Change Permissions</th>
+						<th>Remove Users</th>
+					</c:if>
 				</tr>
 			</thead>
 			<tbody>
 				<c:catch var ="catchException">
 				<c:forEach var="user" items="${users}">
 					<tr>
+						<td>${user}</td>
 						<td>${user.email}</td>
 						<td>${user.role}</td>
-						<td>
-							<c:if test="${not empty currentUser and not empty user and cf:compareUsers(currentUser, user) and currentUser.isAdmin()}">
+						<c:if test="${not empty currentUser and not empty user and cf:compareUsers(currentUser, user) and currentUser.isAdmin()}">
+							<td>
 								<select class="btn btn-default btn-lg dropdown-toggle" name="changeRole">
 									<option value="VIEWER">Viewer</option>
 									<option value="COMMENTOR">Commentor</option>
@@ -85,102 +198,52 @@
 										<option value="PUBLISHER">Publisher</option>
 									</c:if>
 								</select>
-								<button type="submit" class="btn btn-default btn-lg" role="change-permission" data-id="${user.id}">Change Permissions</button>
-							</c:if>
-						</td>
-						<td><button type="submit" class="btn btn-default btn-lg" role="remove-user" data-id="${user.id}">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button></td>
+								<button type="submit" class="btn btn-default btn-lg" data-action="change-permission" data-id="${user.id}">Change Permissions</button>
+							</td>
+							<td><button type="submit" class="btn btn-default btn-lg" data-action="remove-user" data-id="${user.id}">
+	                            <span class="glyphicon glyphicon-remove"></span>
+	                        </button></td>
+						</c:if>
 					</tr>
 				</c:forEach>
 				</c:catch>
 			</tbody>
 		</table>
 	</form>
-	<form role="">
-		<div>
-			<input class="form-control" type="text" name="email" />
-			<select class="btn btn-default btn-lg dropdown-toggle" name="role">
-				<option class="dropdown-item" value="VIEWER">Viewer</option>
-				<option class="dropdown-item" value="COMMENTOR">Commentor</option>
-				<option class="dropdown-item" value="EDITOR">Editor</option>
-				<c:if test="${currentUser.isAdmin()}">
-					<option value="ADMIN">Admin</option>
-				</c:if>
-				<c:if test="${currentUser.isPublisher()}">
-					<option value="PUBLISHER">Publisher</option>
-				</c:if>
-			</select>
-			<button type="submit" class="btn btn-default btn-lg" data-role="add-user">Add User</button>
-		</div>
-	</form>
+	<c:if test="${not empty currentUser and currentUser.isAdmin()}">
+		<form class="form-group" role="add-user">
+			<div class="row">
+				<div class="col-xs-12">
+					Add new users
+				</div>
+				<div class="col-md-4 col-sm-8 col-xs-12">
+					<input class="form-control" type="text" name="email" placeholder="new user's email" />
+				</div>
+			</div>
+			<div class="row">
+				<div style="float:left">
+					<select class="btn btn-default btn-lg dropdown-toggle" name="role">
+						<option class="dropdown-item" value="VIEWER">Viewer</option>
+						<option class="dropdown-item" value="COMMENTOR">Commentor</option>
+						<option class="dropdown-item" value="EDITOR">Editor</option>
+						<c:if test="${currentUser.isAdmin()}">
+							<option value="ADMIN">Admin</option>
+						</c:if>
+						<c:if test="${currentUser.isPublisher()}">
+							<option value="PUBLISHER">Publisher</option>
+						</c:if>
+					</select>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-default btn-lg" data-action="add-user">Add User</button>
+				</div>
+			</div>
+		</form>
+	</c:if>
 </div>
 <c:if test = "${catchException != null}">
    <p>The exception is : ${catchException} <br />
    There is an exception: ${catchException.message}</p>
 </c:if>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script>
-$(document).ready(function() {
-	$("button[type='submit']").on("click", function() {
-        var $this = $(this);
-		switch ($this.attr("role")) {
-		case "add-user":
-			$.ajax(
-            {
-            	method: "POST",
-    			data: {email : $("input[name='email']").val(),
-    				   role : $("input[name='role']").val()}
-            })
-            .done(function(data, textStatus, httpResponse) {
-            	var responseObject = JSON.parse(data);
-            	alert(responseObject.success.msg);
-            	document.location.reload();
-            })
-            .fail(function(httpReponse, errText, errThrown) {
-            	var responseObject = JSON.parse(errText);
-            	alert(responseObject.err.msg);
-            });
-			break;
-        case "change-permission":
-        	$.ajax(
-            {
-            	method: "PUT",
-    			data: {id : $this.attr("data-id"),
-    				   role : $this.attr("data-role")}
-            })
-            .done(function(data, textStatus, httpResponse) {
-            	var responseObject = JSON.parse(data);
-            	alert(responseObject.success.msg);
-            	document.location.reload();
-            })
-            .fail(function(httpReponse, errText, errThrown) {
-            	var responseObject = JSON.parse(errText);
-            	alert(responseObject.err.msg);
-            });
-        	break;
-        case "remove-user":
-        	$.ajax(
-            {
-            	method: "DELETE",
-    			data: {id : $this.attr("data-id")}
-            })
-            .done(function(data, textStatus, httpResponse) {
-            	var responseObject = JSON.parse(data);
-            	alert(responseObject.success.msg);
-            	document.location.reload();
-            })
-            .fail(function(httpReponse, errText, errThrown) {
-            	var responseObject = JSON.parse(errText);
-            	alert(responseObject.err.msg);
-            });
-        	break;
-        default:
-           console.log("no");
-        }
-		return false;
-	});
-});
-</script>
 </body>
 </html>

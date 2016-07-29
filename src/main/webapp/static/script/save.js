@@ -1,8 +1,7 @@
 $(document).ready(function() {
     $("button#save").on("click", function(e) {
 		e.preventDefault();
-		var loading = "<div id='loading' class='text-center' style='width:100%;position:fixed;top:10px;'><div style='width:30%;margin:auto;background:#fa9797;height:100px;'>Loading...<br>Please Wait</div></div>";
-		$("body").children().last().after(loading);
+		startLoading($("body"));
 		var poi = new POI();
 		var title = buildTitle();
 		var date = buildDate();
@@ -42,7 +41,7 @@ $(document).ready(function() {
 			console.log(data);
 			alert("Data not saved.\nPlease fix errors and try again.");
 		}).complete(function() {
-			$("#loading").remove();
+			endLoading($("#loading"));
 		});
 	});
 });

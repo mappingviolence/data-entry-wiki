@@ -62,6 +62,26 @@
   	<url-pattern>/random</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>date</servlet-name>
+  	<servlet-class>org.mappingviolence.servlet.ajax.ValidDate</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>date</servlet-name>
+  	<url-pattern>/isValidDate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>comment</servlet-name>
+  	<servlet-class>org.mappingviolence.servlet.ajax.CommentServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>comment</servlet-name>
+  	<url-pattern>/comment</url-pattern>
+  </servlet-mapping>
+  
   <filter>
   	<filter-name>security</filter-name>
   	<filter-class>org.mappingviolence.security.SecurityFilter</filter-class>

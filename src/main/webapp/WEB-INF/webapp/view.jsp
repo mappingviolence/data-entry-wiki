@@ -49,6 +49,8 @@
     <!-- Moves victims, etc data from view to edit page -->
     <script src="static/script/populate.js"></script>
     
+    <script src="static/script/loading.js"></script>
+    
     <!-- Constructs POI object and then serializes it and send it to backend -->
     <script src="static/script/save.js"></script>
 
