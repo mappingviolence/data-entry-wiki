@@ -33,7 +33,8 @@
 
 		<div class="row">
 			<div class="col-xs-10">
-				<input class="form-control" type="text" name="add${name}comment" placeholder="add a new comment">
+				<textarea class="form-control expanding" type="text"
+				 name="add${name}comment" placeholder="add a new comment" rows="1"></textarea>
 			</div> 
 			<div class="col-xs-2"> 
 				<button id="add${name}comment" type="submit" class="btn btn-default btn-lg">

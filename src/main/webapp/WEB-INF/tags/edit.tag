@@ -92,7 +92,7 @@
 	<t:person name="aggressor" label="Aggressor" people="${thisPOI.aggressors}"/>
 
 	<%-- tags --%>
-	<t:source name="tag" label="Tags:" helpText="Tag your POI with commonly-searched phrases. Soon, we'll work together to create a standard list of good tags."/> 
+	<t:source name="tag" label="Tags:" helpText="Tag your POI with commonly-searched phrases. Soon, we'll work together to create a standard list of good tags." dataList="${thisPOI.tags}"/> 
 
 	<%-- Shouldn't these be tags --%>
 		<%-- action type --%> 
@@ -101,10 +101,10 @@
 	<%-- END --%>
 
 	<%-- primary sources --%> 
-	<t:source name="primarysource" label="Primary Sources:" helpText=""/>
+	<t:source name="primarysource" label="Primary Sources:" helpText="" dataList="${thisPOI.primarySources}"/>
 
 	<%-- secondary sources --%> 
-	<t:source name="secondarysource" label="Secondary Sources:" helpText=""/>
+	<t:source name="secondarysource" label="Secondary Sources:" helpText="" dataList="${thisPOI.primarySources}"/>
 
 	<%-- research notes --%>
 	<div class="row">
@@ -116,6 +116,11 @@
 		</div>
 	</div>
 
-	<button id="save" type="submit" class="btn btn-primary btn-lg">Save</button> 
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+			<button id="save" type="submit" class="btn btn-primary btn-lg">Save</button> 
+			<button id="cancel" class="btn btn-primary btn-lg grey">Cancel</button> 
+		</div> 
+	</div> 
 
 </form> 

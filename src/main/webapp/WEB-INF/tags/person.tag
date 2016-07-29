@@ -24,7 +24,7 @@
             <div data-id="${name}"> 
                 <div class="text-center col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
                     <button type="button" class="${name}identityBtn btn btn-default add_field_button">Add ${label} Identity</button>      
-                    <a class="removebutton" href="#">remove ${name}</a>
+                    <a class="removebutton" data-parent="2" href="#">remove ${name}</a>
                     <hr>  
                 </div>
             </div>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <input type="hidden" class="hidden" />
-                    <a class="removebutton" href="#">remove ${name} identity</a>    
+                    <a class="removebutton" data-parent="3" href="#">remove ${name} identity</a>    
                 </div>
                 <!-- comments --> 
                 <div class="col-sm-4 col-md-3">
@@ -105,7 +105,7 @@
                             </div>
                         </div>
                         <input type="hidden" class="hidden" />
-                        <a class="removebutton" href="#">remove ${name} identity</a>    
+                        <a class="removebutton" data-parent="3" href="#">remove ${name} identity</a>    
                     </div>
                     <!-- comments --> 
                     <div class="col-sm-4 col-md-3">

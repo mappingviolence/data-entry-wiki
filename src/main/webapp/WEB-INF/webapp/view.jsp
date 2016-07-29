@@ -57,6 +57,11 @@
     
     <!-- Markdown converter library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.4.2/showdown.min.js"></script>
+
+    <!-- expanding text areas --> 
+    <%-- <script src='static/script/expanding.js'></script> --%>
+    <script src='http://bgrins.github.io/ExpandingTextareas/expanding.js'></script>
+
 	<script>
 		$(document).ready(function() {
 			var converter = new showdown.Converter();

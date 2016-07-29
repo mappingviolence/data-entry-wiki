@@ -22,7 +22,9 @@ $(document).ready(function() {
         	$tag.children("input[type='hidden']").val(tagId);
     	}]);
     } */
-    
+
+ /* not necessary due to JSP for loops 
+
     var $tags = $(".tag");
     for (var i = 0; i < $tags.size(); i++) {
     	$("#tagBtn").trigger("click", [i, function(j) {
@@ -53,6 +55,8 @@ $(document).ready(function() {
         	$secondarySource.children("input[type='hidden']").val(secondarySourceId);
     	}]);
     }
+
+    */
     
     
     var researchnotes = $("#researchnotes p").text();
