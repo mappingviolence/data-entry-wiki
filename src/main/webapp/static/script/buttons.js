@@ -55,6 +55,7 @@ $(document).ready(function() {
       var $this = $(this);
       var $id = $(this).attr("data-id"); 
       var $POIid = $("#poiId").text(); 
+      var $dataName = $(this).attr("data-name");
       var $commentText = $(this).first().parent().parent().children().first().children().first().children("textarea").val(); /* find the value */ 
       $.ajax({
         method: "POST",
@@ -67,21 +68,42 @@ $(document).ready(function() {
         console.log(this, data, $this.parent().parent().parent().find(".commentswrapper"));
         var $commentsWrapper = $this.parent().parent().parent().find(".commentswrapper");
         var $firstName = data.data.author.givenName; 
-        var $lastName = data.data.author.familyName; 
+        var $lastName = data.data.author.familyName;
+        var $commentId = data.data.id;
         $commentsWrapper.append(
-          "<div class='row'>" +
-            "<div class='col-xs-10'>" +
-              "<i>" + $firstName + " " + $lastName + ":</i>" +
-              $commentText +
-            "</div>" +
-            "<div class='col-xs-2'>" +
-              "<button id='delete${name}comment' data-id='${id}' type='submit' class='btn btn-default btn-sm deletecomment'>" +
-                "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>" +
-              "</button>" +
-            "</div>" +
-          "</div> "
+        	"<div class=\"row comment\">" +
+        		"<div class=\"col-xs-10\">" +
+        			"<i class=\"commentName\">" + $firstName + " " + $lastName + ": </i>" +
+        			"<span class=\"commentText\">" + $commentText + "</span>" +
+        			"<input type=\"hidden\" class=\"hidden\" value=\"" + $commentId + "\" />" +
+        		"</div>" +
+        		"<div class=\"col-xs-2\">" +
+        			"<button id=\"delete" + $dataName + "comment\" data-id=\"" + $POIid + "\" data-commentId=\"" + $commentId + "\" type=\"submit\" class=\"btn btn-default btn-sm deletecomment\">" +
+        				"<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>" +
+        			"</button>" +
+        		"</div>" +
+        	"</div>"
          );
       });
+      
+      $(".deletecomment").off();
+      $(".deletecomment").on("click", function(e) {
+          e.preventDefault();
+          var $this = $(this);
+          var $id = $(this).attr("data-id"); 
+          var $POIid = $("#poiId").text(); 
+          var $commentId = $(this).attr("data-commentId"); 
+          $.ajax({
+            method: "DELETE",
+            url: "/mapviz/comment?id=" + $POIid, 
+            data: { 
+              formFieldId: $id, 
+              commentId: $commentId 
+            }
+          }).done(function(data) {
+            $this.parent().parent().hide();
+          });
+        });
     }); 
 
     /* deletes a comment */ 

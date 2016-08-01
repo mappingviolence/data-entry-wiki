@@ -18,10 +18,14 @@
 		<!-- END hidden --> 
 		<div class="commentswrapper">
 			<c:forEach var="comment" items="${comments}">
-				<div class="row">
+				<div class="row comment">
 					<div class="col-xs-10">
-						<i>${comment.author.givenName} ${comment.author.familyName}:</i> 
-						${comment.commentText}
+						<i class="commentName">${comment.author.givenName} ${comment.author.familyName}:</i> 
+						<span class="commentText">${comment.commentText}</span>
+						<input type="hidden" class="hidden" class="commentId" value="${comment.id}" />
+						<input type="hidden" class="hidden" class="userId" value="${user.id}" />
+						<input type="hidden" class="hidden" class="userEmail" value="${user.email}" />
+						<input type="hidden" class="hidden" class="userRole" value="${user.role}" />
 					</div> 
 					<div class="col-xs-2"> 
 						<button id="delete${name}comment" data-id="${id}" data-commentId="${comment.id}" type="submit" class="btn btn-default btn-sm deletecomment"> 
@@ -51,7 +55,7 @@
 				 name="add${name}comment" placeholder="add a new comment" rows="1"></textarea>
 			</div> 
 			<div class="col-xs-2"> 
-				<button id="add${name}comment" data-id="${id}" type="submit" class="btn btn-default btn-lg addcomment">
+				<button id="add${name}comment" data-id="${id}" data-name="${name}" type="submit" class="btn btn-default btn-lg addcomment">
 					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 				</button> 
 			</div> 
