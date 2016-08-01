@@ -5,7 +5,7 @@ body {
 }
 
 .grey {
-	color: #BDBDBD;
+	color: #BDBDBD !important;
 }
 
 .form-group label, .form-control {
