@@ -18,6 +18,10 @@ public class ValidDate extends HttpServlet {
     } catch (IllegalArgumentException e) {
       date = null;
     }
-    Servlets.sendSuccess(date != null, HttpServletResponse.SC_OK, req, resp, "text/json");
+    if (date == null) {
+      Servlets.sendSuccess(false, HttpServletResponse.SC_OK, req, resp, "text/json");
+    } else {
+      Servlets.sendSuccess(date, HttpServletResponse.SC_OK, req, resp, "text/json");
+    }
   }
 }

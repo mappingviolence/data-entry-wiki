@@ -23,7 +23,7 @@
 		  	<ul class="nav navbar-nav navbar-right">
 		    	<li id="pool"><a href="pool">Database<span class="sr-only">(current)</span></a></li>
 		    	<li id="dashboard"><a href="dashboard">My Dashboard</a></li>
-		    	<li id="admin"><a href="admin">Admin Panel</a></li>
+		    	<li id="admin"><a href="admin">The Team</a></li>
 		   		<li><a href="#">Sign Out</a></li>
 		  	</ul>
 		</div> <!-- /.navbar-collapse -->

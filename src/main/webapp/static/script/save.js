@@ -16,7 +16,7 @@ $(document).ready(function() {
 		var researchNotes = buildResearchNotes();
 		
 		poi.title = title;
-		//poi.date = date;
+		poi.date = date;
 		poi.description = description;
 		poi.location = location;
 		poi.locationRationale = locationRationale;
@@ -58,10 +58,16 @@ var buildDate = function() {
 	var id = $("#date input[type='hidden']").val();
 	var text = $("input[name='date']").val();
 	
-	var date = new MyDate();
-	
-	var dateField = new SimpleFormField(id, "Date", date);
-	return dateField;
+	var date = null;
+	$.ajax({
+		method: "GET",
+		url: "/isValidDate"
+	}).done(function(data) {
+		date = data.data;
+	}).complete(function() {
+		var dateField = new SimpleFormField(id, "Date", date);
+		return dateField;
+	})
 }
 
 var buildDescription = function() {

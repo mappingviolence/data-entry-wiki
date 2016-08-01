@@ -3,6 +3,7 @@ package org.mappingviolence.servlet;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -21,33 +22,83 @@ import org.mongodb.morphia.Datastore;
 public class WikiPageServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) {
-    String id = req.getParameter("id");
+    String versionId = req.getParameter("versionId");
+    if (versionId != null) {
+      String id = req.getParameter("id");
 
-    // Servlets.sendSuccess(new POI(), 200, req, resp, "text/json");
+      // Servlets.sendSuccess(new POI(), 200, req, resp, "text/json");
 
-    if (id == null) {
-      req.setAttribute("errorMessage", "There was no id parameter found in the request.");
-      Servlets.forward("/WEB-INF/webapp/error.jsp", req, resp);
+      if (id == null) {
+        req.setAttribute("errorMessage", "There was no id parameter found in the request.");
+        Servlets.forward("/WEB-INF/webapp/error.jsp", req, resp);
+        return;
+      }
+
+      Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
+
+      POIWikiPage poiWikiPage = ds.get(POIWikiPage.class, id);
+
+      if (poiWikiPage == null) {
+        req.setAttribute("errorMessage", "The id that was sent not found in database.");
+        Servlets.forward("/WEB-INF/webapp/error.jsp", req, resp);
+        return;
+      }
+
+      List<Version<POI>> previous = poiWikiPage.getPreviousVersions();
+      POI thisPOI = null;
+      Version<POI> poiV = null;
+      for (Version<POI> prev : previous) {
+        if (prev.getId().equals(versionId)) {
+          poiV = prev;
+          thisPOI = prev.getData();
+          break;
+        }
+      }
+
+      if (thisPOI == null) {
+        req.setAttribute("errorMessage", "The version id that was sent not found in database.");
+        Servlets.forward("/WEB-INF/webapp/error.jsp", req, resp);
+        return;
+      }
+
+      req.setAttribute("thisPOI", thisPOI);
+      req.setAttribute("previousVersions", poiWikiPage.getPreviousVersions());
+      req.setAttribute("id", poiWikiPage.getId());
+      req.setAttribute("creator", poiWikiPage.getCreator());
+      req.setAttribute("lasteditor", poiV.getEditor());
+      req.setAttribute("status", poiWikiPage.getStatus());
+      Servlets.forward("/WEB-INF/webapp/view.jsp", req, resp);
+      return;
+    } else {
+      String id = req.getParameter("id");
+
+      // Servlets.sendSuccess(new POI(), 200, req, resp, "text/json");
+
+      if (id == null) {
+        req.setAttribute("errorMessage", "There was no id parameter found in the request.");
+        Servlets.forward("/WEB-INF/webapp/error.jsp", req, resp);
+        return;
+      }
+
+      Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
+
+      POIWikiPage poiWikiPage = ds.get(POIWikiPage.class, id);
+
+      if (poiWikiPage == null) {
+        req.setAttribute("errorMessage", "The id that was sent not found in database.");
+        Servlets.forward("/WEB-INF/webapp/error.jsp", req, resp);
+        return;
+      }
+
+      req.setAttribute("thisPOI", poiWikiPage.getCurrentData());
+      req.setAttribute("previousVersions", poiWikiPage.getPreviousVersions());
+      req.setAttribute("id", poiWikiPage.getId());
+      req.setAttribute("creator", poiWikiPage.getCreator());
+      req.setAttribute("lasteditor", poiWikiPage.getLastEditor());
+      req.setAttribute("status", poiWikiPage.getStatus());
+      Servlets.forward("/WEB-INF/webapp/view.jsp", req, resp);
       return;
     }
-
-    Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
-
-    POIWikiPage poiWikiPage = ds.get(POIWikiPage.class, id);
-
-    if (poiWikiPage == null) {
-      req.setAttribute("errorMessage", "The id that was sent not found in database.");
-      Servlets.forward("/WEB-INF/webapp/error.jsp", req, resp);
-      return;
-    }
-
-    req.setAttribute("thisPOI", poiWikiPage.getCurrentData());
-    req.setAttribute("id", poiWikiPage.getId());
-    req.setAttribute("creator", poiWikiPage.getCreator());
-    req.setAttribute("lasteditor", poiWikiPage.getLastEditor());
-    req.setAttribute("status", poiWikiPage.getStatus());
-    Servlets.forward("/WEB-INF/webapp/view.jsp", req, resp);
-    return;
   }
 
   @Override

@@ -13,7 +13,6 @@ import org.mappingviolence.poi.POIWikiPage;
 import org.mappingviolence.user.User;
 import org.mappingviolence.wiki.Status;
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
 
 @SuppressWarnings("serial")
 public class DashboardServlet extends HttpServlet {
@@ -23,15 +22,18 @@ public class DashboardServlet extends HttpServlet {
 
     User user = (User) req.getSession(false).getAttribute("currentUser");
 
-    List<POIWikiPage> draftPOIs = ds.createQuery(POIWikiPage.class)
+    List<POIWikiPage> draftPOIs = ds
+        .find(POIWikiPage.class)
         .filter("creator.email =", user.getEmail())
         .filter("status =", Status.DRAFT)
         .asList();
-    List<POIWikiPage> reviewPOIs = ds.createQuery(POIWikiPage.class)
+    List<POIWikiPage> reviewPOIs = ds
+        .find(POIWikiPage.class)
         .filter("creator.email =", user.getEmail())
         .filter("status =", Status.IN_POOL)
         .asList();
-    List<POIWikiPage> publishedPOIs = ds.createQuery(POIWikiPage.class)
+    List<POIWikiPage> publishedPOIs = ds
+        .find(POIWikiPage.class)
         .filter("creator.email =", user.getEmail())
         .filter("status =", Status.PUBLISHED)
         .asList();
