@@ -90,4 +90,75 @@ public class CommentServlet extends HttpServlet {
       return;
     }
   }
+
+  @Override
+  public void doDelete(HttpServletRequest req, HttpServletResponse resp) {
+    Map<String, String> data = Servlets.parseData(req);
+    String poiId = req.getParameter("id");
+    String formFieldId = data.get("formFieldId");
+    String commentId = data.get("commentId");
+    if (poiId == null) {
+      throw new RuntimeException("poiId");
+    }
+    if (formFieldId == null) {
+      throw new RuntimeException("formFieldId");
+    }
+    if (commentId == null) {
+      throw new RuntimeException("commentId");
+    }
+
+    Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
+    POIWikiPage poiW = ds.get(POIWikiPage.class, poiId);
+    if (poiW == null) {
+      Servlets.sendError(Servlets.Error.ID_NOT_FOUND, req, resp);
+      return;
+    }
+
+    Field[] fields = poiW.getClass().getDeclaredFields();
+    boolean success = false;
+    for (Field field : fields) {
+      if ("current".equals(field.getName())) {
+        POIVersion poiVersion;
+        POI poi;
+        try {
+          field.setAccessible(true);
+          poiVersion = (POIVersion) field.get(poiW);
+          poi = poiVersion.getData();
+        } catch (IllegalArgumentException | IllegalAccessException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+          throw new IllegalArgumentException(e1);
+        }
+        Field[] poiFields = poi.getClass().getDeclaredFields();
+        for (Field poiField : poiFields) {
+          Class<?> clazz = poiField.getType();
+          Object formFieldObj;
+          try {
+            poiField.setAccessible(true);
+            formFieldObj = clazz.cast(poiField.get(poi));
+          } catch (IllegalArgumentException | IllegalAccessException e) {
+            // ERROR
+            e.printStackTrace();
+            throw new RuntimeException(e);
+          }
+          if (formFieldObj instanceof FormField<?>) {
+            FormField<?> formField = (FormField<?>) formFieldObj;
+            if (formFieldId.equals(formField.getId())) {
+              boolean removed = formField.removeComment(commentId);
+              ds.save(poiVersion);
+              success = removed;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if (!success) {
+      throw new RuntimeException("no success");
+    } else {
+      Servlets.sendSuccess(poiId, HttpServletResponse.SC_OK, req, resp, "text/json");
+      return;
+    }
+  }
 }
