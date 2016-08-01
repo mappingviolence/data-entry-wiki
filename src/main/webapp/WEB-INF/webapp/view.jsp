@@ -112,7 +112,7 @@
             <button type="button" class="btn btn-default btn-lg" id="editbutton" style="bottom: 10px">
               <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
             </button> 
-            <button type="button" class="btn btn-default btn-lg grey" id="editbutton" style="bottom: 10px; color: #BDBDBD !important;">
+            <button type="button" class="btn btn-default btn-lg grey" id="versionsbutton" style="bottom: 10px; color: #BDBDBD !important;">
               <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Previous Versions 
             </button> 
           </div> 

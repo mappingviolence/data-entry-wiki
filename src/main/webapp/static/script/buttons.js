@@ -22,6 +22,13 @@ $(document).ready(function() {
       return false;
     });
 
+    /* show previous versions */ 
+    $("#versionsbutton").on("click", function(e) {
+      $("#view").toggleClass("hidden"); 
+      $("#versions").toggleClass("hidden");
+      return false; 
+    });
+
     /* put in pool button releases a draft to the entire team */ 
     $("#putinpool").on("click", function(e) { 
       e.preventDefault(); 
