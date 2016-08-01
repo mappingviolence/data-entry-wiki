@@ -48,7 +48,7 @@
                                         <option value="Ethnicity">Ethnicity</option>
                                         <option value="Gender">Gender</option>
                                         <option value="Age">Age</option>
-                                        <option value="Name">Name</option>
+                                        <option value="Name" selected>Name</option>
                                     </select>
                                 </div>
                             </div>
@@ -75,52 +75,61 @@
         </div>   
     </div> 
     <!-- END hidden identity -->
-    <!-- populate identities and comments --> 
-    <c:forEach var="person" items="${peopleList}"> 
-        <c:forEach var="identity" items="${person.identities}">
-            <div data-id="${name}identity">
-                <div class="row">
-                    <div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="${name}Category">${label} Identity Category</label>
-                                        <select class="btn btn-default btn-lg dropdown-toggle" id="${name}Category" name="${name}Category" class="form-control">
-                                            <option value="Race">Race</option>
-                                            <option value="Nationality">Nationality</option>
-                                            <option value="Occupation">Occupation</option>
-                                            <option value="Ethnicity">Ethnicity</option>
-                                            <option value="Gender">Gender</option>
-                                            <option value="Age">Age</option>
-                                            <option value="Name">Name</option>
-                                        </select>
-                                    </div>
-                                </div>
-            
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="${name}">${label} Identity</label>
-                                        <input id="${name}" type="text" class="form-control" name="${name}Identity" value="${identity.value}">
-                                    </div>
-                                </div>  
-                            </div>
-                        </div>
-                        <input type="hidden" class="hidden" value="${person.id}" />
-                        <a class="removebutton" data-parent="3" href="#">remove ${name} identity</a>    
-                    </div>
-                    <!-- comments --> 
-                    <div class="col-sm-4 col-md-3">
-                        <t:comments name="${name}" comments="${identity.comments}" id="${identity.id}" />
-                    </div>
-                    <!-- END comments --> 
-                </div>
-            </div>   
-        </c:forEach> <!-- identity forEach--> 
-    </c:forEach> <!-- person forEach--> 
+
     <!-- END populate identities and comments --> 
     <div class="row">
-        <div id="${name}Container"></div>
+        <div id="${name}Container">
+            <!-- populate identities and comments --> 
+            <c:forEach var="person" items="${people}"> 
+                <div data-id="${name}">
+                    <c:forEach var="identity" items="${person.identities}">
+                        <div data-id="${name}identity">
+                            <div class="row">
+                                <div class="col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="${name}Category">${label} Identity Category</label>
+                                                    <select class="btn btn-default btn-lg dropdown-toggle" id="${name}Category" name="${name}Category" class="form-control">
+                                                        <option value="Race" <c:if test="${identity.category eq 'Race'}">selected</c:if> >Race</option>
+                                                        <option value="Nationality"<c:if test="${identity.category eq 'Nationality'}">selected</c:if>>Nationality</option>
+                                                        <option value="Occupation" <c:if test="${identity.category eq 'Occupation'}">selected</c:if>>Occupation</option>
+                                                        <option value="Ethnicity" <c:if test="${identity.category eq 'Ethnicity'}">selected</c:if>>Ethnicity</option>
+                                                        <option value="Gender"<c:if test="${identity.category eq 'Gender'}">selected</c:if>>Gender</option>
+                                                        <option value="Age" <c:if test="${identity.category eq 'Age'}">selected</c:if>>Age</option>
+                                                        <option value="Name" <c:if test="${identity.category eq 'Name'}">selected</c:if>>Name</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                        
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="${name}">${label} Identity</label>
+                                                    <input id="${name}" type="text" class="form-control" name="${name}Identity" value="${identity.value}">
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    <a class="removebutton" data-parent="3" href="#">remove ${name} identity</a>    
+                                </div>
+                                <!-- comments --> 
+                                <div class="col-sm-4 col-md-3">
+                                    <t:comments name="${name}" comments="${identity.comments}" id="${identity.id}" />
+                                </div>
+                                <!-- END comments --> 
+                            </div>
+                        </div>   
+                    </c:forEach> <!-- identity forEach--> 
+
+                    <div class="text-center col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">
+                        <button type="button" class="${name}identityBtn btn btn-default add_field_button">Add ${label} Identity</button>      
+                        <a class="removebutton" data-parent="2" href="#">remove ${name}</a>
+                        <hr>  
+                    </div>
+                </div> 
+            </c:forEach> <!-- person forEach--> 
+        </div> 
         <div class="text-center col-sm-8 col-sm-offset-0 col-md-8 col-md-offset-1">           
             <button id="${name}Btn" type="button" class="btn btn-default add_field_button">Add ${label}</button>
         </div>

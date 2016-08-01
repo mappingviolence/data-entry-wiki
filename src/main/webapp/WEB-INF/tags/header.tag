@@ -24,7 +24,7 @@
 		    	<li id="pool"><a href="pool">Database<span class="sr-only">(current)</span></a></li>
 		    	<li id="dashboard"><a href="dashboard">My Dashboard</a></li>
 		    	<li id="admin"><a href="admin">The Team</a></li>
-		   		<li><a href="#">Sign Out</a></li>
+		   		<%-- <li><a href="#">Sign Out</a></li> --%>
 		  	</ul>
 		</div> <!-- /.navbar-collapse -->
 	  </div> <!-- /.container-fluid -->
