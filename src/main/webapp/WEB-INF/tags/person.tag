@@ -106,7 +106,7 @@
                                 </div>  
                             </div>
                         </div>
-                        <input type="hidden" class="hidden" />
+                        <input type="hidden" class="hidden" value="${person.id}" />
                         <a class="removebutton" data-parent="3" href="#">remove ${name} identity</a>    
                     </div>
                     <!-- comments --> 

@@ -3,11 +3,15 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ attribute name="thisPOI" required="true" type="org.mappingviolence.poi.POI" %>
 
-
 <div class="infobox">
 	<table class="infoboxtable"> 
 		<tr class="mergedbottomrow"> 
-			<td colspan="2"><h3 id="date"><strong>${thisPOI.date.value}</strong></h3></td> 
+			<td colspan="2">
+				<h3 id="date">
+					<strong>${thisPOI.date.value}</strong>
+					<input type="hidden" class="hidden" value="${thisPOI.date.id}" />
+				</h3>
+			</td> 
 		</tr> 
 		<tr class="map"> 
 			<td colspan="2"> 
