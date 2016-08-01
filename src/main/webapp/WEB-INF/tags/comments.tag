@@ -6,11 +6,10 @@
 <%@ attribute name="comments" type="java.util.List"%> 
 <%@ attribute name="id" required="true"%> 
 
-
 <div class="comments" id="${name}comments"> 
 	<div class="form-group"> 
 		
-		<label for"hidden${name}commentlabel">comments</label>
+		<label for="hidden${name}commentlabel">comments</label>
 		<!-- hidden --> 
 		<div class="hidden"> 
 			<input class="form-control" type="text" name="hidden${name}commentlabel">
@@ -48,7 +47,7 @@
 
 		<div class="row">
 			<div class="col-xs-10">
-				<textarea class="form-control expanding" type="text"
+				<textarea class="form-control expanding"
 				 name="add${name}comment" placeholder="add a new comment" rows="1"></textarea>
 			</div> 
 			<div class="col-xs-2"> 

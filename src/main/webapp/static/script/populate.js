@@ -2,7 +2,7 @@ $(document).ready(function() {
 	/* populating the form */
     var title = $("#title h1").text(); 
     $("input[name='title']").val(title);
-    var date = $("#date h3 strong").text();
+    var date = $("h3#date strong").text();
     $("input[name='date']").val(date); 
     var description = $("#description p").text();
     $("textarea[name='description']").text(description);

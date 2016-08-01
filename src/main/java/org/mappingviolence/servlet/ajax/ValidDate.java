@@ -19,7 +19,10 @@ public class ValidDate extends HttpServlet {
       date = null;
     }
     if (date == null) {
-      Servlets.sendSuccess(false, HttpServletResponse.SC_OK, req, resp, "text/json");
+      Servlets.sendError(
+          new Servlets.Error("Invalid date string", HttpServletResponse.SC_BAD_REQUEST),
+          req,
+          resp);
     } else {
       Servlets.sendSuccess(date, HttpServletResponse.SC_OK, req, resp, "text/json");
     }

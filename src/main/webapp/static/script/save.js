@@ -4,45 +4,56 @@ $(document).ready(function() {
 		startLoading($("body"));
 		var poi = new POI();
 		var title = buildTitle();
-		var date = buildDate();
-		var description = buildDescription();
-		var location = buildLocation();
-		var locationRationale = buildLocationRationale();
-		var victims = buildVictims();
-		var aggressors = buildAggressors();
-		var tags = buildTags();
-		var primarySources = buildPrimarySources();
-		var secondarySources = buildSecondarySources();
-		var researchNotes = buildResearchNotes();
-		
-		poi.title = title;
-		poi.date = date;
-		poi.description = description;
-		poi.location = location;
-		poi.locationRationale = locationRationale;
-		poi.victims = victims;
-		poi.aggressors = aggressors;
-		poi.tags = tags;
-		poi.primarySources = primarySources;
-		poi.secondarySources = secondarySources;
-		poi.researchNotes = researchNotes;
-		
-		var poiString = JSON.stringify(poi);
-		console.log(poi, poiString);
-		$.ajax({
-			method: "PUT",
-			data: poiString
-		}).done(function(data) {
-			console.log(data);
-			var id = data.data;
-			var url = "/mapviz/wikipage?id=" + id;
-			window.location = url;
-		}).fail(function(data) {
-			console.log(data);
-			alert("Data not saved.\nPlease fix errors and try again.");
-		}).complete(function() {
-			endLoading($("#loading"));
-		});
+		var date = null;
+		buildDate()
+			.done(function(data) {
+				console.log("in done");
+				date = data.data;
+			}).complete(function() {
+				console.log("in complete");
+				var id = $("#date input[type='hidden']").val();
+				var dateField = new SimpleFormField(id, "Date", date);
+				date = dateField;
+				
+				var description = buildDescription();
+				var location = buildLocation();
+				var locationRationale = buildLocationRationale();
+				var victims = buildVictims();
+				var aggressors = buildAggressors();
+				var tags = buildTags();
+				var primarySources = buildPrimarySources();
+				var secondarySources = buildSecondarySources();
+				var researchNotes = buildResearchNotes();
+				
+				poi.title = title;
+				poi.date = date;
+				poi.description = description;
+				poi.location = location;
+				poi.locationRationale = locationRationale;
+				poi.victims = victims;
+				poi.aggressors = aggressors;
+				poi.tags = tags;
+				poi.primarySources = primarySources;
+				poi.secondarySources = secondarySources;
+				poi.researchNotes = researchNotes;
+				
+				var poiString = JSON.stringify(poi);
+				console.log(poi, poiString);
+				$.ajax({
+					method: "PUT",
+					data: poiString
+				}).done(function(data) {
+					console.log(data);
+					var id = data.data;
+					var url = "/mapviz/wikipage?id=" + id;
+					window.location = url;
+				}).fail(function(data) {
+					console.log(data);
+					alert("Data not saved.\nPlease fix errors and try again.");
+				}).complete(function() {
+					endLoading($("#loading"));
+				});
+			});
 	});
 });
 
@@ -55,18 +66,11 @@ var buildTitle = function() {
 }
 
 var buildDate = function() {
-	var id = $("#date input[type='hidden']").val();
 	var text = $("input[name='date']").val();
 	
-	var date = null;
-	$.ajax({
+	return $.ajax({
 		method: "GET",
-		url: "/isValidDate"
-	}).done(function(data) {
-		date = data.data;
-	}).complete(function() {
-		var dateField = new SimpleFormField(id, "Date", date);
-		return dateField;
+		url: "isValidDate?dateStr=" + text
 	})
 }
 
