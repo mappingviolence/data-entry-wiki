@@ -132,7 +132,6 @@
 					<button id="putinpool" class="btn btn-primary btn-lg grey">Share with team</button> 
 				</c:when> 
 				<c:otherwise> 
-					<p>test</p>
 				</c:otherwise>
 			</c:choose> 
 		</div> 

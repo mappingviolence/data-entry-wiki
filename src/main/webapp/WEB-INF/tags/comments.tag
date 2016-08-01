@@ -19,10 +19,17 @@
 		<!-- END hidden --> 
 		<div class="commentswrapper">
 			<c:forEach var="comment" items="${comments}">
-				<li> 
-					<i>${comment.author.givenName} ${comment.author.familyName}</i> 
-					${comment.commentText}
-				</li> 
+				<div class="row">
+					<div class="col-xs-10">
+						<i>${comment.author.givenName} ${comment.author.familyName}:</i> 
+						${comment.commentText}
+					</div> 
+					<div class="col-xs-2"> 
+						<button id="delete${name}comment" data-id="${id}" data-commentId="${comment.id}" type="submit" class="btn btn-default btn-sm deletecomment"> 
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+					</div> 
+				</div> 
 			</c:forEach>
 			<%--<c:choose> 
 				<c:when test="not empty ${comments}"> 

@@ -49,9 +49,10 @@ $(document).ready(function() {
       });
     }); 
 
+    /* adds a comment */ 
     $(".addcomment").on("click", function(e) {
       e.preventDefault();
-      var $this = $(this)
+      var $this = $(this);
       var $id = $(this).attr("data-id"); 
       var $POIid = $("#poiId").text(); 
       var $commentText = $(this).first().parent().parent().children().first().children().first().children("textarea").val(); /* find the value */ 
@@ -68,10 +69,39 @@ $(document).ready(function() {
         var $firstName = data.data.author.givenName; 
         var $lastName = data.data.author.familyName; 
         $commentsWrapper.append(
-          "<li> <i>" + $firstName + " " + $lastName + "</i> " + data.data.commentText + "</li>"
+          "<div class='row'>" +
+            "<div class='col-xs-10'>" +
+              "<i>${comment.author.givenName} ${comment.author.familyName}:</i>" +
+              "${comment.commentText}" +
+            "</div>" +
+            "<div class='col-xs-2'>" +
+              "<button id='delete${name}comment' data-id='${id}' type='submit' class='btn btn-default btn-sm deletecomment'>" +
+                "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>" +
+              "</button>" +
+            "</div>" +
+          "</div> "
          );
       });
     }); 
+
+    /* deletes a comment */ 
+    $(".deletecomment").on("click", function(e) {
+      e.preventDefault();
+      var $this = $(this);
+      var $id = $(this).attr("data-id"); 
+      var $POIid = $("#poiId").text(); 
+      var $commentId = $(this).attr("data-commentId"); 
+      $.ajax({
+        method: "DELETE",
+        url: "/mapviz/comment?id=" + $POIid, 
+        data: { 
+          formFieldId: $id, 
+          commentId: $commentId 
+        }
+      }).done(function(data) {
+        $(this).parent().parent().hide()
+      });
+    });
 
     /* help button text */
     var helpBtns = $("label>span[role='helpBtn']");
