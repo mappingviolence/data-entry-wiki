@@ -71,8 +71,8 @@ $(document).ready(function() {
         $commentsWrapper.append(
           "<div class='row'>" +
             "<div class='col-xs-10'>" +
-              "<i>${comment.author.givenName} ${comment.author.familyName}:</i>" +
-              "${comment.commentText}" +
+              "<i>" + $firstName + " " + $lastName + ":</i>" +
+              $commentText +
             "</div>" +
             "<div class='col-xs-2'>" +
               "<button id='delete${name}comment' data-id='${id}' type='submit' class='btn btn-default btn-sm deletecomment'>" +
@@ -99,7 +99,7 @@ $(document).ready(function() {
           commentId: $commentId 
         }
       }).done(function(data) {
-        $(this).parent().parent().hide()
+        $this.parent().parent().hide();
       });
     });
 

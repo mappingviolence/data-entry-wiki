@@ -44,7 +44,12 @@ public class SimpleFormField<T> extends SimpleAttribute<T> implements FormField<
 
   @Override
   public boolean removeComment(String commentId) {
-    return comments.remove(commentId);
+    for (Comment comment : comments) {
+      if (comment.equals(commentId)) {
+        return comments.remove(comment);
+      }
+    }
+    return false;
   }
 
 }
