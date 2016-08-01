@@ -29,6 +29,12 @@ $(document).ready(function() {
       return false; 
     });
 
+    $("#currentversionbutton").on("click", function(e) { 
+      $("#view").toggleClass("hidden"); 
+      $("#versions").toggleClass("hidden"); 
+      return false; 
+    })
+
     /* put in pool button releases a draft to the entire team */ 
     $("#putinpool").on("click", function(e) { 
       e.preventDefault(); 
@@ -56,7 +62,8 @@ $(document).ready(function() {
       var $id = $(this).attr("data-id"); 
       var $POIid = $("#poiId").text(); 
       var $dataName = $(this).attr("data-name");
-      var $commentText = $(this).first().parent().parent().children().first().children().first().children("textarea").val(); /* find the value */ 
+      var $textArea = $(this).first().parent().parent().children().first().children().first().children("textarea");
+      var $commentText = $textArea.val(); /* find the value */ 
       $.ajax({
         method: "POST",
         url: "/mapviz/comment?id=" + $POIid, 
@@ -84,6 +91,7 @@ $(document).ready(function() {
         		"</div>" +
         	"</div>"
          );
+          $textArea.val(""); 
       });
       
       $(".deletecomment").off();
@@ -191,6 +199,26 @@ $(document).ready(function() {
       $(".removebutton").off();
       $(".removebutton").on("click", doRemoveButton);
     });
+
+    /* add victim identity (for preloaded victims) */
+    $(".victimidentityBtn").on("click", function(e, i, callback) {
+        e.preventDefault(); 
+        var $victimidentity = $("div.hidden div[data-id='victimidentity']").clone();
+        var $this = $(this);
+        randomId(function(id) {
+          $victimidentity.children("input[type='hidden']").val(id);
+            console.log($victimidentity);
+            $this.parent().before($victimidentity);
+            $(".removebutton").off();
+            $(".removebutton").on("click", doRemoveButton);
+            if (callback) {
+              callback(i);
+            }
+        });        
+        
+        $(".removebutton").off();
+        $(".removebutton").on("click", doRemoveButton);
+    });
     
     /* add new aggressor */ 
     $("#aggressorBtn").on("click", function(e) { 
@@ -222,6 +250,26 @@ $(document).ready(function() {
       /* remove button */ 
       $(".removebutton").off();
       $(".removebutton").on("click", doRemoveButton);
+    });
+
+    /* adds aggressor identity (for preloaded aggressors) */ 
+    $(".aggressoridentityBtn").on("click", function(e, i, callback) {
+        e.preventDefault(); 
+        var $aggressoridentity = $("div.hidden div[data-id='aggressoridentity']").clone();
+        var $this = $(this);
+        randomId(function(id) {
+          $aggressoridentity.children("input[type='hidden']").val(id);
+            console.log($aggressoridentity);
+            $this.parent().before($aggressoridentity);
+            $(".removebutton").off();
+            $(".removebutton").on("click", doRemoveButton);
+            if (callback) {
+              callback(i);
+            }
+        });        
+        
+        $(".removebutton").off();
+        $(".removebutton").on("click", doRemoveButton);
     });
 
     /* add new tags */

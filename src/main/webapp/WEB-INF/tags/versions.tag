@@ -5,8 +5,12 @@
 <%@ attribute name="versions" required="true" type="java.util.List" %>
 <%@ attribute name="poiId" required="true" %>
 
+<h1> Versions </h1> 
+<button type="button" class="btn btn-default btn-lg" id="currentversionbutton" style="bottom: 10px"> 
+	return to current version 
+</button>
+
 <table class="table"> 
-	<caption><h2>Versions:</h2></caption> 	
 	<thead>
 		<tr>
 			<th>Title</th>
