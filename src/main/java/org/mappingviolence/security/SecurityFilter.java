@@ -96,7 +96,9 @@ public class SecurityFilter implements Filter {
                 Cookie respCookie = new Cookie(cookie.getName(), "");
                 respCookie.setMaxAge(0);
                 respCookie.setPath("/");
-                respCookie.setDomain("http://utra.mappingviolence.org/mapviz");
+                // this will be the publication path
+                // respCookie.setDomain("utra.mappingviolence.org");
+                respCookie.setComment("localhost");
                 resp.addCookie(respCookie);
                 resp.setContentType("text/html");
                 chain.doFilter(req, resp);

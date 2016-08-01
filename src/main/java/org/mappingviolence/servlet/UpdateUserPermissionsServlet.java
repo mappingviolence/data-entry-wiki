@@ -123,7 +123,7 @@ public class UpdateUserPermissionsServlet extends HttpServlet {
         Datastore ds = DatabaseConnection.getDatabase("data-entry-wiki");
         ds.save(user);
 
-        req.getSession(false).setAttribute("currentUser", user);
+        // req.getSession(false).setAttribute("currentUser", user);
 
         Servlets.sendSuccess(
             "User permissions successfully updated",
