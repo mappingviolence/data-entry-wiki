@@ -21,11 +21,11 @@
 			<c:forEach var="version" items="${versions}" varStatus="num"> 
 				<tr>
 					<c:choose>
-		          		<c:when test="${empty wikiData.title.value}">
+		          		<c:when test="${empty version.data.title.value}">
 		          			<td><a href="wikipage?id=${poiId}&versionId=${version.id}">Untitled</a></td>
 		          		</c:when>
 		          		<c:otherwise>
-		          			<td><a href="wikipage?id=${poiId}&versionId=${version.id}">${wikiData.title.value}</a></td>
+		          			<td><a href="wikipage?id=${poiId}&versionId=${version.id}">${version.data.title.value}</a></td>
 		          		</c:otherwise>
 		          	</c:choose>
 					<td>${version.editor.email}</td>
