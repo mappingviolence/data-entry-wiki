@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mappingviolence.comment.Comment;
 import org.mappingviolence.database.DatabaseConnection;
 import org.mappingviolence.poi.POI;
 import org.mappingviolence.poi.POIVersion;
 import org.mappingviolence.poi.POIWikiPage;
+import org.mappingviolence.poi.identity.Identity;
+import org.mappingviolence.poi.identity.Person;
 import org.mappingviolence.user.User;
 import org.mappingviolence.wiki.Version;
 import org.mongodb.morphia.Datastore;
@@ -213,6 +216,36 @@ public class WikiPageServlet extends HttpServlet {
       // TODO: Update error message
       Servlets.sendError(Servlets.Error.ID_NOT_FOUND, req, resp);
       return;
+    }
+
+    POI currentPOI = poiWikiPage.getCurrentData();
+    for (Comment c : currentPOI.getTitle().getComments()) {
+      poi.getTitle().addComment(c);
+    }
+    for (Comment c : currentPOI.getDate().getComments()) {
+      poi.getDate().addComment(c);
+    }
+    for (Comment c : currentPOI.getDescription().getComments()) {
+      poi.getDescription().addComment(c);
+    }
+    for (Comment c : currentPOI.getLocation().getComments()) {
+      poi.getLocation().addComment(c);
+    }
+    for (Comment c : currentPOI.getLocationRationale().getComments()) {
+      poi.getLocationRationale().addComment(c);
+    }
+    for (Person p : currentPOI.getVictims()) {
+      for (Identity<?> i : p.getIdentities()) {
+        for (Person p1 : poi.getVictims()) {
+          for (Identity<?> i1 : p1.getIdentities()) {
+            if (i.equals(i1)) {
+              for (Comment c : i.getComments()) {
+                i1.addComment(c);
+              }
+            }
+          }
+        }
+      }
     }
 
     poiWikiPage.addVersion(currentUser, poi);

@@ -19,4 +19,15 @@ public class AbstractIdentity<T> extends SimpleFormField<T> implements Identity<
     return category;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof String) {
+      return o.equals(this.getId());
+    } else if (o instanceof AbstractIdentity) {
+      return ((AbstractIdentity<?>) o).getId().equals(this.getId());
+    } else {
+      return false;
+    }
+  }
+
 }

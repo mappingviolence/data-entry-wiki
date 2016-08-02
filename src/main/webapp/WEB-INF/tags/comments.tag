@@ -22,10 +22,10 @@
 					<div class="col-xs-10">
 						<i class="commentName">${comment.author.givenName} ${comment.author.familyName}:</i> 
 						<span class="commentText">${comment.commentText}</span>
-						<input type="hidden" class="hidden" class="commentId" value="${comment.id}" />
-						<input type="hidden" class="hidden" class="userId" value="${user.id}" />
-						<input type="hidden" class="hidden" class="userEmail" value="${user.email}" />
-						<input type="hidden" class="hidden" class="userRole" value="${user.role}" />
+						<input type="hidden" class="hidden commentId" value="${comment.id}" />
+						<input type="hidden" class="hidden userId" value="${comment.author.id}" />
+						<input type="hidden" class="hidden userEmail" value="${comment.author.email}" />
+						<input type="hidden" class="hidden userRole" value="${comment.author.role}" />
 					</div> 
 					<div class="col-xs-2"> 
 						<button id="delete${name}comment" data-id="${id}" data-commentId="${comment.id}" type="submit" class="btn btn-default btn-sm deletecomment"> 

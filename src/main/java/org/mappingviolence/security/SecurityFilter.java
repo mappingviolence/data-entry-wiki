@@ -95,10 +95,10 @@ public class SecurityFilter implements Filter {
                 newSession.setAttribute("currentUser", curentUser);
                 Cookie respCookie = new Cookie(cookie.getName(), "");
                 respCookie.setMaxAge(0);
-                respCookie.setPath("/");
+                respCookie.setPath("/mapviz");
                 // this will be the publication path
-                // respCookie.setDomain("utra.mappingviolence.org");
-                respCookie.setComment("localhost");
+                respCookie.setDomain("utra.mappingviolence.org");
+                // respCookie.setComment("localhost");
                 resp.addCookie(respCookie);
                 resp.setContentType("text/html");
                 chain.doFilter(req, resp);
@@ -107,7 +107,7 @@ public class SecurityFilter implements Filter {
                 resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 resp.setContentType("application/xml");
                 resp.getOutputStream().println(
-                    "<errors><error>" + payload.getEmail() + "NOT IN DATABASE</error></errors>");
+                    "<errors><error>" + payload.getEmail() + " NOT IN DATABASE</error></errors>");
                 return;
               }
             } else {

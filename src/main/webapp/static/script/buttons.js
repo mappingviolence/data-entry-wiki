@@ -85,7 +85,7 @@ $(document).ready(function() {
         			"<input type=\"hidden\" class=\"hidden\" value=\"" + $commentId + "\" />" +
         		"</div>" +
         		"<div class=\"col-xs-2\">" +
-        			"<button id=\"delete" + $dataName + "comment\" data-id=\"" + $POIid + "\" data-commentId=\"" + $commentId + "\" type=\"submit\" class=\"btn btn-default btn-sm deletecomment\">" +
+        			"<button id=\"delete" + $dataName + "comment\" data-id=\"" + $id + "\" data-commentId=\"" + $commentId + "\" type=\"submit\" class=\"btn btn-default btn-sm deletecomment\">" +
         				"<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>" +
         			"</button>" +
         		"</div>" +
