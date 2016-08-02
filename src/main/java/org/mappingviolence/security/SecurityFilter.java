@@ -95,9 +95,9 @@ public class SecurityFilter implements Filter {
                 newSession.setAttribute("currentUser", curentUser);
                 Cookie respCookie = new Cookie(cookie.getName(), "");
                 respCookie.setMaxAge(0);
-                respCookie.setPath("/mapviz");
+                respCookie.setPath(cookie.getPath());
                 // this will be the publication path
-                respCookie.setDomain("utra.mappingviolence.org");
+                respCookie.setDomain(cookie.getDomain());
                 // respCookie.setComment("localhost");
                 resp.addCookie(respCookie);
                 resp.setContentType("text/html");
