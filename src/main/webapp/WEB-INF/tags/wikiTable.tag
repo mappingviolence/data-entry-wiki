@@ -12,6 +12,7 @@
 		<tr>
 			<th>Title</th>
 			<th>Creator</th>
+			<th>Last Editor</th> 
 		</tr>
 	</thead>
 	<tbody> 
@@ -28,7 +29,8 @@
 		          			<td><a href="wikipage?id=${wikiPage.id}">${wikiData.title.value}</a></td>
 		          		</c:otherwise>
 		          	</c:choose>
-					<td>${wikiPage.getCurrentVersion().editor.email}</td>
+		          	<td>${wikiPage.creator.givenName} ${wikiPage.creator.familyName}</td>
+					<td>${wikiPage.getCurrentVersion().editor.givenName} ${wikiPage.getCurrentVersion().editor.familyName}</td>
 				</tr>
 			</c:forEach>
 		</c:when>

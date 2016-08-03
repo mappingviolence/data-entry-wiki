@@ -14,14 +14,15 @@
 		<td>${person.name}</td> 
 	</tr>  --%>
 
-	<!-- name on top --> 
-	<tr class="mergedrow"> 
+	<!-- name on top -->  
 	<c:set var="foundName" value="false"/> 
 	<c:forEach var="identity" items="${person.identities}">
 		<c:choose> 
 			<c:when test="${identity.category eq 'Name'}">
 				<c:set var="foundName" value="true"/> 
-				<td colspan="2"> <i> ${identity.value} </i> </td> 
+				<tr class="mergedrow">
+					<td colspan="2"> <i> ${identity.value} </i> </td> 
+				</tr>
 	        </c:when>
 	        <c:otherwise> 
 	   		</c:otherwise> 
@@ -30,8 +31,6 @@
 	<c:if test="${not foundName}"> 
 		<td colspan="2"> <i> unnamed </i> </td>  
 	</c:if>  
-
-	</tr> 
 
 	<!-- name on top --> 
 	<c:forEach var="identity" items="${person.identities}">
