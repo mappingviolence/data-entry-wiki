@@ -54,9 +54,9 @@
         var id_token = googleUser.getAuthResponse().id_token;
         var givenName = profile.getGivenName();
         var familyName = profile.getFamilyName();
-        document.cookie = "givenName=" + givenName + "; path=/";
-        document.cookie = "familyName=" + familyName + "; path=/";
-        document.cookie = "id_token=" + id_token + "; path=/";
+        document.cookie = "givenName=" + givenName + "; path=/mapviz";
+        document.cookie = "familyName=" + familyName + "; path=/mapviz";
+        document.cookie = "id_token=" + id_token + "; path=/mapviz";
         //var url = "http://localhost:8080/mapviz/dashboard";
         var url = "/mapviz/dashboard";
         window.location.replace(url);

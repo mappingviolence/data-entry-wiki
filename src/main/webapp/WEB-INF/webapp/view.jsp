@@ -66,10 +66,24 @@
 
 	<script>
 		$(document).ready(function() {
+			debugger;
 			var converter = new showdown.Converter();
-			var text = $("#description p").text();
-			var html = converter.makeHtml(text);
-			$("#description p").html(html);
+			var description = $("#description p").text();
+			var htmlDescription = converter.makeHtml(description);
+			$("#description p").html(htmlDescription);
+			var researchNotes = $("#researchnotes p").text();
+			var htmlResearchNotes = converter.makeHtml(researchNotes);
+			$("#researchNotes p").html(htmlResearchNotes);
+			var primarySources = $(".primarySource");
+			primarySources.each(function() {
+				var htmlPrimarySources = converter.makeHtml($(this).text());
+				$(this).html(htmlPrimarySources);
+			});
+			var secondarySources = $(".secondarySource");
+			secondarySources.each(function() {
+				var htmlSecondarySources = converter.makeHtml($(this).text());
+				$(this).html(htmlSecondarySources);
+			});
 		});
 	</script>
 	
