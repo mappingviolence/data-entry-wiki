@@ -1,6 +1,7 @@
 package org.mappingviolence.servlet.ajax;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,8 @@ import org.mappingviolence.form.FormField;
 import org.mappingviolence.poi.POI;
 import org.mappingviolence.poi.POIVersion;
 import org.mappingviolence.poi.POIWikiPage;
+import org.mappingviolence.poi.identity.Identity;
+import org.mappingviolence.poi.identity.Person;
 import org.mappingviolence.servlet.Servlets;
 import org.mappingviolence.user.User;
 import org.mongodb.morphia.Datastore;
@@ -58,6 +61,9 @@ public class CommentServlet extends HttpServlet {
         }
         Field[] poiFields = poi.getClass().getDeclaredFields();
         for (Field poiField : poiFields) {
+          if (success) {
+            break;
+          }
           Class<?> clazz = poiField.getType();
           Object formFieldObj;
           try {
@@ -77,6 +83,33 @@ public class CommentServlet extends HttpServlet {
               ds.save(poiVersion);
               success = true;
               break;
+            }
+          } else if (formFieldObj instanceof Collection<?>) {
+            Collection<?> collection = (Collection<?>) formFieldObj;
+            for (Object obj : collection) {
+              if (obj instanceof Person) {
+                Person person = (Person) obj;
+                for (Identity<?> identity : person.getIdentities()) {
+                  if (formFieldId.equals(identity.getId())) {
+                    User currentUser = (User) req.getSession(false).getAttribute("currentUser");
+                    newComment = new Comment(currentUser, commentText);
+                    identity.addComment(newComment);
+                    ds.save(poiVersion);
+                    success = true;
+                    break;
+                  }
+                }
+              } else if (obj instanceof FormField<?>) {
+                FormField<?> formField = (FormField<?>) obj;
+                if (formFieldId.equals(formField.getId())) {
+                  User currentUser = (User) req.getSession(false).getAttribute("currentUser");
+                  newComment = new Comment(currentUser, commentText);
+                  formField.addComment(newComment);
+                  ds.save(poiVersion);
+                  success = true;
+                  break;
+                }
+              }
             }
           }
         }
@@ -131,6 +164,9 @@ public class CommentServlet extends HttpServlet {
         }
         Field[] poiFields = poi.getClass().getDeclaredFields();
         for (Field poiField : poiFields) {
+          if (success) {
+            break;
+          }
           Class<?> clazz = poiField.getType();
           Object formFieldObj;
           try {
@@ -148,6 +184,29 @@ public class CommentServlet extends HttpServlet {
               ds.save(poiVersion);
               success = removed;
               break;
+            }
+          } else if (formFieldObj instanceof Collection<?>) {
+            Collection<?> collection = (Collection<?>) formFieldObj;
+            for (Object obj : collection) {
+              if (obj instanceof Person) {
+                Person person = (Person) obj;
+                for (Identity<?> identity : person.getIdentities()) {
+                  if (formFieldId.equals(identity.getId())) {
+                    boolean removed = identity.removeComment(commentId);
+                    ds.save(poiVersion);
+                    success = removed;
+                    break;
+                  }
+                }
+              } else if (obj instanceof FormField<?>) {
+                FormField<?> formField = (FormField<?>) obj;
+                if (formFieldId.equals(formField.getId())) {
+                  boolean removed = formField.removeComment(commentId);
+                  ds.save(poiVersion);
+                  success = removed;
+                  break;
+                }
+              }
             }
           }
         }

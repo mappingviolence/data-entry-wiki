@@ -91,27 +91,26 @@ $(document).ready(function() {
         		"</div>" +
         	"</div>"
          );
-          $textArea.val(""); 
+         $textArea.val("");
+         $(".deletecomment").off();
+         $(".deletecomment").on("click", function(e) {
+             e.preventDefault();
+             var $this = $(this);
+             var $id = $(this).attr("data-id"); 
+             var $POIid = $("#poiId").text(); 
+             var $commentId = $(this).attr("data-commentId"); 
+             $.ajax({
+               method: "DELETE",
+               url: "/mapviz/comment?id=" + $POIid, 
+               data: { 
+                 formFieldId: $id, 
+                 commentId: $commentId 
+               }
+             }).done(function(data) {
+               $this.parent().parent().hide();
+             });
+         });
       });
-      
-      $(".deletecomment").off();
-      $(".deletecomment").on("click", function(e) {
-          e.preventDefault();
-          var $this = $(this);
-          var $id = $(this).attr("data-id"); 
-          var $POIid = $("#poiId").text(); 
-          var $commentId = $(this).attr("data-commentId"); 
-          $.ajax({
-            method: "DELETE",
-            url: "/mapviz/comment?id=" + $POIid, 
-            data: { 
-              formFieldId: $id, 
-              commentId: $commentId 
-            }
-          }).done(function(data) {
-            $this.parent().parent().hide();
-          });
-        });
     }); 
 
     /* deletes a comment */ 
