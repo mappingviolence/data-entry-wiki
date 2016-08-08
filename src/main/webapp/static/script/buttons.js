@@ -180,7 +180,7 @@ $(document).ready(function() {
           var $victimidentity = $("div.hidden div[data-id='victimidentity']").clone();
           var $this = $(this);
           randomId(function(id) {
-        	  $victimidentity.children("input[type='hidden']").val(id);
+        	  $victimidentity.find("input[type='hidden']").val(id);
               console.log($victimidentity);
               $this.parent().before($victimidentity);
               $(".removebutton").off();
@@ -205,7 +205,7 @@ $(document).ready(function() {
         var $victimidentity = $("div.hidden div[data-id='victimidentity']").clone();
         var $this = $(this);
         randomId(function(id) {
-          $victimidentity.children("input[type='hidden']").val(id);
+          $victimidentity.find("input[type='hidden']").val(id);
             console.log($victimidentity);
             $this.parent().before($victimidentity);
             $(".removebutton").off();
@@ -232,7 +232,7 @@ $(document).ready(function() {
           var $aggressoridentity = $("div.hidden div[data-id='aggressoridentity']").clone();
           var $this = $(this);
           randomId(function(id) {
-            $aggressoridentity.children("input[type='hidden']").val(id);
+            $aggressoridentity.find("input[type='hidden']").val(id);
               console.log($aggressoridentity);
               $this.parent().before($aggressoridentity);
               $(".removebutton").off();
@@ -257,7 +257,7 @@ $(document).ready(function() {
         var $aggressoridentity = $("div.hidden div[data-id='aggressoridentity']").clone();
         var $this = $(this);
         randomId(function(id) {
-          $aggressoridentity.children("input[type='hidden']").val(id);
+          $aggressoridentity.find("input[type='hidden']").val(id);
             console.log($aggressoridentity);
             $this.parent().before($aggressoridentity);
             $(".removebutton").off();
@@ -276,7 +276,7 @@ $(document).ready(function() {
       e.preventDefault();
       var $input = $("div.hidden div[data-id='tag']").clone();
       randomId(function(id) {
-    	  $input.children("input[type='hidden']").val(id);
+    	  $input.find("input[type='hidden']").val(id);
           console.log($input);
           $("#tagContainer").append($input);
           $(".removebutton").off();
@@ -292,7 +292,7 @@ $(document).ready(function() {
       e.preventDefault();
       var $input = $("div.hidden div[data-id='primarysource']").clone();
       randomId(function(id) {
-    	  $input.children("input[type='hidden']").val(id);
+    	  $input.find("input[type='hidden']").val(id);
           console.log($input);
           $("#primarysourceContainer").append($input);
           $(".removebutton").off();
@@ -305,10 +305,11 @@ $(document).ready(function() {
 
     /* add new secondary sources */ 
     $("#secondarysourceBtn").on("click", function(e, i, callback) {
+      debugger;
       e.preventDefault();
       var $input = $("div.hidden div[data-id='secondarysource']").clone();
       randomId(function(id) {
-    	  $input.children("input[type='hidden']").val(id);
+    	  $input.find("input[type='hidden']").val(id);
           console.log($input);
           $("#secondarysourceContainer").append($input);
           $(".removebutton").off();

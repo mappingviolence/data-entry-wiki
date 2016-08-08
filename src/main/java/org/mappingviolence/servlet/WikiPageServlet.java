@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.mappingviolence.comment.Comment;
 import org.mappingviolence.database.DatabaseConnection;
+import org.mappingviolence.form.FormField;
 import org.mappingviolence.poi.POI;
 import org.mappingviolence.poi.POIVersion;
 import org.mappingviolence.poi.POIWikiPage;
@@ -238,7 +239,7 @@ public class WikiPageServlet extends HttpServlet {
       for (Identity<?> i : p.getIdentities()) {
         for (Person p1 : poi.getVictims()) {
           for (Identity<?> i1 : p1.getIdentities()) {
-            if (i.equals(i1)) {
+            if (i.getId().equals(i1.getId())) {
               for (Comment c : i.getComments()) {
                 i1.addComment(c);
               }
@@ -246,6 +247,49 @@ public class WikiPageServlet extends HttpServlet {
           }
         }
       }
+    }
+    for (Person p : currentPOI.getAggressors()) {
+      for (Identity<?> i : p.getIdentities()) {
+        for (Person p1 : poi.getAggressors()) {
+          for (Identity<?> i1 : p1.getIdentities()) {
+            if (i.getId().equals(i1.getId())) {
+              for (Comment c : i.getComments()) {
+                i1.addComment(c);
+              }
+            }
+          }
+        }
+      }
+    }
+    for (FormField<String> source : currentPOI.getPrimarySources()) {
+      for (FormField<String> source1 : poi.getPrimarySources()) {
+        if (source.getId().equals(source1.getId())) {
+          for (Comment c : source.getComments()) {
+            source1.addComment(c);
+          }
+        }
+      }
+    }
+    for (FormField<String> source : currentPOI.getSecondarySources()) {
+      for (FormField<String> source1 : poi.getSecondarySources()) {
+        if (source.getId().equals(source1.getId())) {
+          for (Comment c : source.getComments()) {
+            source1.addComment(c);
+          }
+        }
+      }
+    }
+    for (FormField<String> tag : currentPOI.getTags()) {
+      for (FormField<String> tag1 : poi.getTags()) {
+        if (tag.getId().equals(tag1.getId())) {
+          for (Comment c : tag.getComments()) {
+            tag1.addComment(c);
+          }
+        }
+      }
+    }
+    for (Comment c : currentPOI.getResearchNotes().getComments()) {
+      poi.getResearchNotes().addComment(c);
     }
 
     poiWikiPage.addVersion(currentUser, poi);

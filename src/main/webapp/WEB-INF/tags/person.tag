@@ -108,7 +108,7 @@
                                                     <label for="${name}">${label} Identity</label>
                                                     <input id="${name}" type="text" class="form-control" name="${name}Identity" value="${identity.value}">
                                                 </div>
-                                            </div>  
+                                            </div>
                                         </div>
                                     </div>
                                     <a class="removebutton" data-parent="3" href="#">remove ${name} identity</a>    
@@ -117,7 +117,8 @@
                                 <div class="col-sm-4 col-md-3">
                                     <t:comments name="${name}" comments="${identity.comments}" id="${identity.id}" />
                                 </div>
-                                <!-- END comments --> 
+                                <!-- END comments -->
+                                <input type="hidden" class="hidden" data-type="hidden${name}" value="${identity.id}"> 
                             </div>
                         </div>   
                     </c:forEach> <!-- identity forEach--> 

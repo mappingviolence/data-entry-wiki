@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <label for="${name}"> <br> </label> <!-- empty label for style -->
                             <input class="form-control" type="text" name="${name}" placeholder="type source here" value="${item.value}">
-                            <input type="hidden" class="hidden" />
+                            <input type="hidden" class="hidden" value="${item.id}" data-source/>
                             <a class="removebutton" data-parent="4" href="#">remove</a>
                         </div> 
                     </div> 

@@ -113,7 +113,7 @@ var buildVictims = function() {
 		var $victimIdentities = $victim.find("div[data-id='victimidentity']");
 		for (var j = 0; j < $victimIdentities.size(); j++) {
 			var $victimIdentity = $($victimIdentities[j]);
-			var id = $victimIdentity.children("input[type='hidden']").val();
+			var id = $victimIdentity.find("input[data-type='hiddenvictim']").val();
 			var category = $victimIdentity.find("select[name='victimCategory']").val();
 			var value = $victimIdentity.find("input[name='victimIdentity']").val();
 			var formField = new SimpleFormField(id, "Identity", value);
@@ -137,7 +137,7 @@ var buildAggressors = function() {
 		var $aggressorIdentities = $aggressor.find("div[data-id='aggressoridentity']");
 		for (var j = 0; j < $aggressorIdentities.size(); j++) {
 			var $aggressorIdentity = $($aggressorIdentities[j]);
-			var id = $aggressorIdentity.children("input[type='hidden']").val();
+			var id = $aggressorIdentity.find("input[data-type='hiddenaggressor']").val();
 			var category = $aggressorIdentity.find("select[name='aggressorCategory']").val();
 			var value = $aggressorIdentity.find("input[name='aggressorIdentity']").val();
 			var formField = new SimpleFormField(id, "Identity", value);
@@ -155,7 +155,7 @@ var buildAggressors = function() {
 var buildTags = function() {
 	var ids = [];
 	var $tags = $("#tagContainer div[data-id='tag']");
-	var $tagsId = $tags.children("input[type='hidden']");
+	var $tagsId = $tags.find("input[type='hidden'][data-source]");
 	for (var i = 0; i < $tagsId.size(); i++) {
 		ids.push($($tagsId[i]).val());
 	}
@@ -176,7 +176,7 @@ var buildTags = function() {
 var buildPrimarySources = function() {
 	var ids = [];
 	var $primarySources = $("#primarysourceContainer div[data-id='primarysource']");
-	var $primarySourcesId = $primarySources.children("input[type='hidden']");
+	var $primarySourcesId = $primarySources.find("input[type='hidden'][data-source]");
 	for (var i = 0; i < $primarySourcesId.size(); i++) {
 		ids.push($($primarySourcesId[i]).val());
 	}
@@ -196,8 +196,8 @@ var buildPrimarySources = function() {
 
 var buildSecondarySources = function() {
 	var ids = [];
-	var $secondarySources = $("#secondarysourceContainer div[data-id='secondarysource']");
-	var $secondarySourcesId = $secondarySources.children("input[type='hidden']");
+	var $secondarySources = $("#secondarysourceContainer div[data-id='secondarysource'][data-source]");
+	var $secondarySourcesId = $secondarySources.find("input[type='hidden']");
 	for (var i = 0; i < $secondarySourcesId.size(); i++) {
 		ids.push($($secondarySourcesId[i]).val());
 	}
