@@ -5,9 +5,9 @@
   <groupId>org.mappingviolence</groupId>
   <artifactId>data-entry-wiki</artifactId>
   <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>data-entry-wiki Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <version>0.9.0</version>
+  <name>Mapping Violence Data Entry Wiki</name>
+  <url>http://utra.mappingviolence.org</url>
   
   <dependencies>
     <dependency>
