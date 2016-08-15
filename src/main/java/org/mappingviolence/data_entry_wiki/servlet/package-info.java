@@ -5,4 +5,4 @@
  * @author Cole Hansen
  *
  */
-package org.mappingviolence.test;
+package org.mappingviolence.data_entry_wiki.servlet;

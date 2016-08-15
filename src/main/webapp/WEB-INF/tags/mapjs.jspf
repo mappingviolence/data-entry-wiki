@@ -1,0 +1,98 @@
+<script src="static/script/geocoding-places.js"></script>
+<script src="static/script/map.js"></script>
+<script src="static/script/update-geoinfo.js"></script>
+<script>
+var setZoom = 8;
+var unsetZoom = 5;
+var m, map;
+var ready = function() {
+	$(document).ready(function() {
+	    var valid = false;
+	    if ($("#lat").html() != "" && $("#lng").html() != "") {
+	    	valid = true;
+		}
+	    //
+	    map = initMap("map", map);
+	    //
+	    m = new Mapping();
+	    m.init("lat", "lng", "locationAddress", map);
+	    
+	    if (valid) {
+	    	m.updateMap({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) }, setZoom);
+	        m.updateAutocomplete({ "lat" : parseFloat($("#lat").html()), "lng" : parseFloat($("#lng").html()) });
+	    } else {
+			// This should never actually happen - invalid data should
+	        // not have been able to have been submitted.
+	    }
+    	// I don't know why it's not working in updateMap
+        m.marker.setVisible(true);
+    	console.log("end of ready");
+    	ready1(function() {
+    		console.log("end of ready 1");
+    		if ($("#latEdit").val() != "" && $("#lngEdit").val() != "") {
+    			m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, setZoom);
+        		m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
+    		}
+    	});
+    });
+}
+</script>
+<script>
+var m1, map1;
+var ready1 = function(callback) {
+	var preLoad = false;
+	if ($("#latEdit").val() != "" && $("#lngEdit").val() != "") {
+		preLoad = true;
+	}
+	//
+	map1 = initMap("mapEdit", map1);
+	//
+	m1 = new Mapping();
+	m1.init("latEdit", "lngEdit", "locationInput", map1);
+	m1.marker.setDraggable(true);
+	m1.marker.setVisible(true);
+	//
+	initGCP();
+	var g = new Geocoding();
+	/* 
+	 * Texas Center:
+	 * 31.9686° N, 99.9018° W
+	 */
+	g.autocomplete(31.9686 - 2.0, -99.9018 - 2.0, 31.9686 + 2.0, -99.9018 + 2.0, "locationInput", null, function(autocomplete) {
+		
+		m1.marker.addListener('dragend', function() {
+			m1.updateAutocomplete(m1.marker);
+			m1.updateLatLng(m1.marker);
+		});
+
+		autocomplete.addListener('place_changed', function() {
+			m1.updateMap(autocomplete);
+			m1.updateLatLng(autocomplete);
+		});
+		
+		$("#latEdit").on("change", function() {
+			if (isNaN($(this).val())) {
+				return;
+			}
+			m1.updateMap({ "lat" : parseFloat($(this).val()), "lng" : parseFloat($("#lngEdit").val()) }, setZoom);
+			m1.updateAutocomplete({ "lat" : parseFloat($(this).val()), "lng" : parseFloat($("#lngEdit").val()) });
+		});
+		
+		$("#lngEdit").on("change", function() {
+			if (isNaN($(this).val())) {
+				return;
+			}
+			m1.updateMap({ "lng" : parseFloat($(this).val()), "lat" : parseFloat($("#latEdit").val()) }, setZoom);
+			m1.updateAutocomplete({ "lng" : parseFloat($(this).val()), "lat" : parseFloat($("#latEdit").val()) });
+		});
+	});
+	
+	if (preLoad) {
+		m1.updateMap({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) }, setZoom);
+		m1.updateAutocomplete({ "lat" : parseFloat($("#latEdit").val()), "lng" : parseFloat($("#lngEdit").val()) });
+	}
+	
+	callback();
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGxjWapsXEL54gDTR4wFRPuz5HS9BHtG8&libraries=places&callback=ready" async defer></script>
