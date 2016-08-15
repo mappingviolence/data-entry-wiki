@@ -1,6 +1,1 @@
-<html>
-<head>
-<body>
-<jsp:forward page="/dashboard">
-</body>
-</html>
+<jsp:forward page="/dashboard" />

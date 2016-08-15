@@ -14,7 +14,7 @@
   
   <servlet>
   	<servlet-name>pool</servlet-name>
-  	<servlet-class>org.mappingviolence.servlet.PoolServlet</servlet-class>
+  	<servlet-class>org.mappingviolence.data_entry_wiki.servlet.PoolServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -24,7 +24,7 @@
 
   <servlet>
     <servlet-name>wikipage</servlet-name>
-    <servlet-class>org.mappingviolence.servlet.WikiPageServlet</servlet-class>
+    <servlet-class>org.mappingviolence.data_entry_wiki.servlet.WikiPageServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -34,7 +34,7 @@
 
     <servlet>
     <servlet-name>dashboard</servlet-name>
-    <servlet-class>org.mappingviolence.servlet.DashboardServlet</servlet-class>
+    <servlet-class>org.mappingviolence.data_entry_wiki.servlet.DashboardServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -44,7 +44,7 @@
   
   <servlet>
   	<servlet-name>admin</servlet-name>
-  	<servlet-class>org.mappingviolence.servlet.UpdateUserPermissionsServlet</servlet-class>
+  	<servlet-class>org.mappingviolence.data_entry_wiki.servlet.UpdateUserPermissionsServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -54,7 +54,7 @@
   
   <servlet>
   	<servlet-name>random</servlet-name>
-  	<servlet-class>org.mappingviolence.servlet.ajax.RandomUUID</servlet-class>
+  	<servlet-class>org.mappingviolence.data_entry_wiki.servlet.ajax.RandomUUID</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -64,7 +64,7 @@
   
   <servlet>
   	<servlet-name>date</servlet-name>
-  	<servlet-class>org.mappingviolence.servlet.ajax.ValidDate</servlet-class>
+  	<servlet-class>org.mappingviolence.data_entry_wiki.servlet.ajax.ValidDate</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -74,7 +74,7 @@
   
   <servlet>
   	<servlet-name>comment</servlet-name>
-  	<servlet-class>org.mappingviolence.servlet.ajax.CommentServlet</servlet-class>
+  	<servlet-class>org.mappingviolence.data_entry_wiki.servlet.ajax.CommentServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -84,7 +84,7 @@
   
   <servlet>
   	<servlet-name>status</servlet-name>
-  	<servlet-class>org.mappingviolence.servlet.ajax.UpdateStatusServlet</servlet-class>
+  	<servlet-class>org.mappingviolence.data_entry_wiki.servlet.ajax.UpdateStatusServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -94,7 +94,7 @@
   
   <filter>
   	<filter-name>security</filter-name>
-  	<filter-class>org.mappingviolence.security.SecurityFilter</filter-class>
+  	<filter-class>org.mappingviolence.data_entry_wiki.security.SecurityFilter</filter-class>
   </filter>
   
   <filter-mapping>

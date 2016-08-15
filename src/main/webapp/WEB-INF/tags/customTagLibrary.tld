@@ -8,7 +8,7 @@
     <uri>/WEB-INF/tags/customTagLibrary</uri>
     <function>
         <name>compareUsers</name>
-        <function-class>org.mappingviolence.elfunction.CompareUsers</function-class>
+        <function-class>org.mappingviolence.data_entry_wiki.elfunction.CompareUsers</function-class>
         <function-signature>
             boolean compareUsers(org.mappingviolence.user.User, org.mappingviolence.user.User)
         </function-signature>
