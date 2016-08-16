@@ -5,7 +5,7 @@
   <groupId>org.mappingviolence</groupId>
   <artifactId>data-entry-wiki</artifactId>
   <packaging>war</packaging>
-  <version>0.9.1-SNAPSHOT</version>
+  <version>0.9.1</version>
   <name>Mapping Violence Data Entry Wiki</name>
   <url>http://utra.mappingviolence.org</url>
   
