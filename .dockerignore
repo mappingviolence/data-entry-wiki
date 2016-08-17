@@ -27,5 +27,12 @@ target/
 */._*
 *._*
 
+# Docker
+.dockerignore
+
+# Git
+.gitignore
+.git/
+
 # include lib folder
 !lib/
