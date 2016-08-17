@@ -29,3 +29,4 @@ target/
 
 # include lib folder
 !lib/
+!lib/*
