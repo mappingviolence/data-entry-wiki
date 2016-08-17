@@ -4,8 +4,10 @@ echo "==Build Started=="
 
 echo "Installing Mapping Violence Core to maven"
 
+MAPPINGVIOLENCE_CORE_VERSION=0.9.1
+
 mvn install:install-file \
--Dfile=lib/mappingviolence-core.jar \
+-Dfile=$PWD/lib/mappingviolence-core-v$MAPPINGVIOLENCE_CORE_VERSION.jar \
 -DgroupId=org.mappingviolence -DartifactId=core \
 -Dversion=0.9.1 \
 -Dpackaging=jar
