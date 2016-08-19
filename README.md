@@ -1,11 +1,7 @@
-##data-entry-wiki
+#Mapping Violence Data Entry Wiki
 
 #Building:
 
-Download the mappingviolence core library jar (version $VERSION) from github to $WORKING_DIR/lib
+Run ./build.sh
 
-Run mvn install:install-file -Dfile=$WORKING_DIR/lib/mappingviolence-core.jar \
--DgroupId=org.mappingviolence -DartifactId=core -Dversion=$VERSION \
--Dpackaging=jar
-
-Run mvn clean package
+Copy target/mapviz.jar to a tomcat instance under ./webapps
